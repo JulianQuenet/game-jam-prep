@@ -8,18 +8,103 @@
 // */
 
 
-import React, { useRef } from 'react'
+import  { useRef, useEffect, useState } from 'react'
 import { useGLTF, useAnimations } from '@react-three/drei'
+import usePlayerControls from './inputs'
+import { useFrame } from '@react-three/fiber';
 
 
 export function Hands() {
 
-
- 
   const group = useRef<any>()
-  
+  const { forward, backward, left, right, reload } = usePlayerControls();
   const { nodes, materials, animations }:any = useGLTF('/fps_pistol_animations.glb')
-  const { actions } = useAnimations(animations, group)
+  const { actions, names, mixer } = useAnimations(animations, group)
+  const [currentAnim, setCurrentAnim] = useState<string>("idle")
+  const [reloading, setReloading] = useState<Boolean>(false)
+  const [fire, setFire] = useState<Boolean>(false)
+  const [firstClick, setFirstClick] = useState<Boolean>(true)
+  const [count, setCount] = useState<number>(0)
+
+  const anims:any = {
+    "idle" : 0,
+    "walk" : 1,
+    "fire" : 2,
+    "reload" : 3,
+    "out" : 4
+  }
+
+  useEffect(()=>{
+    actions[names[anims[currentAnim]]]?.reset().fadeIn(0.25).play()
+    mixer.timeScale = 1
+    console.log(currentAnim)
+    return()=>{
+      actions[names[anims[currentAnim]]]?.fadeOut(0.25)
+      
+    }
+   }, [currentAnim])
+
+   useEffect(()=>{
+    function handleClick(){
+      if(firstClick){
+        setFirstClick(false)
+        return
+      }
+      setFire(true)
+      setTimeout(()=>{
+      setFire(false)
+      }, 16)
+    }
+  
+    window.addEventListener("click", handleClick)
+
+    return ()=>{
+      window.removeEventListener('click', handleClick)
+    }
+    
+   })
+
+  useFrame(()=>{
+    if ((right || left || forward || backward) && !reloading &&!fire){
+       setCurrentAnim("walk")
+       if(reload){
+        setReloading(true)
+        setCurrentAnim("reload")
+        setTimeout(()=>{
+          setReloading(false)
+        }, 1200)
+        setCount(0)
+      }
+      if(fire && !reloading && !firstClick){
+        setCurrentAnim("fire") 
+       }
+    }else{
+      if(!reloading && !fire){
+        setCurrentAnim("idle")
+      }
+    }
+    if(reload && !reloading){
+      setReloading(true)
+      setCurrentAnim("reload")
+      setTimeout(()=>{
+        setReloading(false)
+      }, 1200)
+      setCount(0)
+    }
+    if(fire && !reloading && !firstClick){
+     setCurrentAnim("fire") 
+     setCount(count + 1)
+    }
+    if(count === 9){
+      setReloading(true)
+      setCurrentAnim("out")
+      setTimeout(()=>{
+        setReloading(false)
+      }, 1000)
+      setCount(0)
+  }
+  })
+
 
   return (
     <group ref={group} dispose={null}>

@@ -9,6 +9,7 @@ import { Hands } from "./Components/Animatedpistol";
 
 
 
+
 export const Controls = ()=>{
 const playerRef = useRef<any>()
 const handsRef = useRef<any>()
@@ -48,13 +49,19 @@ useFrame(()=>{
         );
         }
 
-       handsRef.current.rotation.copy(camera.rotation)
-        handsRef.current.position.x = camera.position.x -0.1
-        handsRef.current.position.z = camera.position.z -0.35
-        handsRef.current.position.y = camera.position.y -0.85
-        
-    
+       setHands()
 })
+
+function setHands(){
+  const time = Date.now() * 0.00035;
+  handsRef.current.rotation.copy(camera.rotation)
+  handsRef.current.position.copy(camera.position)
+  handsRef.current.translateY(-0.525 + Math.sin(time * 5.5) * 0.0095 )
+  handsRef.current.translateZ(-0.2875)
+  handsRef.current.translateX(-0.165)
+}
+
+
 
 return (
     <> 
@@ -71,10 +78,9 @@ return (
         </Capsule>
       </RigidBody>
     
-    <mesh ref={handsRef} position={[-2,2.125,5]} >
+    <mesh ref={handsRef}  position={[-2,2.125,5]} >
         <Hands />
     </mesh>
-    
 
     </>
    
