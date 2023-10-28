@@ -1,8 +1,22 @@
 import { Box } from "@react-three/drei"
 import { RigidBody } from "@react-three/rapier";
+import { useEffect, useState } from "react";
+import { Bullet } from "./Components/Bullet";
 
-export const Scene = ()=> {
 
+interface sceneProps {
+    projectiles:any,
+}
+
+export const Scene = (props:sceneProps)=> {
+   const {projectiles} = props
+   const [fired, setFired] = useState<Boolean>(false)
+
+   useEffect(()=>{
+     if(projectiles.length >0){
+        setFired(true)
+     }
+   }, [projectiles])
 
     return (
        <>
@@ -18,6 +32,10 @@ export const Scene = ()=> {
         <meshStandardMaterial color={"red"} />
        </Box>
        </RigidBody>
+
+       {fired && projectiles.map((projectile:any)=>(
+          <Bullet key={projectile.id} bullet={projectile} />
+       ))}
 
        </> 
     )

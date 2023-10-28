@@ -1,4 +1,4 @@
-// import { useState } from 'react'
+import { useState } from 'react'
 import { Canvas } from "@react-three/fiber";
 import { Physics } from "@react-three/rapier";
 import { Controls } from "./Controls";
@@ -6,7 +6,12 @@ import Scene from './Scene';
 
 
 function Game() {
-  
+  const [bullets, setBullets] = useState<any>([])
+
+const onFire = (bullet:any) => {
+    setBullets((bullets:any) => [...bullets, bullet]);
+  };
+
   return(
     <>
     <Canvas shadows camera={{ fov: 50, position: [5, 3, 2] }}>
@@ -18,8 +23,8 @@ function Game() {
       />
     <color attach="background" args={["lightblue"]} />
     <Physics>
-     <Scene />
-     <Controls />
+     <Scene projectiles={bullets} />
+     <Controls shot={onFire} />
     </Physics>
     </Canvas>
     </>

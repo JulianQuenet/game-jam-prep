@@ -11,11 +11,18 @@
 import  { useRef, useEffect, useState } from 'react'
 import { useGLTF, useAnimations } from '@react-three/drei'
 import usePlayerControls from './inputs'
-import { useFrame } from '@react-three/fiber';
+import { useFrame, useThree } from '@react-three/fiber';
+import * as THREE from "three";
 
+interface handsProps{
+  shot:any,
+}
 
-export function Hands() {
+export function Hands(props:handsProps) {
 
+  const {shot} = props
+  const {camera} = useThree()
+  const bullPos = new THREE.Vector3();
   const group = useRef<any>()
   const { forward, backward, left, right, reload } = usePlayerControls();
   const { nodes, materials, animations }:any = useGLTF('/fps_pistol_animations.glb')
@@ -65,6 +72,7 @@ export function Hands() {
    })
 
   useFrame(()=>{
+    bullPos.set(camera.position.x, camera.position.y-1, camera.position.z)
     if ((right || left || forward || backward) && !reloading &&!fire){
        setCurrentAnim("walk")
        if(reload){
@@ -94,6 +102,12 @@ export function Hands() {
     if(fire && !reloading && !firstClick){
      setCurrentAnim("fire") 
      setCount(count + 1)
+     const bullet={
+      id : Date.now(),
+      direction: camera.rotation,
+      position: bullPos
+     }
+      shot(bullet)
     }
     if(count === 9){
       setReloading(true)
@@ -110,7 +124,7 @@ export function Hands() {
     <group ref={group} dispose={null}>
       <group name="Sketchfab_Scene">
         <group name="Sketchfab_model" rotation={[-Math.PI / 2, 0, 0]}>
-          <group name="3ab9f780f2294ec8ba398c31f25c6b54fbx" rotation={[Math.PI / 2, 3, 0]} scale={0.035}>
+          <group name="3ab9f780f2294ec8ba398c31f25c6b54fbx" rotation={[Math.PI / 2, 3.08, 0]} scale={0.035}>
             <group name="Object_2">
               <group name="RootNode">
                 <group name="arms" rotation={[-Math.PI / 2, 0, 0]} scale={100} />
@@ -122,9 +136,9 @@ export function Hands() {
                     <group name="Object_92" rotation={[-Math.PI / 2, 0, 0]} scale={100} />
                     <group name="Object_94" rotation={[-Math.PI / 2, 0, 0]} scale={100} />
                     <skinnedMesh name="Object_9" geometry={nodes.Object_9.geometry} material={materials.arms} skeleton={nodes.Object_9.skeleton} />
-                    <skinnedMesh name="Object_91" geometry={nodes.Object_91.geometry} material={materials.Material} skeleton={nodes.Object_91.skeleton} />
-                    <skinnedMesh name="Object_93" geometry={nodes.Object_93.geometry} material={materials.Material} skeleton={nodes.Object_93.skeleton} />
-                    <skinnedMesh name="Object_95" geometry={nodes.Object_95.geometry} material={materials.Material} skeleton={nodes.Object_95.skeleton} />
+                    <skinnedMesh  name="Object_91" geometry={nodes.Object_91.geometry} material={materials.Material} skeleton={nodes.Object_91.skeleton} />
+                    <skinnedMesh  name="Object_93" geometry={nodes.Object_93.geometry} material={materials.Material} skeleton={nodes.Object_93.skeleton} />
+                    <skinnedMesh  name="Object_95" geometry={nodes.Object_95.geometry} material={materials.Material} skeleton={nodes.Object_95.skeleton} />
                   </group>
                 </group>
                 <group name="xd_frame" rotation={[-Math.PI / 2, 0, 0]} scale={100} />

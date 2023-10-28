@@ -7,10 +7,15 @@ import { RigidBody } from "@react-three/rapier";
 import { Hands } from "./Components/Animatedpistol";
 
 
+interface controlProps {
+  shot:any,
+}
 
 
+export const Controls = (props: controlProps)=>{
+const {shot} = props
 
-export const Controls = ()=>{
+
 const playerRef = useRef<any>()
 const handsRef = useRef<any>()
 const { camera } = useThree();
@@ -79,7 +84,7 @@ return (
       </RigidBody>
     
     <mesh ref={handsRef}  position={[-2,2.125,5]} >
-        <Hands />
+        <Hands shot={shot} />
     </mesh>
 
     </>
