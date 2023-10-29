@@ -14,7 +14,7 @@ export const Bullet = (props: bulletProps) => {
   const direction = new THREE.Vector3();
   const frontVector = new THREE.Vector3();
   const sideVector = new THREE.Vector3();
-  const SPEED = 2;
+  const SPEED = 1204;
   useEffect(() => {
     if(bulletRef.current){frontVector.set(0, 0, -1);
         sideVector.set(0, 0, 0);
@@ -45,7 +45,7 @@ export const Bullet = (props: bulletProps) => {
         }}
         sensor
         onIntersectionEnter={(e: any) => {
-          if (e.other.rigidBody.userData?.type !== "bullet") {
+          if (e.other.rigidBody.userData?.type !== "bullet" && e.other.rigidBody.userData?.type !== "player") {
             bulletRef.current.setEnabled(false);
           }
         }}

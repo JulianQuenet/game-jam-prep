@@ -13,6 +13,7 @@ import { useGLTF, useAnimations } from '@react-three/drei'
 import usePlayerControls from './inputs'
 import { useFrame, useThree } from '@react-three/fiber';
 import * as THREE from "three";
+import { RigidBody } from '@react-three/rapier';
 
 interface handsProps{
   shot:any,
@@ -72,7 +73,7 @@ export function Hands(props:handsProps) {
    })
 
   useFrame(()=>{
-    bullPos.set(camera.position.x, camera.position.y-1, camera.position.z)
+    bullPos.set(camera.position.x+0.05, camera.position.y-0.1125, camera.position.z)
     if ((right || left || forward || backward) && !reloading &&!fire){
        setCurrentAnim("walk")
        if(reload){

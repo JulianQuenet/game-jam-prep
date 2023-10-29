@@ -22,7 +22,7 @@ const onFire = (bullet:any) => {
         shadow-mapSize={1024}
       />
     <color attach="background" args={["lightblue"]} />
-    <Physics>
+    <Physics >
      <Scene projectiles={bullets} />
      <Controls shot={onFire} />
     </Physics>

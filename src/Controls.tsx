@@ -3,7 +3,7 @@ import * as THREE from "three";
 import { Capsule, PointerLockControls } from "@react-three/drei/core";
 import { useThree, useFrame } from "@react-three/fiber";
 import usePlayerControls from "./Components/inputs";
-import { RigidBody } from "@react-three/rapier";
+import { CapsuleCollider, RigidBody } from "@react-three/rapier";
 import { Hands } from "./Components/Animatedpistol";
 
 
@@ -35,9 +35,9 @@ useFrame(()=>{
         camera.position.x = position.x;
         camera.position.z = position.z;
         if (right || left || forward || backward) {
-            camera.position.y = position.y + 1.5
+            camera.position.y = position.y + 1
         } else {
-          camera.position.y = position.y + Math.sin(time * 7.5) * 0.0095 + 1.5
+          camera.position.y = position.y + Math.sin(time * 7.5) * 0.0095 + 1
         }
         //Player movement base on camera direction/rotation
         frontVector.set(0, 0, Number(backward) - Number(forward));
@@ -74,13 +74,19 @@ return (
     <RigidBody
         position={[-2, 1, 10]}
         ref={playerRef}
-        colliders={"ball"}
         args={[2, 2, 2]}
+        userData={{
+          type:"player",
+          health:"100"
+        }
+        }
+        lockRotations
       >
-        <Capsule args={[0.48, 0.4, 0.4]}>
+        <CapsuleCollider args={[1.5,0.6]}>
+          <Capsule args={[0.0002, 0.0002]}>
           <meshStandardMaterial />
-         
         </Capsule>
+        </CapsuleCollider>
       </RigidBody>
     
     <mesh ref={handsRef}  position={[-2,2.125,5]} >
