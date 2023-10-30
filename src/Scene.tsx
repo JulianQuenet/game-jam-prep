@@ -1,6 +1,6 @@
 import { Box } from "@react-three/drei"
 import { RigidBody } from "@react-three/rapier";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Bullet } from "./Components/Bullet";
 
 
@@ -11,6 +11,7 @@ interface sceneProps {
 export const Scene = (props:sceneProps)=> {
    const {projectiles} = props
    const [fired, setFired] = useState<Boolean>(false)
+   const ref =useRef<any>()
 
    useEffect(()=>{
      if(projectiles.length >0){
@@ -27,8 +28,11 @@ export const Scene = (props:sceneProps)=> {
        </Box>
        </RigidBody>
 
-       <RigidBody >
-        <Box castShadow position={[0,5,-5]} args={[3,2,3]}>
+       <RigidBody  userData={{
+         health: 100,
+         child: ref.current
+       }}>
+        <Box name="wall" ref={ref} castShadow position={[0,5,-5]} args={[3,2,3]}>
         <meshStandardMaterial color={"red"} />
        </Box>
        </RigidBody>

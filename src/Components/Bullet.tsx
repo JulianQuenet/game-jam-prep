@@ -1,4 +1,4 @@
-import { Sphere } from "@react-three/drei";
+import { Decal, Sphere } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import { RigidBody } from "@react-three/rapier";
 import { useEffect, useRef } from "react";
@@ -14,7 +14,7 @@ export const Bullet = (props: bulletProps) => {
   const direction = new THREE.Vector3();
   const frontVector = new THREE.Vector3();
   const sideVector = new THREE.Vector3();
-  const SPEED = 1204;
+  const SPEED = 300;
   useEffect(() => {
     if(bulletRef.current){frontVector.set(0, 0, -1);
         sideVector.set(0, 0, 0);
@@ -28,9 +28,6 @@ export const Bullet = (props: bulletProps) => {
         { x: direction.x, y: direction.y, z: direction.z },
         true
       );}
-
-     
-
   }, []);
 
 
@@ -47,12 +44,13 @@ export const Bullet = (props: bulletProps) => {
         onIntersectionEnter={(e: any) => {
           if (e.other.rigidBody.userData?.type !== "bullet" && e.other.rigidBody.userData?.type !== "player") {
             bulletRef.current.setEnabled(false);
+            console.log(e.other.rigidBody.userData?.child)
           }
         }}
       >
-        <mesh position={[bullet.position.x, bullet.position.y, bullet.position.z]} ref={bulletRef}>
-            <Sphere  args={[0.025]}>
-          <meshStandardMaterial color={"red"} />
+        <mesh position={[bullet.position.x, bullet.position.y, bullet.position.z]}>
+            <Sphere  args={[0.0125]}>
+          <meshStandardMaterial color={"black"} />
         </Sphere>
         </mesh>
         
