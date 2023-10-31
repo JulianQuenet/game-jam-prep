@@ -52,7 +52,7 @@ useFrame(()=>{
           { x: direction.x, y: 0.0, z: direction.z },
           true
         );
-        playerRef.current.lockRotations(true, true)
+     
         }
 
        setHands()
@@ -73,9 +73,8 @@ return (
     <> 
     <PointerLockControls camera={camera}/>
     <RigidBody
-    gravityScale={0}
-        colliders={false}
-        position={[-2, 2.5, 10]}
+    colliders="ball"
+        position={[-2, 2.75, 10]}
         ref={playerRef}
         userData={{
           type:"player",
@@ -83,14 +82,12 @@ return (
         }
         }
       >
-        <CapsuleCollider args={[0.6,1.5]}>
-          <Capsule args={[0.0002, 0.0002]}>
+          <Capsule name="player" args={[1.15, 0.0058, 0.0058]}>
           <meshStandardMaterial />
         </Capsule>
-        </CapsuleCollider>
       </RigidBody>
     
-    <mesh ref={handsRef}  position={[-2,2.125,5]}>
+    <mesh name="hands" ref={handsRef}  position={[-2,2.125,5]}>
         <Hands shot={shot} />
     </mesh>
 

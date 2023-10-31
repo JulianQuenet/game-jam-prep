@@ -72,7 +72,7 @@ export function Hands(props:handsProps) {
    })
 
   useFrame(()=>{
-    bullPos.set(camera.position.x+0.05, camera.position.y-0.25, camera.position.z)
+    bullPos.set(camera.position.x, camera.position.y-0.1, camera.position.z)
     if ((right || left || forward || backward) && !reloading &&!fire){
        setCurrentAnim("walk")
        if(reload){
