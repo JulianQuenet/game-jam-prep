@@ -16,13 +16,18 @@ export const Bullet = (props: bulletProps) => {
 
 
   useEffect(() => {
-
+      
+      let recoilY = bullet.recoil *2.65
+      const recoilX = (camera.position.y - 3 ) / 100
+      console.log(bullet.recoil)
       const raycast = new THREE.Raycaster()
-      const pos:any = {x:0.025,y:0}
+      const pos:any = {x:0,y: 0}
       raycast.setFromCamera(pos, camera)
       const hit:any = raycast.intersectObjects(scene.children.filter((child)=>{
         return child.children.length > 1
       }))
+
+      console.log(scene.children)
       
       if(hit.length){
         const position = hit[0].point.clone()
@@ -34,22 +39,32 @@ export const Bullet = (props: bulletProps) => {
       const euler1 = new THREE.Euler()
       euler1.setFromRotationMatrix(rotation)
 
+      const enem:number = hit[0].object.name !== "enem"? 0.05 :  0.75 
+
       const decalGeometry = new DecalGeometry(
-        hit[0].object, hit[0].point, euler1, new THREE.Vector3(1,1,1)
+        hit[0].object, hit[0].point, euler1, new THREE.Vector3(enem,enem,enem)
       )
+      const textureLoader = new THREE.TextureLoader()
+      
+
+      const texture = hit[0].object.name !== "enem"? 'bullet.png'  : 'splat.png'
       
       const decalMat = new THREE.MeshStandardMaterial({
-        color: 0xFFFFFF,
-        depthTest: true,
-        depthWrite: false,
+        color: 0xffffff,
+        map: textureLoader.load(`./textures/${texture}`),
         polygonOffset: true,
         polygonOffsetFactor: -4,
+        transparent: true,
+        depthWrite: true,
       })
       const decal = new THREE.Mesh(decalGeometry, decalMat)
       decal.receiveShadow = true
-      scene.add(decal)
-      console.log(hit[0].object)
+      hit[0].object.add(decal)
+      
+      console.log(hit[0].face)
       }
+
+      
       
 
   }, []);

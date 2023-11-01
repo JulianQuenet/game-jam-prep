@@ -42,6 +42,7 @@ export function Hands(props:handsProps) {
   }
 
   useEffect(()=>{
+    
     actions[names[anims[currentAnim]]]?.reset().fadeIn(0.25).play()
     mixer.timeScale = 1
     console.log(currentAnim)
@@ -72,6 +73,7 @@ export function Hands(props:handsProps) {
    })
 
   useFrame(()=>{
+    const time = Date.now() * 0.0005
     bullPos.set(camera.position.x, camera.position.y-0.1, camera.position.z)
     if ((right || left || forward || backward) && !reloading &&!fire){
        setCurrentAnim("walk")
@@ -105,7 +107,8 @@ export function Hands(props:handsProps) {
      const bullet={
       id : Date.now(),
       direction: camera.rotation,
-      position: bullPos
+      position: bullPos,
+      recoil: Math.cos(time * 5) * 0.01,
      }
       shot(bullet)
     }

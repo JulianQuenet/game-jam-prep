@@ -54,7 +54,6 @@ useFrame(()=>{
         );
      
         }
-
        setHands()
 })
 
@@ -74,7 +73,8 @@ return (
     <PointerLockControls camera={camera}/>
     <RigidBody
     colliders="ball"
-        position={[-2, 2.75, 10]}
+    gravityScale={0}
+        position={[-2, 2.5, 10]}
         ref={playerRef}
         userData={{
           type:"player",

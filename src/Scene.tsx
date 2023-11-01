@@ -2,7 +2,8 @@ import { Box } from "@react-three/drei"
 import { RigidBody } from "@react-three/rapier";
 import { useEffect, useState, useRef } from "react";
 import { Bullet } from "./Components/Bullet";
-import { floor } from "three/examples/jsm/nodes/Nodes.js";
+import { Model } from "./Components/Old_toy";
+
 
 
 interface sceneProps {
@@ -21,6 +22,12 @@ export const Scene = (props:sceneProps)=> {
      }
    }, [projectiles])
 
+   useEffect(()=>{
+      if(ref.current){
+         ref.current.position.copy([2,3,4])
+      }
+   })
+
     return (
        <>
 
@@ -32,11 +39,11 @@ export const Scene = (props:sceneProps)=> {
        </Box>
        </RigidBody>
 
-       <RigidBody lockRotations  userData={{
+       <RigidBody  userData={{
          health: 100,
          child: ref.current
        }}>
-        <Box name="wall" ref={ref} castShadow position={[0,5,-5]} args={[3,2,0.25]} >
+        <Box name="wall" ref={ref} position={[0,5,0]} args={[3,2,0.5]} >
         <meshStandardMaterial color={"red"} />
        </Box>
        </RigidBody>
@@ -44,7 +51,23 @@ export const Scene = (props:sceneProps)=> {
        {fired && projectiles.map((projectile:any)=>(
           <Bullet key={projectile.id} bullet={projectile} />
        ))}
+         
 
+         <RigidBody name="box" colliders="trimesh" position={[5,2,0]}>
+            <Model /> 
+         </RigidBody>
+
+
+         <RigidBody  type={"fixed"}  userData={{
+         child: floor.current
+       }}>
+        <Box name="floor" ref={ref} receiveShadow position={[0,0,0]} args={[5,12,5]}>
+        <meshStandardMaterial color={"lightgrey"} />
+       </Box>
+       </RigidBody>
+         
+        
+        
        </> 
     )
 }
