@@ -33,7 +33,7 @@ useFrame(()=>{
         const position = playerRef.current.translation();
         // Setting camera position and creating walking/breathing affect
         camera.position.x = position.x;
-        camera.position.z = position.z;
+        camera.position.z = position.z ;
         if (right || left || forward || backward) {
             camera.position.y = position.y + 1
         } else {
@@ -72,9 +72,9 @@ return (
     <> 
     <PointerLockControls camera={camera}/>
     <RigidBody
-    colliders="ball"
-    gravityScale={0}
-        position={[-2, 2.5, 10]}
+    colliders={false}
+        gravityScale={0}
+        position={[-2, 2.75, 10]}
         ref={playerRef}
         userData={{
           type:"player",
@@ -82,9 +82,8 @@ return (
         }
         }
       >
-          <Capsule name="player" args={[1.15, 0.0058, 0.0058]}>
-          <meshStandardMaterial />
-        </Capsule>
+        <CapsuleCollider args={[0.6,1.2]}>
+        </CapsuleCollider>
       </RigidBody>
     
     <mesh name="hands" ref={handsRef}  position={[-2,2.125,5]}>

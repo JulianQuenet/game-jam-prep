@@ -1,16 +1,16 @@
-import { Decal, Sphere } from "@react-three/drei";
-import { useFrame, useThree } from "@react-three/fiber";
-import { RigidBody} from "@react-three/rapier";
-import { useEffect, useRef, useState } from "react";
+import { Sphere } from "@react-three/drei";
+import { useThree } from "@react-three/fiber";
+import { useEffect } from "react";
 import * as THREE from "three";
 import { DecalGeometry } from "three/examples/jsm/geometries/DecalGeometry.js";
 
 interface bulletProps {
   bullet: any;
+  setObj: any;
 }
 
 export const Bullet = (props: bulletProps) => {
-  const { bullet } = props;
+  const { bullet, setObj } = props;
   const {camera, scene} = useThree()
 
 
@@ -19,16 +19,14 @@ export const Bullet = (props: bulletProps) => {
       
       let recoilY = bullet.recoil *2.65
       const recoilX = (camera.position.y - 3 ) / 100
-      console.log(bullet.recoil)
+  
       const raycast = new THREE.Raycaster()
-      const pos:any = {x:0,y: 0}
+      const pos:any = {x:recoilX,y: recoilY}
       raycast.setFromCamera(pos, camera)
       const hit:any = raycast.intersectObjects(scene.children.filter((child)=>{
         return child.children.length > 1
       }))
 
-      console.log(scene.children)
-      
       if(hit.length){
         const position = hit[0].point.clone()
         const eye = position.clone()
@@ -59,13 +57,12 @@ export const Bullet = (props: bulletProps) => {
       })
       const decal = new THREE.Mesh(decalGeometry, decalMat)
       decal.receiveShadow = true
-      hit[0].object.add(decal)
-      
-      console.log(hit[0].face)
-      }
+      scene.add(decal)
 
       
-      
+      }
+
+      setObj(hit[0].object)
 
   }, []);
 

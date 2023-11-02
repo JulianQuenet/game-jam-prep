@@ -13,6 +13,7 @@ interface sceneProps {
 export const Scene = (props:sceneProps)=> {
    const {projectiles} = props
    const [fired, setFired] = useState<Boolean>(false)
+   const [hitObject, setHitObject] = useState<any>({})
    const ref =useRef<any>()
    const floor = useRef<any>()
 
@@ -20,13 +21,9 @@ export const Scene = (props:sceneProps)=> {
      if(projectiles.length >0){
         setFired(true)
      }
+   
    }, [projectiles])
 
-   useEffect(()=>{
-      if(ref.current){
-         ref.current.position.copy([2,3,4])
-      }
-   })
 
     return (
        <>
@@ -39,17 +36,17 @@ export const Scene = (props:sceneProps)=> {
        </Box>
        </RigidBody>
 
-       <RigidBody  userData={{
+       <RigidBody ref={ref} userData={{
          health: 100,
          child: ref.current
        }}>
-        <Box name="wall" ref={ref} position={[0,5,0]} args={[3,2,0.5]} >
-        <meshStandardMaterial color={"red"} />
+        <Box name="wall"  position={[4,3,5]} args={[3,2,0.5]} >
+        <meshStandardMaterial color="black" />
        </Box>
        </RigidBody>
 
        {fired && projectiles.map((projectile:any)=>(
-          <Bullet key={projectile.id} bullet={projectile} />
+          <Bullet setObj={setHitObject} key={projectile.id} bullet={projectile} />
        ))}
          
 
@@ -57,17 +54,6 @@ export const Scene = (props:sceneProps)=> {
             <Model /> 
          </RigidBody>
 
-
-         <RigidBody  type={"fixed"}  userData={{
-         child: floor.current
-       }}>
-        <Box name="floor" ref={ref} receiveShadow position={[0,0,0]} args={[5,12,5]}>
-        <meshStandardMaterial color={"lightgrey"} />
-       </Box>
-       </RigidBody>
-         
-        
-        
        </> 
     )
 }
