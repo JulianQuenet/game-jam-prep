@@ -43,11 +43,11 @@ export function Hands(props:handsProps) {
 
   useEffect(()=>{
     
-    actions[names[anims[currentAnim]]]?.reset().fadeIn(0.25).play()
+    actions[names[anims[currentAnim]]]?.reset().fadeIn(0.15).play()
     mixer.timeScale = 1
     console.log(currentAnim)
     return()=>{
-      actions[names[anims[currentAnim]]]?.fadeOut(0.25)
+      actions[names[anims[currentAnim]]]?.fadeOut(0.15)
       
     }
    }, [currentAnim])
@@ -57,11 +57,19 @@ export function Hands(props:handsProps) {
       if(firstClick){
         setFirstClick(false)
         return
-      }
-      setFire(true)
+      }else{
+        setCount(count + 1)
+        const bullet={
+          id : count,
+          recoil: Math.cos(Date.now() * 5) * 0.01,
+         }
+        shot(bullet)
+        setFire(true)
       setTimeout(()=>{
       setFire(false)
-      }, 16)
+      }, 20)
+      }
+      
     }
   
     window.addEventListener("click", handleClick)
@@ -103,14 +111,7 @@ export function Hands(props:handsProps) {
     }
     if(fire && !reloading && !firstClick){
      setCurrentAnim("fire") 
-     setCount(count + 1)
-     const bullet={
-      id : Date.now(),
-      direction: camera.rotation,
-      position: bullPos,
-      recoil: Math.cos(time * 5) * 0.01,
-     }
-      shot(bullet)
+    
     }
     if(count === 9){
       setReloading(true)

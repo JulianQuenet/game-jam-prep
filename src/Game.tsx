@@ -1,15 +1,19 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Canvas } from "@react-three/fiber";
 import { Physics } from "@react-three/rapier";
 import { Controls } from "./Controls";
 import Scene from './Scene';
-
 
 function Game() {
   const [bullets, setBullets] = useState<any>([])
 
 const onFire = (bullet:any) => {
     setBullets((bullets:any) => [...bullets, bullet]);
+  };
+
+
+ const finHit = (hitId:any) => {
+    setBullets((hits:any) => hits.filter((h:any) => h.id !== hitId));
   };
 
   return(
@@ -23,7 +27,7 @@ const onFire = (bullet:any) => {
       />
     <color attach="background" args={["lightblue"]} />
     <Physics debug >
-     <Scene projectiles={bullets} />
+     <Scene projectiles={bullets} finHit={finHit}/>
      <Controls shot={onFire} />
     </Physics>
     </Canvas>
