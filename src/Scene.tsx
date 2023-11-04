@@ -6,6 +6,7 @@ import { Model } from "./Components/Old_toy";
 import * as THREE from "three"
 
 
+
 interface sceneProps {
     projectiles:any,
     finHit : (hitId: any) => void
@@ -57,7 +58,7 @@ export const Scene = (props:sceneProps)=> {
          <RigidBody name="box" colliders="trimesh" position={[5,2,0]}>
             <Model /> 
          </RigidBody>
-
+     
        </> 
     )
 }

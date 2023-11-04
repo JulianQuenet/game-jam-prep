@@ -49,12 +49,12 @@ export const Bullet = (props: bulletProps) => {
     () =>
       Array.from({ length: number }, () => ({
         target: new THREE.Vector3(
-          THREE.MathUtils.randFloat(-0.1, 0.3),
-          THREE.MathUtils.randFloat(-0.1, 0.3),
-          THREE.MathUtils.randFloat(-0.1, 0.3)
+          THREE.MathUtils.randFloat(-0.1, 0.4),
+          THREE.MathUtils.randFloat(-0.1, 0.4),
+          THREE.MathUtils.randFloat(-0.1, 0.4)
         ),
-        scale: 0.025, 
-        speed: 0.25,
+        scale: 0.015, 
+        speed: Math.random()/10,
       })),
     [number]
   );
@@ -71,12 +71,12 @@ export const Bullet = (props: bulletProps) => {
       if(hit.length ){
         setTimeout(() => {
           finHit(bullet.id);
-      }, 300);
+      }, 700);
         const position = hit[0].point.clone()
         const eye = position.clone()
         eye.add(hit[0].face.normal)
        setPositionBlt(position)
-       setNumber(80)
+       setNumber(100)
       const rotation = new THREE.Matrix4()
       rotation.lookAt(eye, position, THREE.Object3D.DEFAULT_UP)
       const euler1 = new THREE.Euler()
@@ -113,7 +113,7 @@ export const Bullet = (props: bulletProps) => {
     <group position={positionBlt} rotation={rotationBlt}>
 <Instances>
             <sphereGeometry />
-           <meshStandardMaterial map={textureLoader.load(`./textures/splat.png`)}  color="red" />
+           <meshStandardMaterial   color="maroon" />
            {boxes.map((box, i) => (
           <AnimatedBox key={i} {...box} />
         ))}
