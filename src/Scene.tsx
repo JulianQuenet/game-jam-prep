@@ -3,6 +3,7 @@ import { RigidBody } from "@react-three/rapier";
 import { useEffect, useState, useRef } from "react";
 import { Bullet } from "./Components/Bullet";
 import { Model } from "./Components/Old_toy";
+import { Warehouse } from "./Components/Abandoned_warehouse";
 import * as THREE from "three"
 
 
@@ -59,6 +60,10 @@ export const Scene = (props:sceneProps)=> {
             <Model /> 
          </RigidBody>
      
+
+     <mesh position={[10,2,10]}>
+      <Warehouse />
+     </mesh>
        </> 
     )
 }

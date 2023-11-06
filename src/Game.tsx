@@ -20,7 +20,7 @@ const onFire = (bullet:any) => {
     <>
     <Canvas shadows camera={{ fov: 50, position: [5, 3, 2] }}>
       <ambientLight intensity={1}/>
-      <fog attach="fog" args={["0xDFE9F3", 0.0, 25]}/>
+      {/* <fog attach="fog" args={["0xDFE9F3", 0.0, 25]}/> */}
     <directionalLight
         position={[10, 10, 5]}
         castShadow
