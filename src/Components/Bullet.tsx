@@ -107,7 +107,6 @@ export const Bullet = (props: bulletProps) => {
   }, []);
 
 
-
   return (
     <> 
     <group position={positionBlt} rotation={rotationBlt}>

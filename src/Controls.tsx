@@ -29,15 +29,15 @@ useFrame(()=>{
 
     if (playerRef.current) {
         const time = Date.now() * 0.0005;
-        playerRef.current.lockRotations(true, true); // Locks rotation because of capsule body
+        playerRef.current.lockRotations(true); // Locks rotation because of capsule body
         const position = playerRef.current.translation();
         // Setting camera position and creating walking/breathing affect
         camera.position.x = position.x;
         camera.position.z = position.z ;
         if (right || left || forward || backward) {
-            camera.position.y = position.y + 1
+            camera.position.y = position.y + 1.5
         } else {
-          camera.position.y = position.y + Math.sin(time * 7.5) * 0.0095 + 1
+          camera.position.y = position.y + Math.sin(time * 7.5) * 0.0095 + 1.5
         }
         // Player movement base on camera direction/rotation
         frontVector.set(0, 0, Number(backward) - Number(forward));
@@ -62,7 +62,7 @@ function setHands(){
   handsRef.current.rotation.copy(camera.rotation)
   handsRef.current.position.copy(camera.position)
   handsRef.current.translateY(-0.525 + Math.sin(time * 5.5) * 0.0095 )
-  handsRef.current.translateZ(-0.2875)
+  handsRef.current.translateZ(-0.0875)
   handsRef.current.translateX(-0.165)
 }
 
@@ -73,8 +73,9 @@ return (
     <PointerLockControls camera={camera}/>
     <RigidBody
     colliders={false}
+        friction={0}
         gravityScale={0}
-        position={[-2, 2.75, 10]}
+        position={[7, 2.75, 10]}
         ref={playerRef}
         userData={{
           type:"player",
@@ -82,13 +83,14 @@ return (
         }
         }
       >
-        <CapsuleCollider args={[0.6,1.2]}>
+        <CapsuleCollider args={[0.0 ,0.9]}>
         </CapsuleCollider>
       </RigidBody>
     
-    <mesh name="hands" ref={handsRef}  position={[-2,2.125,5]}>
+       <mesh name="hands" ref={handsRef}  position={[-2,2.125,5]}>
         <Hands shot={shot} />
     </mesh>
+    
 
     </>
    

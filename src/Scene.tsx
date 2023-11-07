@@ -2,8 +2,7 @@ import { Box } from "@react-three/drei"
 import { RigidBody } from "@react-three/rapier";
 import { useEffect, useState, useRef } from "react";
 import { Bullet } from "./Components/Bullet";
-import { Model } from "./Components/Old_toy";
-import { Warehouse } from "./Components/Abandoned_warehouse";
+import { Backrooms } from "./Components/Backrooms_another_level";
 import * as THREE from "three"
 
 
@@ -42,28 +41,16 @@ export const Scene = (props:sceneProps)=> {
        </Box>
        </RigidBody>
 
-       <RigidBody ref={ref} userData={{
-         health: 100,
-         child: ref.current
-       }}>
-        <Box name="wall"  position={[4,3,5]} args={[3,2,0.5]} >
-        <meshStandardMaterial map={textureLoader.load(`./textures/splat.png`)} color="red" />
-       </Box>
-       </RigidBody>
-
        {fired && projectiles.map((projectile:any)=>(
           <Bullet setObj={setHitObject} key={projectile.id} bullet={projectile} finHit={finHit}/>
        ))}
-         
-
-         <RigidBody name="box" colliders="trimesh" position={[5,2,0]}>
-            <Model /> 
-         </RigidBody>
-     
-
-     <mesh position={[10,2,10]}>
-      <Warehouse />
-     </mesh>
+       
+       <RigidBody type="fixed" colliders="trimesh" position={[5,2,10]}>
+       
+         <Backrooms />
+      
+       </RigidBody>
+       
        </> 
     )
 }
