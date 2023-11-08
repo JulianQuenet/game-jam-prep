@@ -61,17 +61,16 @@ export const Bullet = (props: bulletProps) => {
 
   useEffect(() => {
       
-      const pos:any = {x:recoilX,y: recoilY}
+      const pos:any = {x:0,y: 0}
       raycast.setFromCamera(pos, camera)
       const hit:any = raycast.intersectObjects(scene.children.filter((child)=>{
         return child.children.length > 1
       }))
       
-      
       if(hit.length ){
         setTimeout(() => {
           finHit(bullet.id);
-      }, 700);
+      }, 500);
         const position = hit[0].point.clone()
         const eye = position.clone()
         eye.add(hit[0].face.normal)
@@ -82,7 +81,7 @@ export const Bullet = (props: bulletProps) => {
       const euler1 = new THREE.Euler()
       euler1.setFromRotationMatrix(rotation)
       setRotationBlt(euler1)
-      const enem:number = hit[0].object.name !== "enem"? 0.05 :  0.75 
+      const enem:number = hit[0].object.name !== "enem"? 0.15 :  0.75 
 
       const decalGeometry = new DecalGeometry(
         hit[0].object, hit[0].point, euler1, new THREE.Vector3(enem,enem,enem)
@@ -95,7 +94,7 @@ export const Bullet = (props: bulletProps) => {
         polygonOffset: true,
         polygonOffsetFactor: -4,
         transparent: true,
-        depthWrite: true,
+        depthWrite: false,
       })
       const decal = new THREE.Mesh(decalGeometry, decalMat)
       decal.receiveShadow = true

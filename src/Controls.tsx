@@ -1,9 +1,9 @@
 import { useRef, useEffect, useState } from "react";
 import * as THREE from "three";
-import { Capsule, PointerLockControls } from "@react-three/drei/core";
+import { Sphere, PointerLockControls } from "@react-three/drei/core";
 import { useThree, useFrame } from "@react-three/fiber";
 import usePlayerControls from "./Components/inputs";
-import { CapsuleCollider, RigidBody } from "@react-three/rapier";
+import { RigidBody, BallCollider } from "@react-three/rapier";
 import { Hands } from "./Components/Animatedpistol";
 
 
@@ -15,7 +15,7 @@ interface controlProps {
 export const Controls = (props: controlProps)=>{
 const {shot} = props
 
-
+const [rotate, setRotate] = useState<boolean | undefined>(false)
 const playerRef = useRef<any>();
 const handsRef = useRef<any>();
 const { camera } = useThree();
@@ -23,36 +23,37 @@ const { forward, backward, left, right } = usePlayerControls();
 const direction = new THREE.Vector3();
 const frontVector = new THREE.Vector3();
 const sideVector = new THREE.Vector3();
-const SPEED = 5.125
+const SPEED = 15.125
 
 useFrame(()=>{
+  // Player movement base on camera direction/rotation
+  frontVector.set(0, 0, Number(backward) - Number(forward));
+  sideVector.set(Number(left) - Number(right), 0, 0);
+  direction
+    .subVectors(frontVector, sideVector)
+    .normalize()
+    .multiplyScalar(SPEED)
+    .applyEuler(camera.rotation);
 
     if (playerRef.current) {
         const time = Date.now() * 0.0005;
-        playerRef.current.lockRotations(true); // Locks rotation because of capsule body
         const position = playerRef.current.translation();
         // Setting camera position and creating walking/breathing affect
         camera.position.x = position.x;
         camera.position.z = position.z ;
         if (right || left || forward || backward) {
-            camera.position.y = position.y + 1.5
+            camera.position.y = position.y + 3.5
+            playerRef.current.lockRotations(false)
+           
         } else {
-          camera.position.y = position.y + Math.sin(time * 7.5) * 0.0095 + 1.5
+          camera.position.y = position.y + Math.sin(time * 7.5) * 0.0095 + 3.5
+          playerRef.current.lockRotations(true,true)
         }
-        // Player movement base on camera direction/rotation
-        frontVector.set(0, 0, Number(backward) - Number(forward));
-        sideVector.set(Number(left) - Number(right), 0, 0);
-        direction
-          .subVectors(frontVector, sideVector)
-          .normalize()
-          .multiplyScalar(SPEED)
-          .applyEuler(camera.rotation);
-  
+        
         playerRef.current.setLinvel(
-          { x: direction.x, y: 0.0, z: direction.z },
+          { x: direction.x, y: -9.18, z: direction.z },
           true
         );
-     
         }
        setHands()
 })
@@ -72,10 +73,9 @@ return (
     <> 
     <PointerLockControls camera={camera}/>
     <RigidBody
-    colliders={false}
-        friction={0}
         gravityScale={0}
-        position={[7, 2.75, 10]}
+        colliders={false}
+        position={[15, 27, 15]}
         ref={playerRef}
         userData={{
           type:"player",
@@ -83,11 +83,11 @@ return (
         }
         }
       >
-        <CapsuleCollider args={[0.0 ,0.9]}>
-        </CapsuleCollider>
+        <BallCollider  args={[4]} >
+        </BallCollider>
       </RigidBody>
     
-       <mesh name="hands" ref={handsRef}  position={[-2,2.125,5]}>
+       <mesh name="hands" ref={handsRef} >
         <Hands shot={shot} />
     </mesh>
     

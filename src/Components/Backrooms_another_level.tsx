@@ -14,7 +14,7 @@ export function Backrooms() {
   const { nodes, materials }:any = useGLTF('/backrooms_another_level.glb')
   return (
     <group dispose={null}>
-      <group position={[-15.538, -0.002, -19.259]} rotation={[-Math.PI / 2, 0, 0]} scale={[1.158, 1.327, 1.504]}>
+      <group position={[-41.847, -0.003, -35.744]} rotation={[-Math.PI / 2, 0, 0]} scale={[1.507, 1.648, 1.837]}>
         <group rotation={[Math.PI / 2, 0, 0]}>
           <group position={[11.4, 2.978, 3.831]}>
             <mesh geometry={nodes.Object_12.geometry} material={materials['Material.003']} />
@@ -27,7 +27,7 @@ export function Backrooms() {
           <mesh geometry={nodes.Object_19.geometry} material={materials['Material.002']} position={[6.195, 1.505, 3.935]} />
         </group>
       </group>
-      <group position={[-13.151, 0.049, -20.081]} rotation={[-Math.PI / 2, 0, 0]} scale={[1.216, 1.394, 1.579]}>
+      <group position={[-38.741, 0.059, -36.765]} rotation={[-Math.PI / 2, 0, 0]} scale={[1.582, 1.731, 1.929]}>
         <group rotation={[Math.PI / 2, 0, 0]} scale={0.025}>
           <group rotation={[-Math.PI / 2, 0, 0]}>
             <group position={[-5.167, 10.44, -2.858]} rotation={[0, 0, -Math.PI / 2]} scale={[0.963, 1, 1]}>
@@ -43,7 +43,7 @@ export function Backrooms() {
           </group>
         </group>
       </group>
-      <group position={[104.757, -0.002, 55.209]} rotation={[-Math.PI / 2, 0, 0]} scale={[0.098, 0.1, 0.031]}>
+      <group position={[114.649, -0.003, 56.727]} rotation={[-Math.PI / 2, 0, 0]} scale={[0.127, 0.124, 0.038]}>
         <group rotation={[Math.PI / 2, 0, 0]}>
           <group position={[-175, 600, 0]} rotation={[Math.PI / 2, 0, Math.PI]} scale={100}>
             <group position={[8.598, 8.707, 4.528]} scale={[0.651, 0.683, 1]}>
@@ -59,7 +59,7 @@ export function Backrooms() {
           </group>
         </group>
       </group>
-      <group position={[85.275, -0.002, 55.209]} rotation={[-Math.PI / 2, 0, 0]} scale={[0.098, 0.1, 0.031]}>
+      <group position={[89.305, -0.003, 56.727]} rotation={[-Math.PI / 2, 0, 0]} scale={[0.127, 0.124, 0.038]}>
         <group rotation={[Math.PI / 2, 0, 0]}>
           <group position={[-175, 600, 0]} rotation={[Math.PI / 2, 0, Math.PI]} scale={100}>
             <group position={[9.203, 8.705, 4.528]} scale={[0.651, 0.683, 1]}>
@@ -71,7 +71,7 @@ export function Backrooms() {
           </group>
         </group>
       </group>
-      <group position={[85.275, -0.002, 82.18]} rotation={[-Math.PI / 2, 0, 0]} scale={[0.098, 0.1, 0.031]}>
+      <group position={[89.305, -0.003, 90.218]} rotation={[-Math.PI / 2, 0, 0]} scale={[0.127, 0.124, 0.038]}>
         <group rotation={[Math.PI / 2, 0, 0]}>
           <group position={[-175, 600, 0]} rotation={[Math.PI / 2, 0, Math.PI]} scale={100}>
             <group position={[6.604, 8.705, 4.528]} scale={[0.651, 0.683, 1]}>
@@ -83,7 +83,7 @@ export function Backrooms() {
           </group>
         </group>
       </group>
-      <group position={[85.275, -0.002, 82.18]} rotation={[-Math.PI / 2, 0, 0]} scale={[0.098, 0.1, 0.031]}>
+      <group position={[89.305, -0.003, 90.218]} rotation={[-Math.PI / 2, 0, 0]} scale={[0.127, 0.124, 0.038]}>
         <group rotation={[Math.PI / 2, 0, 0]}>
           <group position={[-175, 600, 0]} rotation={[Math.PI / 2, 0, Math.PI]} scale={100}>
             <group position={[9.207, 8.705, 4.528]} scale={[0.651, 0.683, 1]}>
@@ -95,7 +95,7 @@ export function Backrooms() {
           </group>
         </group>
       </group>
-      <group position={[59.965, -0.002, 82.18]} rotation={[-Math.PI / 2, 0, 0]} scale={[0.098, 0.1, 0.031]}>
+      <group position={[56.378, -0.003, 90.218]} rotation={[-Math.PI / 2, 0, 0]} scale={[0.127, 0.124, 0.038]}>
         <group rotation={[Math.PI / 2, 0, 0]}>
           <group position={[-175, 600, 0]} rotation={[Math.PI / 2, 0, Math.PI]} scale={100}>
             <group position={[9.216, 8.705, 4.528]} scale={[0.651, 0.683, 1]}>

@@ -3,6 +3,7 @@ import { RigidBody } from "@react-three/rapier";
 import { useEffect, useState, useRef } from "react";
 import { Bullet } from "./Components/Bullet";
 import { Backrooms } from "./Components/Backrooms_another_level";
+import { Subway } from "./Components/Subway";
 import * as THREE from "three"
 
 
@@ -32,24 +33,28 @@ export const Scene = (props:sceneProps)=> {
 
     return (
        <>
-
-       <RigidBody type="fixed" userData={{
+       
+       {/* <RigidBody type="fixed" userData={{
          child: floor.current
        }}>
         <Box name="floor" ref={floor} receiveShadow position={[0,0,0]} args={[25,2,25]}>
         <meshStandardMaterial color={"lightgrey"} />
        </Box>
-       </RigidBody>
+       </RigidBody> */}
 
        {fired && projectiles.map((projectile:any)=>(
           <Bullet setObj={setHitObject} key={projectile.id} bullet={projectile} finHit={finHit}/>
        ))}
        
-       <RigidBody type="fixed" colliders="trimesh" position={[5,2,10]}>
+       {false && <RigidBody type="fixed" colliders="trimesh" position={[5,2,10]}>
        
          <Backrooms />
       
-       </RigidBody>
+       </RigidBody>}
+   
+      {true && <RigidBody name="subway" colliders="trimesh" type="fixed" position={[1,2,1]}>
+      <Subway /> 
+      </RigidBody>}
        
        </> 
     )

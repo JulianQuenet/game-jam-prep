@@ -58,13 +58,15 @@ export function Hands(props:handsProps) {
         setFirstClick(false)
         return
       }else{
-        setCount(count + 1)
+        if(!reloading){
+          setCount(count + 1)
         const bullet={
           id : count,
           recoil: Math.cos(Date.now() * 5) * 0.01,
          }
         shot(bullet)
         setFire(true)
+        }
       setTimeout(()=>{
       setFire(false)
       }, 20)
@@ -83,19 +85,20 @@ export function Hands(props:handsProps) {
   useFrame(()=>{
     const time = Date.now() * 0.0005
     bullPos.set(camera.position.x, camera.position.y-0.1, camera.position.z)
-    if ((right || left || forward || backward) && !reloading &&!fire){
+    if ((right || left || forward || backward) && !reloading && !fire){
        setCurrentAnim("walk")
+       if(fire && !reloading && !firstClick){
+        setCurrentAnim("fire") 
+       }
        if(reload){
         setReloading(true)
         setCurrentAnim("reload")
         setTimeout(()=>{
           setReloading(false)
-        }, 1200)
+        }, 1000)
         setCount(0)
       }
-      if(fire && !reloading && !firstClick){
-        setCurrentAnim("fire") 
-       }
+      
     }else{
       if(!reloading && !fire){
         setCurrentAnim("idle")
@@ -106,7 +109,7 @@ export function Hands(props:handsProps) {
       setCurrentAnim("reload")
       setTimeout(()=>{
         setReloading(false)
-      }, 1200)
+      }, 1000)
       setCount(0)
     }
     if(fire && !reloading && !firstClick){

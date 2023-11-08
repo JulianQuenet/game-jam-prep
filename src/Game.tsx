@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { Suspense, useEffect, useState } from 'react'
 import { Canvas } from "@react-three/fiber";
 import { Physics } from "@react-three/rapier";
 import { Controls } from "./Controls";
@@ -27,11 +27,14 @@ const onFire = (bullet:any) => {
         shadow-mapSize={1024}
       />
     <color attach="background" args={["black"]} />
+    <Suspense>
     <Physics debug >
      <Scene projectiles={bullets} finHit={finHit}/>
      <Controls shot={onFire} />
     </Physics>
+    </Suspense>
     </Canvas>
+    
     </>
   )
   
