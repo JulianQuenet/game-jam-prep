@@ -1,6 +1,6 @@
 import { useRef, useEffect, useState } from "react";
 import * as THREE from "three";
-import { Sphere, PointerLockControls } from "@react-three/drei/core";
+import { PointerLockControls } from "@react-three/drei/core";
 import { useThree, useFrame } from "@react-three/fiber";
 import usePlayerControls from "./Components/inputs";
 import { RigidBody, BallCollider } from "@react-three/rapier";
@@ -14,8 +14,6 @@ interface controlProps {
 
 export const Controls = (props: controlProps)=>{
 const {shot} = props
-
-const [rotate, setRotate] = useState<boolean | undefined>(false)
 const playerRef = useRef<any>();
 const handsRef = useRef<any>();
 const { camera } = useThree();
@@ -42,16 +40,15 @@ useFrame(()=>{
         camera.position.x = position.x;
         camera.position.z = position.z ;
         if (right || left || forward || backward) {
-            camera.position.y = position.y + 3.5
-            playerRef.current.lockRotations(false)
+            camera.position.y = position.y + 2.5
            
         } else {
-          camera.position.y = position.y + Math.sin(time * 7.5) * 0.0095 + 3.5
-          playerRef.current.lockRotations(true,true)
+          camera.position.y = position.y + Math.sin(time * 7.5) * 0.0095 + 2.5
+
         }
         
         playerRef.current.setLinvel(
-          { x: direction.x, y: -9.18, z: direction.z },
+          { x: direction.x, y: -1, z: direction.z },
           true
         );
         }
@@ -75,7 +72,7 @@ return (
     <RigidBody
         gravityScale={0}
         colliders={false}
-        position={[15, 27, 15]}
+        position={[0, 2, 0]}
         ref={playerRef}
         userData={{
           type:"player",
@@ -83,7 +80,7 @@ return (
         }
         }
       >
-        <BallCollider  args={[4]} >
+        <BallCollider  args={[1]} >
         </BallCollider>
       </RigidBody>
     

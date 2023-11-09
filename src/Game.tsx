@@ -26,7 +26,7 @@ const onFire = (bullet:any) => {
         castShadow
         shadow-mapSize={1024}
       />
-    <color attach="background" args={["black"]} />
+    <color attach="background" args={["lightblue"]} />
     <Suspense>
     <Physics debug >
      <Scene projectiles={bullets} finHit={finHit}/>

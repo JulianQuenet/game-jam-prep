@@ -3,7 +3,7 @@ import { RigidBody } from "@react-three/rapier";
 import { useEffect, useState, useRef } from "react";
 import { Bullet } from "./Components/Bullet";
 import { Backrooms } from "./Components/Backrooms_another_level";
-import { Subway } from "./Components/Subway";
+import { Room } from "./Components/Room";
 import * as THREE from "three"
 
 
@@ -51,10 +51,12 @@ export const Scene = (props:sceneProps)=> {
          <Backrooms />
       
        </RigidBody>}
-   
-      {true && <RigidBody name="subway" colliders="trimesh" type="fixed" position={[1,2,1]}>
-      <Subway /> 
-      </RigidBody>}
+       
+      
+
+       <RigidBody type={"fixed"} colliders="trimesh" position={[0,0,0]}>
+        <Room />
+       </RigidBody>
        
        </> 
     )
