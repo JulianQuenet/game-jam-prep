@@ -9,13 +9,15 @@ Title: An Old Cheap Room in Chinatown
 
 import React, { useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
+import { RigidBody } from '@react-three/rapier'
 
 export function Room() {
   const { nodes, materials }:any = useGLTF('/room.glb')
   return (
-    <group  dispose={null} scale={2.5}>
+    <group  dispose={null} scale={2.5} position={[0,0,0]}>
       <group rotation={[-Math.PI / 2, 0, 0]} scale={86.957}>
         <group rotation={[Math.PI / 2, 0, 0]} scale={0.001}>
+          <RigidBody type='fixed' colliders="trimesh">
           <group scale={10}>
             <group position={[1.048, 0, 1.026]} rotation={[0, Math.PI / 2, 0]}>
               <mesh geometry={nodes.polySurface23_M_MainParts_0.geometry} material={materials.M_MainParts} />
@@ -58,6 +60,8 @@ export function Room() {
             <mesh geometry={nodes.window_edge_M_MainParts_0.geometry} material={materials.M_MainParts} />
             <mesh geometry={nodes.theDoormat_M_MainParts_0.geometry} material={materials.M_MainParts} position={[-3.982, -0.022, 0]} rotation={[-Math.PI, 0.016, -Math.PI]} scale={0.021} />
           </group>
+          </RigidBody>
+          <RigidBody type='fixed' colliders='cuboid'>
           <group scale={10}>
             <mesh geometry={nodes.stove_M_Kitchen_0.geometry} material={materials.M_Kitchen} />
             <mesh geometry={nodes.plank_M_Kitchen_0.geometry} material={materials.M_Kitchen} />
@@ -82,6 +86,7 @@ export function Room() {
             <mesh geometry={nodes.pCube85_M_Kitchen_0.geometry} material={materials.M_Kitchen} position={[-2.618, 2.795, -3.139]} rotation={[0, 0, -Math.PI / 2]} scale={[1.182, 0.191, 0.101]} />
             <mesh geometry={nodes.pCube84_M_Kitchen_0.geometry} material={materials.M_Kitchen} />
           </group>
+          </RigidBody>
           <group position={[-78.792, -0.63, -8.04]} rotation={[0, Math.PI / 2, 0]} scale={1.505}>
             <mesh geometry={nodes.curtain_M_Bathroom_0.geometry} material={materials.M_Bathroom} position={[-5.431, 1.217, 52.366]} rotation={[0, -Math.PI / 2, 0]} scale={0.166} />
             <mesh geometry={nodes.light1_M_Bathroom_0.geometry} material={materials.M_Bathroom} position={[-5.255, 22.287, 55.367]} scale={[1, 0.7, 1]} />
@@ -98,6 +103,7 @@ export function Room() {
             <mesh geometry={nodes.bathtub_M_Bathroom_0.geometry} material={materials.M_Bathroom} position={[-5.342, 0.418, 52.357]} rotation={[0, -Math.PI / 2, 0]} scale={6.645} />
             <mesh geometry={nodes.pCylinder3_M_Bathroom_0.geometry} material={materials.M_Bathroom} position={[-24.132, 19.847, 18.442]} rotation={[Math.PI / 2, 0, -Math.PI]} scale={[0.227, 18.357, 0.227]} />
           </group>
+          <RigidBody type="fixed" colliders="trimesh">
           <group scale={10}>
             <group position={[3.83, -0.002, 2.548]} scale={0.145}>
               <mesh geometry={nodes.pCylinder17_M_Bedroom_0.geometry} material={materials.M_Bedroom} position={[-26.374, 0.012, -17.551]} scale={6.887} />
@@ -122,21 +128,17 @@ export function Room() {
             <mesh geometry={nodes.pCube31_M_Bedroom_0.geometry} material={materials.M_Bedroom} />
             <mesh geometry={nodes.pCube32_M_Bedroom_0.geometry} material={materials.M_Bedroom} />
           </group>
+          </RigidBody>
+          
           <group scale={10}>
             <mesh geometry={nodes.fan_M_LivingRoom_0.geometry} material={materials.M_LivingRoom} />
             <mesh geometry={nodes.Radiator_M_LivingRoom_0.geometry} material={materials.M_LivingRoom} />
             <mesh geometry={nodes.AC_M_LivingRoom_0.geometry} material={materials.M_LivingRoom} />
             <mesh geometry={nodes.flowerpot_M_LivingRoom_0.geometry} material={materials.M_LivingRoom} position={[3.075, 1.195, -3.447]} scale={[0.193, 0.117, 0.193]} />
-            <mesh geometry={nodes.stool_M_LivingRoom_0.geometry} material={materials.M_LivingRoom} />
-            <mesh geometry={nodes.table_M_LivingRoom_0.geometry} material={materials.M_LivingRoom} position={[2.758, 0.292, -1.591]} rotation={[0, -1.329, 0]} />
-            <mesh geometry={nodes.stool1_M_LivingRoom_0.geometry} material={materials.M_LivingRoom} position={[2.919, 0.309, -1.079]} rotation={[-Math.PI, -1.362, -Math.PI]} />
             <mesh geometry={nodes.can_M_LivingRoom_0.geometry} material={materials.M_LivingRoom} />
-            <mesh geometry={nodes.stool2_M_LivingRoom_0.geometry} material={materials.M_LivingRoom} position={[3.636, 0.304, -4.247]} rotation={[0, 0.463, 0]} />
             <mesh geometry={nodes.cord1_M_LivingRoom_0.geometry} material={materials.M_LivingRoom} />
             <mesh geometry={nodes.cord_M_LivingRoom_0.geometry} material={materials.M_LivingRoom} />
             <mesh geometry={nodes.Lamp_M_LivingRoom_0.geometry} material={materials.M_LivingRoom} position={[0.577, 0, -0.436]} />
-            <mesh geometry={nodes.tissue_box_M_LivingRoom_0.geometry} material={materials.M_LivingRoom} position={[4.084, -0.013, 0.901]} rotation={[0, 0.119, 0]} scale={0.018} />
-            <mesh geometry={nodes.tissue_box1_M_LivingRoom_0.geometry} material={materials.M_LivingRoom} position={[5.38, 0.555, -0.323]} rotation={[0, -1.534, 0]} scale={0.016} />
             <mesh geometry={nodes.pasted__polySurface26_M_LivingRoom_0.geometry} material={materials.M_LivingRoom} position={[1.113, -0.809, 0.412]} />
             <mesh geometry={nodes.notes_M_LivingRoom_0.geometry} material={materials.M_LivingRoom} />
             <mesh geometry={nodes.books1_M_LivingRoom_0.geometry} material={materials.M_LivingRoom} />
@@ -153,10 +155,8 @@ export function Room() {
             <mesh geometry={nodes.Socket6_M_LivingRoom_0.geometry} material={materials.M_LivingRoom} position={[3.982, 0.841, -0.04]} scale={0.013} />
             <mesh geometry={nodes.FOX_M_LivingRoom_0.geometry} material={materials.M_LivingRoom} scale={0.1} />
           </group>
+          
           <group scale={10}>
-            <mesh geometry={nodes.pSphere16_M_KitchenStuff_0.geometry} material={materials.M_KitchenStuff} position={[2.973, 1.156, -1.934]} rotation={[-0.689, 0, 0]} scale={[0.3, 0.29, 0.318]} />
-            <mesh geometry={nodes.pSphere14_M_KitchenStuff_0.geometry} material={materials.M_KitchenStuff} position={[2.873, 1.165, -1.922]} rotation={[-Math.PI, -0.866, -Math.PI]} scale={[0.333, 0.332, 0.359]} />
-            <mesh geometry={nodes.pCube127_M_KitchenStuff_0.geometry} material={materials.M_KitchenStuff} position={[2.829, 1.176, -1.988]} rotation={[0.074, -0.468, -0.331]} scale={[1.837, 0.333, 0.389]} />
             <mesh geometry={nodes.pSphere6_M_KitchenStuff_0.geometry} material={materials.M_KitchenStuff} position={[-1.092, 1.049, -3.054]} rotation={[0, 0, -0.235]} scale={[1.798, 0.485, 1.798]} />
             <mesh geometry={nodes.pasted__polySurface89_M_KitchenStuff_0.geometry} material={materials.M_KitchenStuff} position={[-0.154, 0.231, -4.327]} scale={0.018} />
             <mesh geometry={nodes.pSphere7_M_KitchenStuff_0.geometry} material={materials.M_KitchenStuff} position={[-0.738, 0.933, -2.985]} rotation={[0, 0, 0.336]} scale={[1.066, 0.44, 1.066]} />
@@ -172,11 +172,6 @@ export function Room() {
             <mesh geometry={nodes.pCube122_M_KitchenStuff_0.geometry} material={materials.M_KitchenStuff} />
             <mesh geometry={nodes.pSphere11_M_KitchenStuff_0.geometry} material={materials.M_KitchenStuff} position={[-1.092, 0.99, -3.37]} rotation={[1.254, -0.223, -0.073]} scale={[1.261, 0.34, 1.261]} />
             <mesh geometry={nodes.pCube106_M_KitchenStuff_0.geometry} material={materials.M_KitchenStuff} />
-            <mesh geometry={nodes.pCube128_M_KitchenStuff_0.geometry} material={materials.M_KitchenStuff} position={[2.836, 1.196, -2.024]} rotation={[1.076, -0.556, 0.316]} scale={[1.837, 0.333, 0.389]} />
-            <mesh geometry={nodes.pSphere19_M_KitchenStuff_0.geometry} material={materials.M_KitchenStuff} position={[2.936, 1.188, -1.913]} rotation={[2.447, -1.113, 2.656]} scale={[0.373, 0.371, 0.402]} />
-            <mesh geometry={nodes.pSphere17_M_KitchenStuff_0.geometry} material={materials.M_KitchenStuff} position={[2.967, 1.161, -1.845]} rotation={[0, 0.382, 0]} scale={[0.407, 0.406, 0.439]} />
-            <mesh geometry={nodes.pSphere15_M_KitchenStuff_0.geometry} material={materials.M_KitchenStuff} position={[3.022, 1.168, -1.886]} scale={0.358} />
-            <mesh geometry={nodes.pSphere18_M_KitchenStuff_0.geometry} material={materials.M_KitchenStuff} position={[3.014, 1.194, -1.835]} rotation={[0.857, 0, 0]} scale={[0.3, 0.29, 0.318]} />
             <mesh geometry={nodes.polySurface37_M_KitchenStuff_0.geometry} material={materials.M_KitchenStuff} />
             <mesh geometry={nodes.polySurface38_M_KitchenStuff_0.geometry} material={materials.M_KitchenStuff} />
             <mesh geometry={nodes.polySurface39_M_KitchenStuff_0.geometry} material={materials.M_KitchenStuff} />
@@ -194,9 +189,7 @@ export function Room() {
             <mesh geometry={nodes.pCylinder58_M_KitchenStuff_0.geometry} material={materials.M_KitchenStuff} position={[0.077, 1.109, -3.431]} scale={[0.452, 0.621, 0.452]} />
             <mesh geometry={nodes.pCube120_M_KitchenStuff_0.geometry} material={materials.M_KitchenStuff} position={[0.296, 1.104, -3.552]} scale={[0.54, 1.24, 0.556]} />
             <mesh geometry={nodes.pasted__polySurface81_M_KitchenStuff_0.geometry} material={materials.M_KitchenStuff} position={[2.222, 1.31, 0.118]} rotation={[2.882, 1.318, 3.108]} scale={0.018} />
-            <mesh geometry={nodes.pCube116_M_KitchenStuff_0.geometry} material={materials.M_KitchenStuff} />
             <mesh geometry={nodes.pasted__polySurface85_M_KitchenStuff_0.geometry} material={materials.M_KitchenStuff} position={[-0.154, 0.226, -4.327]} scale={0.018} />
-            <mesh geometry={nodes.pCube117_M_KitchenStuff_0.geometry} material={materials.M_KitchenStuff} />
             <mesh geometry={nodes.pSphere10_M_KitchenStuff_0.geometry} material={materials.M_KitchenStuff} position={[-0.83, 0.988, -3.18]} rotation={[0, 0, -0.505]} scale={[1.252, 1.241, 1.252]} />
             <mesh geometry={nodes.pasted__polySurface84_M_KitchenStuff_0.geometry} material={materials.M_KitchenStuff} position={[-0.154, 0.226, -4.327]} scale={0.018} />
             <mesh geometry={nodes.pSphere5_M_KitchenStuff_0.geometry} material={materials.M_KitchenStuff} position={[-1.136, 1.034, -3.054]} rotation={[0, 0, -0.235]} scale={[1.798, 0.485, 1.798]} />
@@ -209,10 +202,7 @@ export function Room() {
             <mesh geometry={nodes.pCylinder66_M_KitchenStuff_0.geometry} material={materials.M_KitchenStuff} position={[-1.685, 1.051, -3.175]} rotation={[-0.012, 0.264, 1.616]} scale={[0.04, 0.004, 0.04]} />
             <mesh geometry={nodes.pSphere8_M_KitchenStuff_0.geometry} material={materials.M_KitchenStuff} position={[-0.828, 0.979, -2.93]} rotation={[-0.335, -0.023, 0.255]} scale={[1.066, 0.835, 1.066]} />
             <mesh geometry={nodes.pCylinder62_M_KitchenStuff_0.geometry} material={materials.M_KitchenStuff} position={[-0.01, 1.174, -3.642]} scale={[0.409, 1.101, 0.409]} />
-            <mesh geometry={nodes.pSphere1_M_KitchenStuff_0.geometry} material={materials.M_KitchenStuff} position={[2.348, 1.155, -1.655]} scale={[0.582, 0.577, 0.582]} />
             <mesh geometry={nodes.pSphere2_M_KitchenStuff_0.geometry} material={materials.M_KitchenStuff} position={[-1.162, 0.915, -3.054]} rotation={[0, 0, 0.075]} scale={[1.798, 0.485, 1.798]} />
-            <mesh geometry={nodes.pCube115_M_KitchenStuff_0.geometry} material={materials.M_KitchenStuff} />
-            <mesh geometry={nodes.pSphere13_M_KitchenStuff_0.geometry} material={materials.M_KitchenStuff} position={[2.856, 1.126, -1.781]} rotation={[-Math.PI, 1.174, -Math.PI]} scale={[0.407, 0.406, 0.439]} />
             <mesh geometry={nodes.polySurface12_M_KitchenStuff_0.geometry} material={materials.M_KitchenStuff} position={[-4.517, -0.037, 0]} />
             <mesh geometry={nodes.pCube129_M_KitchenStuff_0.geometry} material={materials.M_KitchenStuff} position={[0.781, 1.754, -3.672]} scale={[0.169, 1.707, 0.143]} />
             <mesh geometry={nodes.pCube130_M_KitchenStuff_0.geometry} material={materials.M_KitchenStuff} position={[0.997, 1.754, -3.672]} scale={[0.169, 1.707, 0.143]} />

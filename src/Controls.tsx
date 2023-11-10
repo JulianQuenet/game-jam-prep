@@ -1,9 +1,9 @@
 import { useRef, useEffect, useState } from "react";
 import * as THREE from "three";
-import { PointerLockControls } from "@react-three/drei/core";
+import { Box, PointerLockControls, Sphere } from "@react-three/drei/core";
 import { useThree, useFrame } from "@react-three/fiber";
 import usePlayerControls from "./Components/inputs";
-import { RigidBody, BallCollider } from "@react-three/rapier";
+import { RigidBody, BallCollider, useRevoluteJoint } from "@react-three/rapier";
 import { Hands } from "./Components/Animatedpistol";
 
 
@@ -16,12 +16,16 @@ export const Controls = (props: controlProps)=>{
 const {shot} = props
 const playerRef = useRef<any>();
 const handsRef = useRef<any>();
-const { camera } = useThree();
+const bodyA = useRef<any>();
+const bodyB = useRef<any>();
+const { camera, scene } = useThree();
 const { forward, backward, left, right } = usePlayerControls();
 const direction = new THREE.Vector3();
 const frontVector = new THREE.Vector3();
 const sideVector = new THREE.Vector3();
 const SPEED = 15.125
+
+
 
 useFrame(()=>{
   // Player movement base on camera direction/rotation
@@ -48,11 +52,14 @@ useFrame(()=>{
         }
         
         playerRef.current.setLinvel(
-          { x: direction.x, y: -1, z: direction.z },
+          { x: direction.x, y: 0, z: direction.z },
           true
         );
+
+       
         }
        setHands()
+       
 })
 
 function setHands(){
@@ -64,15 +71,25 @@ function setHands(){
   handsRef.current.translateX(-0.165)
 }
 
+const joint = useRevoluteJoint(bodyA, bodyB, [
+  // Position of the joint in bodyA's local space
+  [1, 0, 1],
+  // Position of the joint in bodyB's local space
+  [1.1, 0, 0],
+  // Axis of the joint, expressed in the local-space of
+  // the rigid-bodies it is attached to. Cannot be [0,0,0].
+  [0, 1, 0]
+])
+
 
 
 return (
     <> 
     <PointerLockControls camera={camera}/>
     <RigidBody
-        gravityScale={0}
+        gravityScale={9.18}
         colliders={false}
-        position={[0, 2, 0]}
+        position={[5, 2.5, 0]}
         ref={playerRef}
         userData={{
           type:"player",
@@ -80,13 +97,23 @@ return (
         }
         }
       >
-        <BallCollider  args={[1]} >
+        <BallCollider   args={[1]} >
         </BallCollider>
       </RigidBody>
     
        <mesh name="hands" ref={handsRef} >
         <Hands shot={shot} />
     </mesh>
+
+
+    <group>
+      <RigidBody type='fixed' ref={bodyA} position={[1,2,0]}>
+        <Box />
+      </RigidBody>
+      <RigidBody ref={bodyB} position={[1,2,0]}>
+        <Box />
+      </RigidBody>
+    </group>
     
 
     </>

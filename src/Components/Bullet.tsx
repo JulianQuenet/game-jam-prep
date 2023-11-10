@@ -81,7 +81,7 @@ export const Bullet = (props: bulletProps) => {
       const euler1 = new THREE.Euler()
       euler1.setFromRotationMatrix(rotation)
       setRotationBlt(euler1)
-      const enem:number = hit[0].object.name !== "enem"? 0.15 :  0.75 
+      const enem:number = hit[0].object.name !== "enem"? 0.05 :  0.75 
 
       const decalGeometry = new DecalGeometry(
         hit[0].object, hit[0].point, euler1, new THREE.Vector3(enem,enem,enem)
