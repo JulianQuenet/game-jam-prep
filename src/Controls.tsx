@@ -23,7 +23,7 @@ const { forward, backward, left, right } = usePlayerControls();
 const direction = new THREE.Vector3();
 const frontVector = new THREE.Vector3();
 const sideVector = new THREE.Vector3();
-const SPEED = 15.125
+const SPEED = 7.125
 
 
 
@@ -58,7 +58,7 @@ useFrame(()=>{
 
        
         }
-       setHands()
+      //  setHands()
        
 })
 
@@ -71,15 +71,15 @@ function setHands(){
   handsRef.current.translateX(-0.165)
 }
 
-const joint = useRevoluteJoint(bodyA, bodyB, [
-  // Position of the joint in bodyA's local space
-  [1, 0, 1],
-  // Position of the joint in bodyB's local space
-  [1.1, 0, 0],
-  // Axis of the joint, expressed in the local-space of
-  // the rigid-bodies it is attached to. Cannot be [0,0,0].
-  [0, 1, 0]
-])
+// const joint = useRevoluteJoint(bodyA, bodyB, [
+//   // Position of the joint in bodyA's local space
+//   [0, 0, 0],
+//   // Position of the joint in bodyB's local space
+//   [-0.85, 0, 0],
+//   // Axis of the joint, expressed in the local-space of
+//   // the rigid-bodies it is attached to. Cannot be [0,0,0].
+//   [0, 1, 0]
+// ])
 
 
 
@@ -97,23 +97,23 @@ return (
         }
         }
       >
-        <BallCollider   args={[1]} >
+        <BallCollider   args={[0.5]} >
         </BallCollider>
       </RigidBody>
     
-       <mesh name="hands" ref={handsRef} >
+       {/* <mesh name="hands" ref={handsRef} >
         <Hands shot={shot} />
-    </mesh>
+    </mesh> */}
 
 
-    <group>
-      <RigidBody type='fixed' ref={bodyA} position={[1,2,0]}>
-        <Box />
+    {/* <group>
+      <RigidBody type='fixed' ref={bodyA}  position={[1,2,0]}>
+        <Box args={[0.5,0.5,0.5]}/>
       </RigidBody>
       <RigidBody ref={bodyB} position={[1,2,0]}>
         <Box />
       </RigidBody>
-    </group>
+    </group> */}
     
 
     </>

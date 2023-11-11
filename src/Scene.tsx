@@ -4,6 +4,7 @@ import { useEffect, useState, useRef } from "react";
 import { Bullet } from "./Components/Bullet";
 import { Backrooms } from "./Components/Backrooms_another_level";
 import { Room } from "./Components/Room";
+import { Door } from "./Components/Door";
 import * as THREE from "three"
 
 
@@ -54,7 +55,7 @@ export const Scene = (props:sceneProps)=> {
        
         {/* <Room /> */}
       
-       
+       <Door />
        </> 
     )
 }
