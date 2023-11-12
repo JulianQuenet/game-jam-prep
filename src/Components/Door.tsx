@@ -17,59 +17,59 @@ export function Door() {
   const frameRef = useRef<any>();
   const ref = useRef<any>();
 
-  const joint = useFixedJoint(ref, doorRef, [
-    // Position of the joint in bodyA's local space
-    [0, 0, 0],
-    // Orientation of the joint in bodyA's local space
-    [0, 0, 0, 1],
-    // Position of the joint in bodyB's local space
-    [1.5, 0, 0],
-    // Orientation of the joint in bodyB's local space
-    [0, 0, 0, 1]
-  ]);
+  // const joint = useFixedJoint(ref, doorRef, [
+  //   // Position of the joint in bodyA's local space
+  //   [0, 0, 0],
+  //   // Orientation of the joint in bodyA's local space
+  //   [1, 0, 0, 1],
+  //   // Position of the joint in bodyB's local space
+  //   [0.2, 0, 0],
+  //   // Orientation of the joint in bodyB's local space
+  //   [1, 0, 0, 1]
+  // ]);
 
-  const hinge = useRevoluteJoint(frameRef, doorRef, [
+  const hinge = useRevoluteJoint(frameRef, ref, [
       // Position of the joint in bodyA's local space
       [0, 0, 0],
       // Position of the joint in bodyB's local space
-      [-0.85, 0, 0],
+      [-0.9, 0.5, 0],
       // Axis of the joint, expressed in the local-space of
       // the rigid-bodies it is attached to. Cannot be [0,0,0].
       [0, 1, 0]
     ])
 
-    // rotation={[-Math.PI / 2, 0, 0]}
+    // <RigidBody ref={frameRef} colliders="trimesh" type="fixed" position={[2,0.5,0]}>
+    //      <Box args={[0.1,0.1,0.4]} />
+    //      </RigidBody>
+
 
   return (
     <group dispose={null} position={[0,1,0]}>
       <group  scale={1.75}>
-        <RigidBody colliders="cuboid" ref={doorRef} name="door" position={[0,1.5,0.365]}>
-          <Box args={[0.5,0.5,0.5]} />
-        </RigidBody>
+     
+     <RigidBody ref={ref} colliders="trimesh">
+      <group position={[-0.435, 0.25, 0.1]} rotation={[-Math.PI / 2, 0, 0]} scale={1}>
+          <mesh geometry={nodes.Plane001_Glossy_0.geometry} material={materials.Glossy} />
+          <mesh geometry={nodes.Plane001_Door_0.geometry} material={materials.Door} />
+          <mesh geometry={nodes.Plane003_Door_0.geometry} material={materials.Door} position={[0.852, 0.017, 0.782]} />
+          <mesh geometry={nodes.Circle002_Glossy_0.geometry} material={materials.Glossy} position={[0.81, 0.043, 0.803]} />
+        </group>
+       </RigidBody>
 
-          {/* <group position={[-0.435, -0.101, 0.249]} scale={0.9875}> */}
-          {/* <mesh geometry={nodes.Plane001_Glossy_0.geometry} material={materials.Glossy} /> */}
-          {/* <mesh geometry={nodes.Plane001_Door_0.geometry} material={materials.Door} /> */}
-          {/* <mesh geometry={nodes.Plane003_Door_0.geometry} material={materials.Door} position={[0.852, 0.017, 0.782]} /> */}
-          {/* <mesh geometry={nodes.Circle002_Glossy_0.geometry} material={materials.Glossy} position={[0.81, 0.043, 0.803]} /> */}
-        {/* </group> */}
+       
+        <group rotation={[-Math.PI / 2, 0, 9.5]} position={[0,0,0.1]}>
+        <mesh geometry={nodes.Plane002_Door_0.geometry} material={materials.Door} />
+        </group>
         
-        <RigidBody ref={frameRef} colliders="trimesh" type="fixed" position={[0,0.5,0.365]}>
-         <Box args={[0.25,0.25,0.25]} />
-         </RigidBody>
 
-         <RigidBody  position={[4,2,0.25]}>
-          <Box args={[0.25,0.25,0.25]}/>
-         </RigidBody>
-          
-        <RigidBody colliders="trimesh" ref={ref}  name="frame" >
-          <group rotation={[-Math.PI / 2, 0, 0]}>
-          <mesh geometry={nodes.Plane002_Glossy_0.geometry} material={materials.Glossy} />
-          <mesh geometry={nodes.Plane002_Door_0.geometry} material={materials.Door} />
-          </group> 
-          </RigidBody>
       </group>
-    </group>
+
+
+     <RigidBody ref={frameRef} type="fixed" position={[-0.91,0.5,0.155]}>
+      <Box args={[0.05,0.1,0.7]} />
+     </RigidBody>
+
+      </group>
   )
 }
 

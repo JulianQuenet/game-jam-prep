@@ -89,7 +89,7 @@ return (
     <RigidBody
         gravityScale={9.18}
         colliders={false}
-        position={[5, 2.5, 0]}
+        position={[5, 2.5, 5]}
         ref={playerRef}
         userData={{
           type:"player",
