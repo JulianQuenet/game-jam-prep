@@ -5,6 +5,8 @@ import { Bullet } from "./Components/Bullet";
 import { Backrooms } from "./Components/Backrooms_another_level";
 import { Room } from "./Components/Room";
 import { Door } from "./Components/Door";
+import { Door1 } from "./Components/Door_new";
+import { Door2 } from "./Components/Door1";
 import * as THREE from "three"
 
 
@@ -56,6 +58,8 @@ export const Scene = (props:sceneProps)=> {
         {/* <Room /> */}
       
        <Door />
+       <Door1 />
+       <Door2 />
        </> 
     )
 }

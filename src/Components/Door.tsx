@@ -69,6 +69,10 @@ export function Door() {
       <Box args={[0.05,0.1,0.7]} />
      </RigidBody>
 
+     <RigidBody type='fixed' position={[1,0.5,0.3]}>
+      <Box args={[0.725,0.1,0.035]} />
+     </RigidBody>
+
       </group>
   )
 }

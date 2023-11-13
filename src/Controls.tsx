@@ -23,7 +23,7 @@ const { forward, backward, left, right } = usePlayerControls();
 const direction = new THREE.Vector3();
 const frontVector = new THREE.Vector3();
 const sideVector = new THREE.Vector3();
-const SPEED = 7.125
+const SPEED = 5.125
 
 
 
@@ -52,7 +52,7 @@ useFrame(()=>{
         }
         
         playerRef.current.setLinvel(
-          { x: direction.x, y: 0, z: direction.z },
+          { x: direction.x, y: -3, z: direction.z },
           true
         );
 
@@ -71,15 +71,15 @@ function setHands(){
   handsRef.current.translateX(-0.165)
 }
 
-// const joint = useRevoluteJoint(bodyA, bodyB, [
-//   // Position of the joint in bodyA's local space
-//   [0, 0, 0],
-//   // Position of the joint in bodyB's local space
-//   [-0.85, 0, 0],
-//   // Axis of the joint, expressed in the local-space of
-//   // the rigid-bodies it is attached to. Cannot be [0,0,0].
-//   [0, 1, 0]
-// ])
+const joint = useRevoluteJoint(bodyA, bodyB, [
+  // Position of the joint in bodyA's local space
+  [0, 0, 0],
+  // Position of the joint in bodyB's local space
+  [-0.85, 0, 0],
+  // Axis of the joint, expressed in the local-space of
+  // the rigid-bodies it is attached to. Cannot be [0,0,0].
+  [0, 1, 0]
+])
 
 
 
@@ -87,9 +87,9 @@ return (
     <> 
     <PointerLockControls camera={camera}/>
     <RigidBody
-        gravityScale={9.18}
+       
         colliders={false}
-        position={[5, 2.5, 5]}
+        position={[5, 1.5, 5]}
         ref={playerRef}
         userData={{
           type:"player",
@@ -97,7 +97,7 @@ return (
         }
         }
       >
-        <BallCollider   args={[0.5]} >
+        <BallCollider  args={[0.5]} >
         </BallCollider>
       </RigidBody>
     
@@ -106,14 +106,14 @@ return (
     </mesh> */}
 
 
-    {/* <group>
-      <RigidBody type='fixed' ref={bodyA}  position={[1,2,0]}>
+    <group>
+      <RigidBody type='fixed' ref={bodyA}  position={[-8,2,0]}>
         <Box args={[0.5,0.5,0.5]}/>
       </RigidBody>
-      <RigidBody ref={bodyB} position={[1,2,0]}>
+      <RigidBody ref={bodyB} position={[-8,2,0]}>
         <Box />
       </RigidBody>
-    </group> */}
+    </group>
     
 
     </>
