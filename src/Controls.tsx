@@ -3,7 +3,7 @@ import * as THREE from "three";
 import { Box, PointerLockControls, Sphere } from "@react-three/drei/core";
 import { useThree, useFrame } from "@react-three/fiber";
 import usePlayerControls from "./Components/inputs";
-import { RigidBody, BallCollider, useRevoluteJoint } from "@react-three/rapier";
+import { RigidBody, BallCollider, useRevoluteJoint, CapsuleCollider } from "@react-three/rapier";
 import { Hands } from "./Components/Animatedpistol";
 
 
@@ -23,7 +23,7 @@ const { forward, backward, left, right } = usePlayerControls();
 const direction = new THREE.Vector3();
 const frontVector = new THREE.Vector3();
 const sideVector = new THREE.Vector3();
-const SPEED = 5.125
+const SPEED = 6.125
 
 
 
@@ -44,10 +44,10 @@ useFrame(()=>{
         camera.position.x = position.x;
         camera.position.z = position.z ;
         if (right || left || forward || backward) {
-            camera.position.y = position.y + 2.5
+            camera.position.y = position.y + 1.5
            
         } else {
-          camera.position.y = position.y + Math.sin(time * 7.5) * 0.0095 + 2.5
+          camera.position.y = position.y + Math.sin(time * 7.5) * 0.0095 +1.5
 
         }
         
@@ -58,7 +58,7 @@ useFrame(()=>{
 
        
         }
-      //  setHands()
+       setHands()
        
 })
 
@@ -66,16 +66,16 @@ function setHands(){
   const time = Date.now() * 0.00035;
   handsRef.current.rotation.copy(camera.rotation)
   handsRef.current.position.copy(camera.position)
-  handsRef.current.translateY(-0.525 + Math.sin(time * 5.5) * 0.0095 )
-  handsRef.current.translateZ(-0.0875)
-  handsRef.current.translateX(-0.165)
+  handsRef.current.translateY(-0.225 + Math.sin(time * 5.5) * 0.0095 )
+  handsRef.current.translateZ(-0.0975)
+  handsRef.current.translateX(-0.065)
 }
 
 const joint = useRevoluteJoint(bodyA, bodyB, [
   // Position of the joint in bodyA's local space
   [0, 0, 0],
   // Position of the joint in bodyB's local space
-  [-0.85, 0, 0],
+  [-1, -1, 0],
   // Axis of the joint, expressed in the local-space of
   // the rigid-bodies it is attached to. Cannot be [0,0,0].
   [0, 1, 0]
@@ -87,9 +87,10 @@ return (
     <> 
     <PointerLockControls camera={camera}/>
     <RigidBody
-       
+        
+        lockRotations
         colliders={false}
-        position={[5, 1.5, 5]}
+        position={[5, 2, 5]}
         ref={playerRef}
         userData={{
           type:"player",
@@ -97,20 +98,20 @@ return (
         }
         }
       >
-        <BallCollider  args={[0.5]} >
-        </BallCollider>
+        <CapsuleCollider  args={[0.5, 0.7]} >
+        </CapsuleCollider>
       </RigidBody>
     
-       {/* <mesh name="hands" ref={handsRef} >
+      <mesh name="hands" ref={handsRef} >
         <Hands shot={shot} />
-    </mesh> */}
+    </mesh>
 
 
     <group>
       <RigidBody type='fixed' ref={bodyA}  position={[-8,2,0]}>
         <Box args={[0.5,0.5,0.5]}/>
       </RigidBody>
-      <RigidBody ref={bodyB} position={[-8,2,0]}>
+      <RigidBody ref={bodyB} > {/*Second body doesn't require position as it will be a fixed to bodyA  */}
         <Box />
       </RigidBody>
     </group>

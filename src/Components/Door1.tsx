@@ -20,7 +20,7 @@ export function Door2() {
     // Position of the joint in bodyA's local space
     [0, 0, 0],
     // Position of the joint in bodyB's local space
-    [0, 0, 0],
+    [0, 1, 0],
     // Axis of the joint, expressed in the local-space of
     // the rigid-bodies it is attached to. Cannot be [0,0,0].
     [0, 1, 0]
@@ -29,12 +29,12 @@ export function Door2() {
 
 
   return (
-    <group dispose={null} position={[-3.5,1,0]}>
-      <group  scale={1.75}>
+    <group dispose={null} position={[-3.5,3,0]}>
+      <group rotation={[-Math.PI / 2, 0, 0]}  scale={1.75}>
        
 
        <RigidBody colliders="trimesh" ref={doorRef}>
-        <group rotation={[-Math.PI / 2, 0, 0]} position={[-0.435, 0.25, 0.1]}>
+        <group  position={[-0.435, 0.25, 0.1]}>
           <mesh geometry={nodes.Plane001_Glossy_0.geometry} material={materials.Glossy} />
           <mesh geometry={nodes.Plane001_Door_0.geometry} material={materials.Door} />
           <mesh geometry={nodes.Plane003_Door_0.geometry} material={materials.Door} position={[0.852, 0.017, 0.782]} />
@@ -44,7 +44,7 @@ export function Door2() {
 
 
         <RigidBody ref={frameRef} type='fixed' colliders="trimesh">
-        <mesh rotation={[-Math.PI / 2, 0, 0]} geometry={nodes.Plane002_Door_0.geometry} material={materials.Door} />
+        <mesh  geometry={nodes.Plane002_Door_0.geometry} material={materials.Door} />
         </RigidBody>
         
 

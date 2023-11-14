@@ -81,7 +81,7 @@ export const Bullet = (props: bulletProps) => {
       const euler1 = new THREE.Euler()
       euler1.setFromRotationMatrix(rotation)
       setRotationBlt(euler1)
-      const enem:number = hit[0].object.name !== "enem"? 0.05 :  0.75 
+      const enem:number = hit[0].object.name !== "enem"? 0.04 :  0.75 
 
       const decalGeometry = new DecalGeometry(
         hit[0].object, hit[0].point, euler1, new THREE.Vector3(enem,enem,enem)
@@ -108,7 +108,7 @@ export const Bullet = (props: bulletProps) => {
 
   return (
     <> 
-    <group position={positionBlt} rotation={rotationBlt}>
+    {false && <group position={positionBlt} rotation={rotationBlt}>
 <Instances>
             <sphereGeometry />
            <meshStandardMaterial   color="maroon" />
@@ -116,7 +116,7 @@ export const Bullet = (props: bulletProps) => {
           <AnimatedBox key={i} {...box} />
         ))}
 </Instances>
-</group>
+</group>}
     </>
   );
 };
