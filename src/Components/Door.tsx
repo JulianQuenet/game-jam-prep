@@ -7,26 +7,15 @@ Source: https://sketchfab.com/3d-models/door-with-frame-2f2f149f3ec44d658a02c1f9
 Title: Door with frame
 */
 
-import React, { useRef } from 'react'
+import { useRef } from 'react'
 import { Box, useGLTF } from '@react-three/drei'
-import { RigidBody, BallCollider, useRevoluteJoint, useFixedJoint } from "@react-three/rapier";
+import { RigidBody, useRevoluteJoint} from "@react-three/rapier";
 
 export function Door() {
   const { nodes, materials }:any = useGLTF('/door.glb')
-  const doorRef = useRef<any>();
   const frameRef = useRef<any>();
   const ref = useRef<any>();
 
-  // const joint = useFixedJoint(ref, doorRef, [
-  //   // Position of the joint in bodyA's local space
-  //   [0, 0, 0],
-  //   // Orientation of the joint in bodyA's local space
-  //   [1, 0, 0, 1],
-  //   // Position of the joint in bodyB's local space
-  //   [0.2, 0, 0],
-  //   // Orientation of the joint in bodyB's local space
-  //   [1, 0, 0, 1]
-  // ]);
 
   const hinge = useRevoluteJoint(frameRef, ref, [
       // Position of the joint in bodyA's local space
@@ -37,11 +26,6 @@ export function Door() {
       // the rigid-bodies it is attached to. Cannot be [0,0,0].
       [0, 1, 0]
     ])
-
-    // <RigidBody ref={frameRef} colliders="trimesh" type="fixed" position={[2,0.5,0]}>
-    //      <Box args={[0.1,0.1,0.4]} />
-    //      </RigidBody>
-
 
   return (
     <group dispose={null} position={[0,1,0]}>
@@ -65,12 +49,10 @@ export function Door() {
       </group>
 
 
-     <RigidBody ref={frameRef} type="fixed" position={[-0.91,0.5,0.155]}>
+     <RigidBody userData={{
+      joint: hinge
+     }} ref={frameRef} type="fixed" position={[-0.91,0.5,0.155]}>
       <Box args={[0.05,0.1,0.7]} />
-     </RigidBody>
-
-     <RigidBody type='fixed' position={[1,0.5,0.3]}>
-      <Box args={[0.725,0.1,0.035]} />
      </RigidBody>
 
       </group>

@@ -25,9 +25,9 @@ export const Bullet = (props: bulletProps) => {
   const [rotationBlt, setRotationBlt] = useState<any>();
   const [ number, setNumber] = useState<any>()
   const textureLoader = new THREE.TextureLoader()
-  const recoilX = (camera.position.y - 3 ) / 100
+  // const recoilX = (camera.position.y - 3 ) / 100
   const raycast = new THREE.Raycaster()
-  let recoilY = bullet.recoil *2.65
+  // let recoilY = bullet.recoil *2.65
 
 
   const AnimatedBox = (props:boxProps) => {

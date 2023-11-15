@@ -7,7 +7,7 @@ Source: https://sketchfab.com/3d-models/backrooms-another-level-429f3c9ea8024f5e
 Title: Backrooms Another Level
 */
 
-import React, { useRef } from 'react'
+// import React, { useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
 
 export function Backrooms() {

@@ -1,9 +1,9 @@
-import { useRef, useEffect, useState } from "react";
+import { useRef } from "react";
 import * as THREE from "three";
-import { Box, PointerLockControls, Sphere } from "@react-three/drei/core";
+import { PointerLockControls} from "@react-three/drei/core";
 import { useThree, useFrame } from "@react-three/fiber";
 import usePlayerControls from "./Components/inputs";
-import { RigidBody, BallCollider, useRevoluteJoint, CapsuleCollider } from "@react-three/rapier";
+import { RigidBody, CapsuleCollider } from "@react-three/rapier";
 import { Hands } from "./Components/Animatedpistol";
 
 
@@ -16,9 +16,7 @@ export const Controls = (props: controlProps)=>{
 const {shot} = props
 const playerRef = useRef<any>();
 const handsRef = useRef<any>();
-const bodyA = useRef<any>();
-const bodyB = useRef<any>();
-const { camera, scene } = useThree();
+const { camera} = useThree();
 const { forward, backward, left, right } = usePlayerControls();
 const direction = new THREE.Vector3();
 const frontVector = new THREE.Vector3();
@@ -71,17 +69,6 @@ function setHands(){
   handsRef.current.translateX(-0.065)
 }
 
-const joint = useRevoluteJoint(bodyA, bodyB, [
-  // Position of the joint in bodyA's local space
-  [0, 0, 0],
-  // Position of the joint in bodyB's local space
-  [-1, -1, 0],
-  // Axis of the joint, expressed in the local-space of
-  // the rigid-bodies it is attached to. Cannot be [0,0,0].
-  [0, 1, 0]
-])
-
-
 
 return (
     <> 
@@ -105,16 +92,6 @@ return (
       <mesh name="hands" ref={handsRef} >
         <Hands shot={shot} />
     </mesh>
-
-
-    <group>
-      <RigidBody type='fixed' ref={bodyA}  position={[-8,2,0]}>
-        <Box args={[0.5,0.5,0.5]}/>
-      </RigidBody>
-      <RigidBody ref={bodyB} > {/*Second body doesn't require position as it will be a fixed to bodyA  */}
-        <Box />
-      </RigidBody>
-    </group>
     
 
     </>

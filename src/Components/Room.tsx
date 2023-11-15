@@ -7,7 +7,7 @@ Source: https://sketchfab.com/3d-models/an-old-cheap-room-in-chinatown-9c2ec26be
 Title: An Old Cheap Room in Chinatown
 */
 
-import React, { useRef } from 'react'
+// import { useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
 import { RigidBody } from '@react-three/rapier'
 

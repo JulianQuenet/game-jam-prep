@@ -12,7 +12,7 @@ import { useGLTF, useAnimations } from '@react-three/drei'
 import usePlayerControls from './inputs'
 import { useFrame, useThree } from '@react-three/fiber';
 import * as THREE from "three";
-import { RigidBody } from '@react-three/rapier';
+
 
 interface handsProps{
   shot:any,
@@ -83,7 +83,7 @@ export function Hands(props:handsProps) {
    })
 
   useFrame(()=>{
-    const time = Date.now() * 0.0005
+    // const time = Date.now() * 0.0005
     bullPos.set(camera.position.x, camera.position.y-0.1, camera.position.z)
     if ((right || left || forward || backward) && !reloading && !fire){
        setCurrentAnim("walk")

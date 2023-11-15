@@ -7,9 +7,9 @@ Source: https://sketchfab.com/3d-models/door-with-frame-2f2f149f3ec44d658a02c1f9
 Title: Door with frame
 */
 
-import React, { useRef } from 'react'
+import { useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
-import { RigidBody, BallCollider, useRevoluteJoint } from "@react-three/rapier";
+import { RigidBody, useRevoluteJoint } from "@react-three/rapier";
 
 export function Door2() {
   const { nodes, materials }:any = useGLTF('/door.glb')
@@ -25,6 +25,9 @@ export function Door2() {
     // the rigid-bodies it is attached to. Cannot be [0,0,0].
     [0, 1, 0]
   ])
+  
+
+  
 
 
 
@@ -33,7 +36,9 @@ export function Door2() {
       <group rotation={[-Math.PI / 2, 0, 0]}  scale={1.75}>
        
 
-       <RigidBody colliders="trimesh" ref={doorRef}>
+       <RigidBody userData={{
+        joint: hinge
+       }} colliders="trimesh" ref={doorRef}>
         <group  position={[-0.435, 0.25, 0.1]}>
           <mesh geometry={nodes.Plane001_Glossy_0.geometry} material={materials.Glossy} />
           <mesh geometry={nodes.Plane001_Door_0.geometry} material={materials.Door} />
