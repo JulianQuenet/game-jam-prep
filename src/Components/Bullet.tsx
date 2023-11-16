@@ -25,9 +25,8 @@ export const Bullet = (props: bulletProps) => {
   const [rotationBlt, setRotationBlt] = useState<any>();
   const [ number, setNumber] = useState<any>()
   const textureLoader = new THREE.TextureLoader()
-  // const recoilX = (camera.position.y - 3 ) / 100
   const raycast = new THREE.Raycaster()
-  // let recoilY = bullet.recoil *2.65
+  
 
 
   const AnimatedBox = (props:boxProps) => {
@@ -61,32 +60,32 @@ export const Bullet = (props: bulletProps) => {
 
   useEffect(() => {
       
-      const pos:any = {x:0,y: 0}
+      const pos:any = {x:0,y: 0} 
       raycast.setFromCamera(pos, camera)
       const hit:any = raycast.intersectObjects(scene.children.filter((child)=>{
         return child.children.length > 1
       }))
       
-      if(hit.length ){
+      if(hit.length){
         setTimeout(() => {
           finHit(bullet.id);
       }, 500);
         const position = hit[0].point.clone()
-        const eye = position.clone()
-        eye.add(hit[0].face.normal)
+        const referencePoint = position.clone()
+        referencePoint.add(hit[0].face.normal)
        setPositionBlt(position)
        setNumber(100)
       const rotation = new THREE.Matrix4()
-      rotation.lookAt(eye, position, THREE.Object3D.DEFAULT_UP)
+      rotation.lookAt(referencePoint, position, THREE.Object3D.DEFAULT_UP)
       const euler1 = new THREE.Euler()
       euler1.setFromRotationMatrix(rotation)
       setRotationBlt(euler1)
-      const enem:number = hit[0].object.name !== "enem"? 0.04 :  0.75 
+      const enem:number = hit[0].object.name !== "enem"? 0.04 :  0.4
 
       const decalGeometry = new DecalGeometry(
         hit[0].object, hit[0].point, euler1, new THREE.Vector3(enem,enem,enem)
       )
-      const texture = hit[0].object.name !== "enem"? 'bullet.png'  : 'splat.png'
+      const texture = hit[0].object.name !== "enem"? 'bullet.png'  : 'OIP.jpeg'
       
       const decalMat = new THREE.MeshStandardMaterial({
         color: 0xffffff,
@@ -111,7 +110,7 @@ export const Bullet = (props: bulletProps) => {
     {false && <group position={positionBlt} rotation={rotationBlt}>
 <Instances>
             <sphereGeometry />
-           <meshStandardMaterial   color="maroon" />
+           <meshStandardMaterial   color="black" />
            {boxes.map((box, i) => (
           <AnimatedBox key={i} {...box} />
         ))}

@@ -3,10 +3,9 @@ import { RigidBody } from "@react-three/rapier";
 import { useEffect, useState, useRef } from "react";
 import { Bullet } from "./Components/Bullet";
 import { Backrooms } from "./Components/Backrooms_another_level";
-import { Room } from "./Components/Room";
-import { Door } from "./Components/Door";
+import { Room } from "./Components/Room"
 import { Door1 } from "./Components/Door_new";
-import { Door2 } from "./Components/Door1";
+import { Targets } from "./Components/Gun_targets";
 import * as THREE from "three"
 
 
@@ -40,7 +39,7 @@ export const Scene = (props:sceneProps)=> {
        <RigidBody type="fixed" userData={{
          child: floor.current
        }}>
-        <Box name="floor" ref={floor} receiveShadow position={[0,0,0]} args={[25,2,25]}>
+        <Box name="floor" ref={floor} receiveShadow position={[0,0,0]} args={[25,2,65]}>
         <meshStandardMaterial color={"lightgrey"} />
        </Box>
        </RigidBody>
@@ -57,9 +56,13 @@ export const Scene = (props:sceneProps)=> {
        
         {/* <Room /> */}
       
-       <Door />
        <Door1 />
-       <Door2 />
+
+
+      <RigidBody colliders="trimesh" type="fixed">
+      <Targets />
+      </RigidBody>
+       
        </> 
     )
 }

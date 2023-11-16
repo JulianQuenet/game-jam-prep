@@ -7,6 +7,7 @@ import { RigidBody, CapsuleCollider } from "@react-three/rapier";
 import { Hands } from "./Components/Animatedpistol";
 
 
+
 interface controlProps {
   shot:any,
 }
@@ -50,7 +51,7 @@ useFrame(()=>{
         }
         
         playerRef.current.setLinvel(
-          { x: direction.x, y: -3, z: direction.z },
+          { x: direction.x, y: -1, z: direction.z },
           true
         );
 
@@ -77,7 +78,7 @@ return (
         
         lockRotations
         colliders={false}
-        position={[5, 2, 5]}
+        position={[5, 2.5, 5]}
         ref={playerRef}
         userData={{
           type:"player",
@@ -93,7 +94,7 @@ return (
         <Hands shot={shot} />
     </mesh>
     
-
+  
     </>
    
 )
