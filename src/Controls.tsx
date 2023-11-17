@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import * as THREE from "three";
-import { PointerLockControls} from "@react-three/drei/core";
+import { Box, PointerLockControls} from "@react-three/drei/core";
 import { useThree, useFrame } from "@react-three/fiber";
 import usePlayerControls from "./Components/inputs";
 import { RigidBody, CapsuleCollider } from "@react-three/rapier";
@@ -15,6 +15,7 @@ interface controlProps {
 
 export const Controls = (props: controlProps)=>{
 const {shot} = props
+const ceilingRef = useRef<any>();
 const playerRef = useRef<any>();
 const handsRef = useRef<any>();
 const { camera} = useThree();
@@ -62,12 +63,12 @@ useFrame(()=>{
 })
 
 function setHands(){
-  const time = Date.now() * 0.00035;
+  if(handsRef.current){const time = Date.now() * 0.00035;
   handsRef.current.rotation.copy(camera.rotation)
   handsRef.current.position.copy(camera.position)
   handsRef.current.translateY(-0.225 + Math.sin(time * 5.5) * 0.0095 )
   handsRef.current.translateZ(-0.0975)
-  handsRef.current.translateX(-0.065)
+  handsRef.current.translateX(-0.065)}
 }
 
 
@@ -75,10 +76,11 @@ return (
     <> 
     <PointerLockControls camera={camera}/>
     <RigidBody
-        
+        friction={0}
         lockRotations
         colliders={false}
         position={[5, 2.5, 5]}
+        gravityScale={0}
         ref={playerRef}
         userData={{
           type:"player",
@@ -89,10 +91,18 @@ return (
         <CapsuleCollider  args={[0.5, 0.7]} >
         </CapsuleCollider>
       </RigidBody>
+
+      <Box position={[0,9,0]} ref={ceilingRef}>
+        <meshStandardMaterial color={"red"}/>
+      </Box>
+
+      <spotLight position={[0,2,0]} intensity={10} penumbra={0.2}/>
+      <spotLight target={ceilingRef.current} position={[0,2,0]} intensity={10} penumbra={0.8}/>
+      <spotLight position={[0,8,0]} intensity={35} penumbra={0.1} angle={1.5}/>
     
-      <mesh name="hands" ref={handsRef} >
+      { false && <mesh name="hands" ref={handsRef} >
         <Hands shot={shot} />
-    </mesh>
+    </mesh>}
     
   
     </>

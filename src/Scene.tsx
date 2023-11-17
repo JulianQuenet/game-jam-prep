@@ -39,7 +39,7 @@ export const Scene = (props:sceneProps)=> {
        <RigidBody type="fixed" userData={{
          child: floor.current
        }}>
-        <Box name="floor" ref={floor} receiveShadow position={[0,0,0]} args={[25,2,65]}>
+        <Box name="floor" ref={floor} receiveShadow position={[0,0,0]} args={[25,0,65]}>
         <meshStandardMaterial color={"lightgrey"} />
        </Box>
        </RigidBody>
@@ -54,14 +54,14 @@ export const Scene = (props:sceneProps)=> {
       
        </RigidBody>}
        
-        {/* <Room /> */}
+        <Room />
       
-       <Door1 />
+       {/* <Door1 /> */}
 
 
-      <RigidBody colliders="trimesh" type="fixed">
+      {/* <RigidBody colliders="trimesh" type="fixed">
       <Targets />
-      </RigidBody>
+      </RigidBody> */}
        
        </> 
     )
