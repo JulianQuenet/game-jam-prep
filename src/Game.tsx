@@ -19,7 +19,7 @@ const onFire = (bullet:any) => {
   return(
     <>
     <Canvas frameloop='demand' shadows camera={{ fov: 50, position: [5, 3, 2] }}>
-      {/* <ambientLight intensity={0.1}/> */}
+      <ambientLight intensity={0.1}/>
       {/* <fog attach="fog" args={["0xDFE9F3", 0.0, 25]}/> */}
     {false && <directionalLight
         position={[10, 10, 5]}
@@ -28,7 +28,7 @@ const onFire = (bullet:any) => {
       />}
     <color attach="background" args={["lightblue"]} />
     <Suspense>
-    <Physics updateLoop="independent"  >
+    <Physics updateLoop="independent"  debug>
      <Scene projectiles={bullets} finHit={finHit}/>
      <Controls shot={onFire} />
     </Physics>

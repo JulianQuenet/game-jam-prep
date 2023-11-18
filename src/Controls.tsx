@@ -5,7 +5,7 @@ import { useThree, useFrame } from "@react-three/fiber";
 import usePlayerControls from "./Components/inputs";
 import { RigidBody, CapsuleCollider } from "@react-three/rapier";
 import { Hands } from "./Components/Animatedpistol";
-
+import { CeilingLight } from "./Components/Ceiling_light_with_chain";
 
 
 interface controlProps {
@@ -15,9 +15,12 @@ interface controlProps {
 
 export const Controls = (props: controlProps)=>{
 const {shot} = props
-const ceilingRef = useRef<any>();
+const flashRef = useRef<any>();
 const playerRef = useRef<any>();
 const handsRef = useRef<any>();
+const lightRef1 = useRef<any>()
+const lightRef2 = useRef<any>()
+const lightRef3 = useRef<any>()
 const { camera} = useThree();
 const { forward, backward, left, right } = usePlayerControls();
 const direction = new THREE.Vector3();
@@ -29,6 +32,7 @@ const SPEED = 6.125
 
 useFrame(()=>{
   // Player movement base on camera direction/rotation
+  const time = Date.now() * 0.0005;
   frontVector.set(0, 0, Number(backward) - Number(forward));
   sideVector.set(Number(left) - Number(right), 0, 0);
   direction
@@ -38,7 +42,7 @@ useFrame(()=>{
     .applyEuler(camera.rotation);
 
     if (playerRef.current) {
-        const time = Date.now() * 0.0005;
+       
         const position = playerRef.current.translation();
         // Setting camera position and creating walking/breathing affect
         camera.position.x = position.x;
@@ -59,6 +63,20 @@ useFrame(()=>{
        
         }
        setHands()
+
+       if(flashRef.current && lightRef2.current){
+        flashRef.current.position.x = 1
+        flashRef.current.position.z = 0
+        //First main light
+        lightRef1.current.intensity = 12.5;
+        lightRef1.current.angle = 1.95;
+        lightRef1.current.distance = 25;
+        lightRef1.current.penumbra = 0.8;
+        flashRef.current.add(lightRef1.current);
+        flashRef.current.add(lightRef1.current.target);
+        //Backflash of light
+        lightRef2.current.target = flashRef.current
+       }
        
 })
 
@@ -74,6 +92,8 @@ function setHands(){
 
 return (
     <> 
+    <spotLight ref={lightRef1}/>
+    <spotLight intensity={10} penumbra={0.8} ref={lightRef2}/>
     <PointerLockControls camera={camera}/>
     <RigidBody
         friction={0}
@@ -92,17 +112,21 @@ return (
         </CapsuleCollider>
       </RigidBody>
 
-      <Box position={[0,9,0]} ref={ceilingRef}>
-        <meshStandardMaterial color={"red"}/>
-      </Box>
+      <mesh ref={flashRef} >
+    <CeilingLight />
+    </mesh>
 
-      <spotLight position={[0,2,0]} intensity={10} penumbra={0.2}/>
-      <spotLight target={ceilingRef.current} position={[0,2,0]} intensity={10} penumbra={0.8}/>
-      <spotLight position={[0,8,0]} intensity={35} penumbra={0.1} angle={1.5}/>
+      
+      
+      <spotLight  intensity={35} penumbra={0.1} angle={1.5} ref={lightRef3}/>
     
       { false && <mesh name="hands" ref={handsRef} >
         <Hands shot={shot} />
-    </mesh>}
+    </mesh>
+    }
+    
+
+   
     
   
     </>
