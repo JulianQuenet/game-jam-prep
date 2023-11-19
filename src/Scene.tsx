@@ -4,8 +4,6 @@ import { useEffect, useState, useRef } from "react";
 import { Bullet } from "./Components/Bullet";
 import { Backrooms } from "./Components/Backrooms_another_level";
 import { Room } from "./Components/Room"
-import { Door1 } from "./Components/Door_new";
-import { Targets } from "./Components/Gun_targets";
 import * as THREE from "three"
 
 
@@ -55,13 +53,6 @@ export const Scene = (props:sceneProps)=> {
        </RigidBody>}
        
         <Room />
-      
-       {/* <Door1 /> */}
-
-
-      {/* <RigidBody colliders="trimesh" type="fixed">
-      <Targets />
-      </RigidBody> */}
        
        </> 
     )

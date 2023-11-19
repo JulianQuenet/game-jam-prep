@@ -7,12 +7,104 @@ Source: https://sketchfab.com/3d-models/an-old-cheap-room-in-chinatown-9c2ec26be
 Title: An Old Cheap Room in Chinatown
 */
 
-// import { useRef } from 'react'
+import { useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
-import { RigidBody } from '@react-three/rapier'
+import { RigidBody, useRevoluteJoint } from '@react-three/rapier'
+
 
 export function Room() {
   const { nodes, materials }:any = useGLTF('/room.glb')
+  
+  function DoorBack(){
+    const frameRef = useRef<any>()
+    const doorRef = useRef<any>()
+    const hinge = useRevoluteJoint(frameRef, doorRef, [
+      // Position of the joint in bodyA's local space
+      [0, 0, 0],
+      // Position of the joint in bodyB's local space
+      [0, 0, 0],
+      // Axis of the joint, expressed in the local-space of
+      // the rigid-bodies it is attached to. Cannot be [0,0,0].
+      [0, 1, 0]
+    ])
+
+    return(
+      <group  scale={[1, 1.1, 1.07]}>
+      <RigidBody colliders="trimesh" ref={doorRef}>
+      <group rotation={[-Math.PI / 2, 0, 0]} position={[0.002, 0.004, 0]} scale={0.985}>
+      <mesh geometry={nodes.Plane001_Door_0.geometry} material={materials['Door.006']} position={[0.008, 0, -0.832]} />
+          <mesh geometry={nodes.Plane001_Glossy_0.geometry} material={materials['Glossy.004']} position={[0.008, 0, -0.832]} />
+          <mesh geometry={nodes.Circle002_Glossy_0.geometry} material={materials['Glossy.004']} position={[0.818, 0.043, -0.029]} />
+          <mesh geometry={nodes.Plane003_Door_0.geometry} material={materials['Door.006']} position={[0.86, 0.017, -0.05]} />
+      </group>
+      </RigidBody>
+      <RigidBody type="fixed" colliders="trimesh" ref={frameRef}>
+      <mesh rotation={[-Math.PI / 2, 0, 0]} geometry={nodes.Plane002_Door_0002.geometry} material={materials['Door.002']} position={[-0.02, 0.005, 0]} />
+      </RigidBody>
+    </group>
+    )
+  }
+
+  function DoorFront(){
+    const frameRef = useRef<any>()
+    const doorRef = useRef<any>()
+    const hinge = useRevoluteJoint(frameRef, doorRef, [
+      // Position of the joint in bodyA's local space
+      [0, 0, 0],
+      // Position of the joint in bodyB's local space
+      [0, 0, 0],
+      // Axis of the joint, expressed in the local-space of
+      // the rigid-bodies it is attached to. Cannot be [0,0,0].
+      [0, 1, 0]
+    ])
+
+    return(
+      <group scale={[1.11, 1.1, 1.14]}>
+        <RigidBody colliders="trimesh" ref={doorRef}>
+      <group rotation={[-Math.PI / 2, 0, 0]} position={[0.002, 0.004, 0]} scale={0.985}>
+        <mesh geometry={nodes.Plane001_Door_0001.geometry} material={materials['Door.001']} position={[0.008, 0, -0.832]} />
+        <mesh geometry={nodes.Plane001_Glossy_0001.geometry} material={materials['Glossy.001']} position={[0.008, 0, -0.832]} />
+        <mesh geometry={nodes.Circle002_Glossy_0001.geometry} material={materials['Glossy.001']} position={[0.818, 0.043, -0.029]} />
+        <mesh geometry={nodes.Plane003_Door_0001.geometry} material={materials['Door.001']} position={[0.86, 0.017, -0.05]} />
+      </group>
+      </RigidBody>
+     <RigidBody type='fixed' colliders="trimesh" ref={frameRef}>
+      <mesh rotation={[-Math.PI / 2, 0, 0]} geometry={nodes.Plane002_Door_0001.geometry} material={materials['Door.001']} position={[-0.02, 0.005, 0]} />
+      </RigidBody>
+    </group>
+    )
+  }
+
+  function DoorBathroom(){
+    const frameRef = useRef<any>()
+    const doorRef = useRef<any>()
+    const hinge = useRevoluteJoint(frameRef, doorRef, [
+      // Position of the joint in bodyA's local space
+      [0, 0, 0],
+      // Position of the joint in bodyB's local space
+      [0, 0, 0],
+      // Axis of the joint, expressed in the local-space of
+      // the rigid-bodies it is attached to. Cannot be [0,0,0].
+      [0, 1, 0]
+    ])
+
+    return(
+      <group scale={[1.11, 1.1, 1.14]}>
+        <RigidBody colliders="trimesh" ref={doorRef}>
+      <group rotation={[-Math.PI / 2, 0, 0]} position={[0.002, 0.004, 0]} scale={0.985}>
+        <mesh geometry={nodes.Plane001_Door_0001.geometry} material={materials['Door.001']} position={[0.008, 0, -0.832]} />
+        <mesh geometry={nodes.Plane001_Glossy_0001.geometry} material={materials['Glossy.001']} position={[0.008, 0, -0.832]} />
+        <mesh geometry={nodes.Circle002_Glossy_0001.geometry} material={materials['Glossy.001']} position={[0.818, 0.043, -0.029]} />
+        <mesh geometry={nodes.Plane003_Door_0001.geometry} material={materials['Door.001']} position={[0.86, 0.017, -0.05]} />
+      </group>
+      </RigidBody>
+     <RigidBody type='fixed' colliders="trimesh" ref={frameRef}>
+     <mesh rotation={[-Math.PI / 2, 0, 0]} geometry={nodes.Plane002_Door_0.geometry} material={materials['Door.006']} position={[-0.02, 0.005, 0]} />
+      </RigidBody>
+    </group>
+    )
+  }
+
   return (
     <group  dispose={null} scale={2.5} position={[0,0,0]}>
       <group rotation={[-Math.PI / 2, 0, 0]} scale={86.957}>
@@ -186,36 +278,7 @@ export function Room() {
           </group>
         </group>
       </group>
-      <group position={[-2.382, 1.234, 1.481]} rotation={[-Math.PI / 2, 0, 0]} scale={[1.03, 1, 1.14]}>
-        <group position={[0.002, 0.004, 0]}>
-          <mesh geometry={nodes.Plane001_Door_0.geometry} material={materials['Door.006']} position={[0.008, 0, -0.832]} />
-          <mesh geometry={nodes.Plane001_Glossy_0.geometry} material={materials['Glossy.004']} position={[0.008, 0, -0.832]} />
-          <mesh geometry={nodes.Circle002_Glossy_0.geometry} material={materials['Glossy.004']} position={[0.818, 0.043, -0.029]} />
-          <mesh geometry={nodes.Plane003_Door_0.geometry} material={materials['Door.006']} position={[0.86, 0.017, -0.05]} />
-        </group>
-        <mesh geometry={nodes.Plane002_Door_0.geometry} material={materials['Door.006']} position={[-0.02, 0.005, 0]} />
-        <mesh geometry={nodes.Plane002_Glossy_0.geometry} material={materials['Glossy.004']} position={[0.445, 0.105, -1.081]} />
-      </group>
-      <group position={[-4.045, 1.227, -0.435]} rotation={[-Math.PI / 2, 0, -Math.PI / 2]} scale={[1.11, 1, 1.14]}>
-        <group position={[0.002, 0.004, 0]}>
-          <mesh geometry={nodes.Plane001_Door_0001.geometry} material={materials['Door.001']} position={[0.008, 0, -0.832]} />
-          <mesh geometry={nodes.Plane001_Glossy_0001.geometry} material={materials['Glossy.001']} position={[0.008, 0, -0.832]} />
-          <mesh geometry={nodes.Circle002_Glossy_0001.geometry} material={materials['Glossy.001']} position={[0.818, 0.043, -0.029]} />
-          <mesh geometry={nodes.Plane003_Door_0001.geometry} material={materials['Door.001']} position={[0.86, 0.017, -0.05]} />
-        </group>
-        <mesh geometry={nodes.Plane002_Door_0001.geometry} material={materials['Door.001']} position={[-0.02, 0.005, 0]} />
-        <mesh geometry={nodes.Plane002_Glossy_0001.geometry} material={materials['Glossy.001']} position={[0.445, 0.105, -1.081]} />
-      </group>
-      <group position={[-2.999, 1.16, -2.025]} rotation={[-Math.PI / 2, 0, Math.PI]} scale={[1, 1, 1.07]}>
-        <group position={[0.002, 0.004, 0]}>
-          <mesh geometry={nodes.Plane001_Door_0002.geometry} material={materials['Door.002']} position={[0.008, 0, -0.832]} />
-          <mesh geometry={nodes.Plane001_Glossy_0002.geometry} material={materials['Glossy.002']} position={[0.008, 0, -0.832]} />
-          <mesh geometry={nodes.Circle002_Glossy_0002.geometry} material={materials['Glossy.002']} position={[0.818, 0.043, -0.029]} />
-          <mesh geometry={nodes.Plane003_Door_0002.geometry} material={materials['Door.002']} position={[0.86, 0.017, -0.05]} />
-        </group>
-        <mesh geometry={nodes.Plane002_Door_0002.geometry} material={materials['Door.002']} position={[-0.02, 0.005, 0]} />
-        <mesh geometry={nodes.Plane002_Glossy_0002.geometry} material={materials['Glossy.002']} position={[0.445, 0.105, -1.081]} />
-      </group>
+      
       <group position={[-2.555, 2.858, 2.107]} rotation={[-Math.PI / 2, 0, 0]} scale={0.05}>
         <group scale={[3.471, 3.471, 3.205]}>
           <group position={[0, 0, -2.098]} rotation={[Math.PI, 0, 0]} scale={[0.17, 0.17, 0.184]}>
@@ -227,6 +290,19 @@ export function Room() {
           <mesh geometry={nodes.Ceiling_Light_1.geometry} material={materials.Metal_Material} />
         </group>
       </group>
+     
+     <mesh position={[-2.999, 1.1655, -2.025]} rotation={[0, Math.PI, 0]}>
+      <DoorBack />
+      </mesh>
+      
+      <mesh position={[-4, 1.227, -0.435]} rotation={[0, -Math.PI / 2, 0]}>
+        <DoorFront />
+      </mesh>
+
+      <mesh position={[-2.382, 1.234, 1.481]}>
+       <DoorBathroom />
+      </mesh>
+
     </group>
   )
 }

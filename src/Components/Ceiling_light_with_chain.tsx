@@ -7,14 +7,53 @@ Source: https://sketchfab.com/3d-models/ceiling-light-with-chain-7467af164bd64d0
 Title: Ceiling Light with Chain
 */
 
-import React, { useRef } from 'react'
+import { useRef } from 'react'
 import { Box, useGLTF } from '@react-three/drei'
-import { RigidBody } from '@react-three/rapier'
+import {  useFrame } from "@react-three/fiber";
 
 export function CeilingLight() {
   const { nodes, materials }:any = useGLTF('/ceiling_light_with_chain.glb')
+  const ref = useRef<any>()
+  const light1 = useRef<any>()
+  const light2 = useRef<any>()
+  const light3 = useRef<any>()
+ 
+
+  useFrame(()=>{
+    const time = Date.now() * 0.0005;
+    if(ref.current && light3.current){
+      ref.current.rotation.z = 0 + Math.sin(time * 1.7) * 0.075
+      //Main light
+      ref.current.add(light1.current)
+      ref.current.add(light1.current.target)
+      light1.current.intensity = 45
+      light1.current.angle = 0.75
+      light1.current.penumbra = 0.25
+      //Ambient light
+      ref.current.add(light2.current)
+      ref.current.add(light2.current.target)
+      light2.current.angle = 1.55
+      light2.current.intensity = 30
+      light2.current.penumbra = 0.3
+      light2.current.decay = 2.2
+      //Back flash
+      light3.current.position.x = 1 + Math.sin(time * 1.7) * 0.25
+    }
+  })
+
+
+
   return (
-    <group dispose={null} position={[0,7,0]}  scale={0.135}>
+    <>
+    <spotLight ref={light1} name='main'/>
+    <spotLight ref={light2} name="ambient"/>
+    <spotLight angle={1.2} intensity={10} penumbra={0.8} position={[1,2,0]} target={light3.current}  name="backflash"/>
+    
+    <Box position={[1,9,0]} ref={light3}>
+      <meshStandardMaterial color="red"/>
+    </Box>
+
+    <group dispose={null} position={[1,7,-0.05]}  scale={0.135} ref={ref}>
       <group rotation={[-Math.PI / 2, 0, 0]}>
         <group scale={[3.471, 3.471, 3.205]}>
           <group position={[0, 0, -2.098]} rotation={[-Math.PI, 0, 0]} scale={[0.17, 0.17, 0.184]}>
@@ -27,6 +66,7 @@ export function CeilingLight() {
         </group>
       </group>
     </group>
+    </>
   )
 }
 
