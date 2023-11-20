@@ -4,6 +4,7 @@ import { Physics } from "@react-three/rapier";
 import { Controls } from "./Controls";
 import Scene from './Scene';
 import { Stars } from '@react-three/drei';
+import './index.css'
 
 function Game() {
   const [bullets, setBullets] = useState<any>([])
@@ -16,6 +17,15 @@ const onFire = (bullet:any) => {
  const finHit = (hitId:any) => {
     setBullets((hits:any) => hits.filter((h:any) => h.id !== hitId));
   };
+
+
+  function Text(){
+    return(
+      <div className='menu'> 
+        <p>.</p>
+      </div>
+    )
+  }
 
   return(
     <>
@@ -36,6 +46,7 @@ const onFire = (bullet:any) => {
     </Suspense>
     <Stars />
     </Canvas>
+    <Text />
     </>
   )
   

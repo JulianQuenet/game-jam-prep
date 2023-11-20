@@ -9,7 +9,7 @@ Title: Ceiling Light with Chain
 
 import { useRef } from 'react'
 import { Box, useGLTF } from '@react-three/drei'
-import {  useFrame } from "@react-three/fiber";
+import {  useFrame, useThree } from "@react-three/fiber";
 
 export function CeilingLight() {
   const { nodes, materials }:any = useGLTF('/ceiling_light_with_chain.glb')
@@ -17,7 +17,7 @@ export function CeilingLight() {
   const light1 = useRef<any>()
   const light2 = useRef<any>()
   const light3 = useRef<any>()
- 
+  const {camera} = useThree()
 
   useFrame(()=>{
     const time = Date.now() * 0.0005;
@@ -41,6 +41,15 @@ export function CeilingLight() {
     }
   })
 
+// Will you this function later for interactions
+  function onHover(){
+    if(ref.current){
+      const position = ref.current.position
+      const distance = position.distanceTo(camera.position)
+      console.log(distance)
+    }
+  }
+
 
 
   return (
@@ -53,11 +62,11 @@ export function CeilingLight() {
       <meshStandardMaterial color="red"/>
     </Box>
 
-    <group dispose={null} position={[1,7,-0.05]}  scale={0.135} ref={ref}>
+    <group dispose={null} position={[1,7,-0.05]}  scale={0.135} ref={ref} onPointerOver={onHover}>
       <group rotation={[-Math.PI / 2, 0, 0]}>
         <group scale={[3.471, 3.471, 3.205]}>
-          <group position={[0, 0, -2.098]} rotation={[-Math.PI, 0, 0]} scale={[0.17, 0.17, 0.184]}>
-            <mesh geometry={nodes.Light_Bulb_0.geometry} material={materials['Metal_Material.001']} />
+          <group position={[0, 0, -2.098]} rotation={[-Math.PI, 0, 0]} scale={[0.17, 0.17, 0.184]} >
+            <mesh  geometry={nodes.Light_Bulb_0.geometry} material={materials['Metal_Material.001']} />
             <mesh geometry={nodes.Light_Bulb_1.geometry} material={materials.Emmision_Material} />
             <mesh geometry={nodes.Light_Bulb_2.geometry} material={materials.Light_Bulb_Glass_Material} />
           </group>
