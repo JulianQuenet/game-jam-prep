@@ -16,18 +16,47 @@ height: 100vh;
 }
 
 .menu{
+  backdrop-filter: blur(4px);
   position: fixed;
   left: 0;
   top: 0;
   width: 100vw;
   height: 100vh;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
   color: white;
-  background-color: rgba(0, 255, 255, 0);
+  background-color: rgba(0, 0, 0, 0.411);
   z-index: 1000;
   margin: 0 auto;
+  font-family: monospace;
+}
+
+.holder{
+  background-color: rgba(0, 0, 0, 0.575);
+  border-radius: 10px;
+  padding: 10px;
+} 
+
+.holder input{
+  margin: 3.5px;
+  background:  rgba(0, 0, 0, 0.575);
+  border: none;
+  outline: none;
+  color: white;
+  text-align: center;
+  font-size: small;
+  padding: 5px;
+  margin-bottom: 5px;
+}
+
+.buttons-holder{
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.button{
+  background-color: red;
 }
 

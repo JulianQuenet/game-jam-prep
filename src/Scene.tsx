@@ -29,7 +29,7 @@ export const Scene = (props:sceneProps)=> {
    
    }, [projectiles])
    
-   const textureLoader = new THREE.TextureLoader()
+   
 
     return (
        <>
@@ -38,7 +38,7 @@ export const Scene = (props:sceneProps)=> {
          child: floor.current
        }}>
         <Box name="floor" ref={floor} receiveShadow position={[0,0,0]} args={[25,0,65]}>
-        <meshStandardMaterial color={"lightgrey"} />
+        <meshStandardMaterial color={"blue"} />
        </Box>
        </RigidBody>
 
@@ -52,7 +52,7 @@ export const Scene = (props:sceneProps)=> {
       
        </RigidBody>}
        
-        <Room />
+       { false && <Room />}
        
        </> 
     )

@@ -41,7 +41,7 @@ export function CeilingLight() {
     }
   })
 
-// Will you this function later for interactions
+// Will use this function later for interactions in other component, currentlty testing
   function onHover(){
     if(ref.current){
       const position = ref.current.position
