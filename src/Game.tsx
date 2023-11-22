@@ -69,7 +69,7 @@ const onFire = (bullet:any) => {
   return(
     <>
     <Canvas frameloop='demand' shadows camera={{ fov: 50, position: [5, 3, 2] }}>
-      <ambientLight intensity={0.5}/>
+{/*       <ambientLight intensity={0.5}/> */}
       {/* <fog attach="fog" args={["0xDFE9F3", 0.0, 25]}/> */}
     {/* <directionalLight
         position={[0, 5, 0]}

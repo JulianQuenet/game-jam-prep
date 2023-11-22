@@ -52,7 +52,7 @@ export const Scene = (props:sceneProps)=> {
       
        </RigidBody>}
        
-       { false && <Room />}
+       <Room />
        
        </> 
     )
