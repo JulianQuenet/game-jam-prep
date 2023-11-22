@@ -10,6 +10,7 @@ import './index.css'
 
 function Game() {
   const [bullets, setBullets] = useState<any>([])
+  const [show, setShow] = useState<Boolean>(true)
 
 const onFire = (bullet:any) => {
     setBullets((bullets:any) => [...bullets, bullet]);
@@ -29,6 +30,8 @@ const onFire = (bullet:any) => {
         if(code.toString() === "2265"){
           console.log("Unlocked")
         }
+      }else if(e.code === "Space"){
+       setShow(false)
       }
     }
 
@@ -82,7 +85,7 @@ const onFire = (bullet:any) => {
     </Suspense>
     <Stars />
     </Canvas>
-    <Menu />
+    {show && <Menu />}
     </>
   )
   
