@@ -41,14 +41,7 @@ export function CeilingLight() {
     }
   })
 
-// Will use this function later for interactions in other component, currentlty testing
-  function onHover(){
-    if(ref.current){
-      const position = ref.current.position
-      const distance = position.distanceTo(camera.position)
-      console.log(distance)
-    }
-  }
+
 
 
 
@@ -62,7 +55,7 @@ export function CeilingLight() {
       <meshStandardMaterial color="red"/>
     </Box>
 
-    <group dispose={null} position={[1,7,-0.05]}  scale={0.135} ref={ref} onPointerOver={onHover}>
+    <group dispose={null} position={[1,7,-0.05]}  scale={0.135} ref={ref}>
       <group rotation={[-Math.PI / 2, 0, 0]}>
         <group scale={[3.471, 3.471, 3.205]}>
           <group position={[0, 0, -2.098]} rotation={[-Math.PI, 0, 0]} scale={[0.17, 0.17, 0.184]} >
@@ -80,3 +73,13 @@ export function CeilingLight() {
 }
 
 useGLTF.preload('/ceiling_light_with_chain.glb')
+
+
+// Will use this function later for interactions in other component, currentlty testing
+  // function onHover(){
+  //   if(ref.current){
+  //     const position = ref.current.position
+  //     const distance = position.distanceTo(camera.position)
+  //     console.log(distance)
+  //   }
+  // }
