@@ -34,13 +34,13 @@ export const Scene = (props:sceneProps)=> {
     return (
        <>
        
-       <RigidBody type="fixed" userData={{
-         child: floor.current
-       }}>
-        <Box name="floor" ref={floor} receiveShadow position={[0,0,0]} args={[25,0,65]}>
-        <meshStandardMaterial color={"blue"} />
-       </Box>
-       </RigidBody>
+         {/* <RigidBody type="fixed" userData={{
+            child: floor.current
+         }}>
+         <Box name="floor" ref={floor} receiveShadow position={[0,0,0]} args={[25,0,65]}>
+         <meshStandardMaterial color={"blue"} />
+         </Box>
+         </RigidBody> */}
 
        {fired && projectiles.map((projectile:any)=>(
           <Bullet setObj={setHitObject} key={projectile.id} bullet={projectile} finHit={finHit}/>

@@ -10,7 +10,7 @@ import './index.css'
 
 function Game() {
   const [bullets, setBullets] = useState<any>([])
-  const [show, setShow] = useState<Boolean>(true)
+  const [show, setShow] = useState<Boolean>(false)
 
 const onFire = (bullet:any) => {
     setBullets((bullets:any) => [...bullets, bullet]);
@@ -76,9 +76,9 @@ const onFire = (bullet:any) => {
         castShadow
         shadow-mapSize={1024}
       /> */}
-    <color attach="background" args={["lightblue"]} />
+    <color attach="background" args={["black"]} />
     <Suspense>
-    <Physics updateLoop="independent" debug>
+    <Physics updateLoop="independent" >
      <Scene projectiles={bullets} finHit={finHit}/>
      <Controls shot={onFire} />
     </Physics>
