@@ -10,7 +10,8 @@ Title: Ceiling Light with Chain
 import { useRef } from 'react'
 import { Box, useGLTF } from '@react-three/drei'
 import {  useFrame } from "@react-three/fiber";
-import { light } from '@mui/material/styles/createPalette';
+
+
 
 export function CeilingLight() {
   const { nodes, materials }:any = useGLTF('/ceiling_light_with_chain.glb')
@@ -18,42 +19,37 @@ export function CeilingLight() {
   const light1 = useRef<any>()
   const light2 = useRef<any>()
   const light3 = useRef<any>()
-
+ 
   useFrame(()=>{
-   const time = Date.now() * 0.0005
-
-   if(ceilingLampRef.current && light1.current){
-    ceilingLampRef.current.rotation.z = 0 + Math.sin(time * 1.7) * 0.075
-   //Main
-   ceilingLampRef.current.add(light1.current)
-   ceilingLampRef.current.add(light1.current.target)
-   light1.current.intensity = 45
-   light1.current.angle = 0.75
-   light1.current.penumbra = 0.25
-   //Ambient
-   ceilingLampRef.current.add(light2.current)
-   ceilingLampRef.current.add(light2.current.target)
-   light2.current.intensity = 20
-   light2.current.angle = 1.55
-   light2.current.penumbra = 0.30
-   //Backflash
-   light3.current.position.x = 1 + Math.sin(time * 1.7) * 0.25
-   }
-   
-
+    const time = Date.now() * 0.0005
+    if(ceilingLampRef.current){
+      //Sway of lamp
+      ceilingLampRef.current.rotation.z = 0 + Math.sin(time * 1.7) * 0.075
+      //Main light 
+      ceilingLampRef.current.add(light1.current)
+      ceilingLampRef.current.add(light1.current.target)
+      light1.current.intensity = 45
+      light1.current.angle = 0.75
+      light1.current.penumbra = 0.25
+      //Ambient
+      ceilingLampRef.current.add(light2.current)
+      ceilingLampRef.current.add(light2.current.target)
+      light2.current.intensity = 30
+      light2.current.angle = 1.55
+      light2.current.penumbra = 0.3
+      //Back light
+      light3.current.position.x = 1 + Math.sin(time * 1.7) * 0.25
+    }
   })
-
-
-
 
 
   return (
     <>
-   <spotLight name='main' ref={light1} />
-   <spotLight name='ambient' ref={light2}/>
-   <spotLight intensity={10} angle={1.2} penumbra={0.8} decay={2.2} target={light3.current} name='backflash' />
+   <spotLight ref={light1} name='Main' />
+   <spotLight ref={light2} name='Ambient' />
+   <spotLight intensity={10} angle={1.2} penumbra={0.8} decay={2.2} position={[1,0,0]} target={light3.current} name='Ambient' />
 
-    <Box position={[1,9,0]} ref={light3}>
+   <Box position={[1,9,0]} ref={light3}>
      <meshStandardMaterial color="red"/>
      </Box>
 
@@ -86,4 +82,6 @@ useGLTF.preload('/ceiling_light_with_chain.glb')
   //   }
   // }
 
+
+  
  
