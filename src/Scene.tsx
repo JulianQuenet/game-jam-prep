@@ -12,10 +12,12 @@ import * as THREE from "three"
 interface sceneProps {
     projectiles:any,
     finHit : (hitId: any) => void
+    setShow : any
+    openSafe : Boolean
 }
 
 export const Scene = (props:sceneProps)=> {
-   const {projectiles, finHit} = props
+   const {projectiles, finHit, setShow, openSafe} = props
    const [fired, setFired] = useState<Boolean>(false)
    const [hitObject, setHitObject] = useState<any>({})
 
@@ -45,7 +47,7 @@ export const Scene = (props:sceneProps)=> {
        
       <Room />
 
-      <Safe />
+      <Safe setShow={setShow} openSafe={openSafe}/>
        
        </> 
     )

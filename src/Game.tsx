@@ -11,6 +11,8 @@ import './index.css'
 function Game() {
   const [bullets, setBullets] = useState<any>([])
   const [show, setShow] = useState<Boolean>(false)
+  const [openSafe, setOpenSafe] = useState<Boolean>(false)
+  const [deja, setDeja] = useState<Boolean>(false)
 
 const onFire = (bullet:any) => {
     setBullets((bullets:any) => [...bullets, bullet]);
@@ -26,9 +28,13 @@ const onFire = (bullet:any) => {
     const [code, setCode] = useState<any>("")
     function Submit(e:any){
       if(e.code === "Enter"){
-        e.preventDefault
         if(code.toString() === "2265"){
-          console.log("Unlocked")
+          setShow(false)
+          setOpenSafe(true)
+          setTimeout(()=>{
+          setOpenSafe(false)
+          }, 500)
+          setDeja(true)
         }
       }else if(e.code === "Space"){
        setShow(false)
@@ -79,13 +85,13 @@ const onFire = (bullet:any) => {
     <color attach="background" args={["black"]} />
     <Suspense>
     <Physics updateLoop="independent"  >
-     <Scene projectiles={bullets} finHit={finHit}/>
-     <Controls shot={onFire} />
+     <Scene projectiles={bullets} finHit={finHit} setShow={setShow} openSafe={openSafe}/>
+     <Controls shot={onFire} show={show} deja={deja}/>
     </Physics>
     </Suspense>
     <Stars />
     </Canvas>
-    {show && <Menu />}
+    {(show && !deja) && <Menu />}
     </>
   )
   

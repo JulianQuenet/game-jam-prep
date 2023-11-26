@@ -10,11 +10,13 @@ import { CeilingLight } from "./Components/Ceiling_light_with_chain";
 
 interface controlProps {
   shot:any,
+  show:Boolean,
+  deja : Boolean
 }
 
 
 export const Controls = (props: controlProps)=>{
-const {shot} = props
+const {shot, show, deja} = props
 const playerRef = useRef<any>();
 const handsRef = useRef<any>();
 const { camera} = useThree();
@@ -22,7 +24,7 @@ const { forward, backward, left, right } = usePlayerControls();
 const direction = new THREE.Vector3();
 const frontVector = new THREE.Vector3();
 const sideVector = new THREE.Vector3();
-const SPEED = 6.125
+const SPEED = (show && !deja) ? 0 : 6.125 
 
 
 
