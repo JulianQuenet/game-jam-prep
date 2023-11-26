@@ -73,14 +73,6 @@ export function CeilingLight() {
 useGLTF.preload('/ceiling_light_with_chain.glb')
 
 
-// Will use this function later for interactions in other component, currentlty testing
-  // function onHover(){
-  //   if(ref.current){
-  //     const position = ref.current.position
-  //     const distance = position.distanceTo(camera.position)
-  //     console.log(distance)
-  //   }
-  // }
 
 
   
