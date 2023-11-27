@@ -6,6 +6,8 @@ Command: npx gltfjsx@6.2.14 safe.glb
 import React, { useRef, useState } from 'react'
 import { useGLTF } from '@react-three/drei'
 import { useFrame, useThree } from '@react-three/fiber'
+import usePlayerControls from './inputs'
+
 
 interface safeProps{
   setShow : any
@@ -14,6 +16,7 @@ interface safeProps{
 
 export function Safe(props : safeProps) {
   const {setShow, openSafe} = props
+  const {interact} = usePlayerControls()
   const { nodes, materials }:any = useGLTF('/safe.glb')
   const [canInteract, setCanInteract] = useState<Boolean>(false)
   const ref = useRef<any>()
@@ -21,15 +24,13 @@ export function Safe(props : safeProps) {
   const {camera} = useThree()
 
   useFrame(()=>{
-    if(ref.current){
+    if(ref.current && canInteract){
       const position = ref.current.position
       const distance = position.distanceTo(camera.position)
-      if(distance < 3.3){
-       setCanInteract(true)
-      }else {
-        setCanInteract(false)
+      if(distance < 3.3 && interact){
+       setShow(true)
+       setCanInteract(false)
       }
-
       if(openSafe){
        door.current.rotation.z +=0.03
       }
@@ -37,15 +38,8 @@ export function Safe(props : safeProps) {
   })
 
   function onHover(){
-      if(ref.current && canInteract ){
-        function interact(e:any){
-           if(e.code === "KeyE"){
-            setShow(true)
-           }
-          
-        }
-        window.addEventListener("keydown", interact)
-        
+      if(ref.current  ){
+      setCanInteract(true)
       } 
       }
     

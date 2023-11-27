@@ -6,6 +6,7 @@ import { Backrooms } from "./Components/Backrooms_another_level";
 import { Room } from "./Components/Room"
 import { Safe } from "./Components/Safe";
 import * as THREE from "three"
+import { Diary1 } from "./Components/Roselle_composition_book";
 
 
 
@@ -14,10 +15,11 @@ interface sceneProps {
     finHit : (hitId: any) => void
     setShow : any
     openSafe : Boolean
+    diary1 : any
 }
 
 export const Scene = (props:sceneProps)=> {
-   const {projectiles, finHit, setShow, openSafe} = props
+   const {projectiles, finHit, setShow, openSafe, diary1} = props
    const [fired, setFired] = useState<Boolean>(false)
    const [hitObject, setHitObject] = useState<any>({})
 
@@ -34,21 +36,12 @@ export const Scene = (props:sceneProps)=> {
 
     return (
        <>
-
        {fired && projectiles.map((projectile:any)=>(
           <Bullet setObj={setHitObject} key={projectile.id} bullet={projectile} finHit={finHit}/>
        ))}
-       
-       {false && <RigidBody type="fixed" colliders="trimesh" position={[5,2,10]}>
-       
-      <Backrooms />
-      
-      </RigidBody>}
-       
       <Room />
-
+      <Diary1 openDiary={diary1}/>
       <Safe setShow={setShow} openSafe={openSafe}/>
-       
        </> 
     )
 }
