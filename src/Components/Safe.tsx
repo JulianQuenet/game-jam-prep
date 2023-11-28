@@ -31,10 +31,11 @@ export function Safe(props : safeProps) {
        setShow(true)
        setCanInteract(false)
       }
-      if(openSafe){
-       door.current.rotation.z +=0.03
-      }
     }
+
+    if(openSafe){
+      door.current.rotation.z +=0.03
+     } 
   })
 
   function onHover(){
