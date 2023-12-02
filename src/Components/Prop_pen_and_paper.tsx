@@ -10,7 +10,7 @@ Title: PROP: pen and paper
 import { useRef, useState } from 'react'
 import { useGLTF } from '@react-three/drei'
 import usePlayerControls from './inputs'
-import { useFrame } from '@react-three/fiber'
+import { useFrame, useThree } from '@react-three/fiber'
 
 
 interface bookProps{
@@ -23,11 +23,13 @@ export function Diary2(props:bookProps) {
   const { nodes, materials }:any = useGLTF('/prop_pen_and_paper.glb')
   const bookRef = useRef<any>()
   const {interact} = usePlayerControls()
-
+  const {camera} = useThree()
 
 
   useFrame(()=>{
-    if(interact && canOpen){
+    const position = bookRef.current.position
+    const distance = position.distanceTo(camera.position)
+    if(interact && canOpen && distance < 2.5){
       openDiary(true)
       setCanOpen(false)
     }

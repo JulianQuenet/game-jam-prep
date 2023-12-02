@@ -30,7 +30,7 @@ const onFire = (bullet:any) => {
     <>
     <Canvas frameloop='demand' shadows camera={{ fov: 50, position: [5, 3, 2] }}>
       {/* <ambientLight intensity={0.5}/> */}
-      {/* <fog attach="fog" args={["0xDFE9F3", 0.0, 25]}/> */}
+      <fog attach="fog" args={["#485969", 0.0, 65]}/>
     {/* <directionalLight
         position={[0, 5, 0]}
         castShadow
@@ -38,7 +38,7 @@ const onFire = (bullet:any) => {
       /> */}
     <color attach="background" args={["black"]} />
     <Suspense>
-    <Physics updateLoop="independent" >
+    <Physics updateLoop="independent">
      <Scene projectiles={bullets} finHit={finHit} setShow={setShow} 
      openSafe={openSafe} diary1={setDiary1}
      diary2={setDiary2}

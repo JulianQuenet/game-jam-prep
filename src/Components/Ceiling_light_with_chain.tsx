@@ -23,31 +23,31 @@ export function CeilingLight() {
   useFrame(()=>{
     const time = Date.now() * 0.0005
     if(ceilingLampRef.current){
-      //Sway of lamp
-      ceilingLampRef.current.rotation.z = 0 + Math.sin(time * 1.7) * 0.075
-      //Main light 
-      ceilingLampRef.current.add(light1.current)
-      ceilingLampRef.current.add(light1.current.target)
-      light1.current.intensity = 45
-      light1.current.angle = 0.75
-      light1.current.penumbra = 0.25
-      //Ambient
-      ceilingLampRef.current.add(light2.current)
-      ceilingLampRef.current.add(light2.current.target)
-      light2.current.intensity = 30
-      light2.current.angle = 1.55
-      light2.current.penumbra = 0.3
-      //Back light
-      light3.current.position.x = 1 + Math.sin(time * 1.7) * 0.25
+      // // //Sway of lamp
+      // ceilingLampRef.current.rotation.z = 0 + Math.sin(time * 1.7) * 0.075
+      // //Main light 
+      // ceilingLampRef.current.add(light1.current)
+      // ceilingLampRef.current.add(light1.current.target)
+      // light1.current.intensity = 45
+      // light1.current.angle = 0.75
+      // light1.current.penumbra = 0.25
+      // //Ambient
+      // ceilingLampRef.current.add(light2.current)
+      // ceilingLampRef.current.add(light2.current.target)
+      // light2.current.intensity = 30
+      // light2.current.angle = 1.55
+      // light2.current.penumbra = 0.3
+      // //Back light
+      // light3.current.position.x = 1 + Math.sin(time * 1.7) * 0.25
     }
   })
 
 
   return (
     <>
-   <spotLight ref={light1} name='Main' />
+   {/* <spotLight ref={light1} name='Main' />
    <spotLight ref={light2} name='Ambient' />
-   <spotLight intensity={10} angle={1.2} penumbra={0.8} decay={2.2} position={[1,0,0]} target={light3.current} name='Ambient' />
+   <spotLight intensity={10} angle={1.2} penumbra={0.8} decay={2.2} position={[1,0,0]} target={light3.current} name='Ambient' /> */}
 
    <Box position={[1,9,0]} ref={light3}>
      <meshStandardMaterial color="red"/>
@@ -58,7 +58,7 @@ export function CeilingLight() {
         <group scale={[3.471, 3.471, 3.205]}>
           <group position={[0, 0, -2.098]} rotation={[-Math.PI, 0, 0]} scale={[0.17, 0.17, 0.184]} >
             <mesh  geometry={nodes.Light_Bulb_0.geometry} material={materials['Metal_Material.001']} />
-            <mesh geometry={nodes.Light_Bulb_1.geometry} material={materials.Emmision_Material} />
+            <mesh geometry={nodes.Light_Bulb_1.geometry} material={materials.Light_Bulb_Glass_Material} />
             <mesh geometry={nodes.Light_Bulb_2.geometry} material={materials.Light_Bulb_Glass_Material} />
           </group>
           <mesh geometry={nodes.Ceiling_Light_0.geometry} material={materials.Plastic_Material} />

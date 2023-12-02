@@ -11,7 +11,7 @@ import React, { useRef, useState } from 'react'
 import { useGLTF } from '@react-three/drei'
 import { RigidBody } from '@react-three/rapier'
 import usePlayerControls from './inputs'
-import { useFrame } from '@react-three/fiber'
+import { useFrame, useThree } from '@react-three/fiber'
 
 interface bookProps{
   openDiary : any
@@ -23,10 +23,12 @@ export function Diary1(props:bookProps) {
   const { nodes, materials }:any = useGLTF('/roselle_composition_book.glb')
   const bookRef = useRef<any>()
   const {interact} = usePlayerControls()
- 
+  const {camera} = useThree()
 
   useFrame(()=>{
-    if(interact && canOpen){
+    const position = bookRef.current.position
+    const distance = position.distanceTo(camera.position)
+    if(interact && canOpen && distance < 2.5){
       openDiary(true)
       setCanOpen(false)
     }
