@@ -48,7 +48,7 @@ export function Safe(props : safeProps) {
 
 
   return (
-    <group dispose={null} scale={0.01} position={[5.5,2.35,-7.86]} ref={ref} onPointerOver={onHover}> 
+    <group dispose={null} scale={0.01} position={[5.5,2.3,-7.86]} ref={ref} onPointerOver={onHover}> 
       <mesh geometry={nodes.Object_2.geometry} material={materials['Safe.001']} rotation={[-Math.PI / 2, 0, 0]} scale={1.658} />
       <group position={[0, 0, -5.96]} rotation={[-Math.PI / 2, 0, 0]} scale={1.658}>
         <mesh geometry={nodes.Door.geometry} material={materials['Safe.002']} position={[26.339, -33.497, 23.974]} ref={door}/>

@@ -84,14 +84,16 @@ function setFlash(){
     light1.current.position.copy(camera.position)
     light1.current.rotation.copy(camera.rotation)
     light1.current.translateX(0.65)
-    light1.current.intensity = 65
+    light1.current.intensity = 100
+    light1.current.distance = 45
     light1.current.angle = 0.35
     light1.current.penumbra = 0.45
     //Ambient light 
     light2.current.position.copy(camera.position)
     light2.current.rotation.copy(camera.rotation)
     light2.current.translateX(0.65)
-    light2.current.intensity = 10
+    light2.current.intensity = 35
+    light2.current.distance = 35
     light2.current.angle = 0.75
     light2.current.penumbra = 0.85
   }
@@ -141,8 +143,8 @@ return (
       <meshStandardMaterial color={"black"}/>
     </Sphere>
 
-    <spotLight color={"#ECF6FF"} target={sourceRef.current}  ref={light1}  name="main"/>
-    <spotLight color={"#ECF6FF"} target={sourceRef.current} ref={light2} name="ambient"/>
+    {/* <spotLight color={"#ECF6FF"} target={sourceRef.current}  ref={light1}  name="main"/>
+    <spotLight color={"#ECF6FF"} target={sourceRef.current} ref={light2} name="ambient"/> */}
 
     </>
    

@@ -5,6 +5,7 @@ import { Room } from "./Components/Room"
 import { Safe } from "./Components/Safe";
 import { Diary2 } from "./Components/Prop_pen_and_paper";
 import { Diary1 } from "./Components/Roselle_composition_book";
+import { Lady } from "./Components/Lady";
 
 
 
@@ -41,6 +42,7 @@ export const Scene = (props:sceneProps)=> {
       <Room />
       <Diary1 openDiary={diary1}/>
       <Diary2  openDiary={diary2}/>
+      <Lady />
       <Safe setShow={setShow} openSafe={openSafe}/>
        </> 
     )
