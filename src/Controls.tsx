@@ -1,39 +1,38 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import * as THREE from "three";
-import { Box, Sphere, PointerLockControls} from "@react-three/drei/core";
+import { Box, Sphere, PointerLockControls, Capsule, PositionalAudio} from "@react-three/drei/core";
 import { useThree, useFrame } from "@react-three/fiber";
 import usePlayerControls from "./Components/inputs";
-import { RigidBody, CapsuleCollider } from "@react-three/rapier";
-import { Hands } from "./Components/Animatedpistol";
+import { RigidBody, CapsuleCollider, BallCollider } from "@react-three/rapier";
 import { CeilingLight } from "./Components/Ceiling_light_with_chain";
 
 
 interface controlProps {
-  shot:any,
   show:Boolean,
   deja : Boolean
 }
 
 
 export const Controls = (props: controlProps)=>{
-const {shot, show, deja} = props
+const {show, deja} = props
 const playerRef = useRef<any>();
-const handsRef = useRef<any>();
 const light1 = useRef<any>();
 const light2 = useRef<any>();
+const walkingRef = useRef<any>();
 const sourceRef = useRef<any>();
 const { camera} = useThree();
-const { forward, backward, left, right } = usePlayerControls();
+const { forward, backward, left, right, submit } = usePlayerControls();
 const direction = new THREE.Vector3();
 const frontVector = new THREE.Vector3();
 const sideVector = new THREE.Vector3();
-const SPEED = (show && !deja) ? 0 : 6.125 
+const SPEED = (show && !deja) ? 0 : 4.5
+const [canPlay, setCanPlay] = useState<Boolean>(false);
 
 
 
 useFrame(()=>{
   // Player movement base on camera direction/rotation
-  const time = Date.now() * 0.0005;
+  const time = Date.now() * 0.00095;
   frontVector.set(0, 0, Number(backward) - Number(forward));
   sideVector.set(Number(left) - Number(right), 0, 0);
   direction
@@ -43,24 +42,30 @@ useFrame(()=>{
     .applyEuler(camera.rotation);
 
     if (playerRef.current) {
-       
+        playerRef.current.setAdditionalMass(0.5)
+        playerRef.current.lockRotations(true, true); //Locks rotation because of capsule body
         const position = playerRef.current.translation();
         // Setting camera position and creating walking/breathing affect
         camera.position.x = position.x;
-        camera.position.z = position.z ;
+        camera.position.z = position.z;
         if (right || left || forward || backward) {
-            camera.position.y = position.y + 2.5
+            camera.position.y = position.y + 3 //Math.sin(time * 7.5) * 0.075 + 3.5
+            setCanPlay(true)
            
         } else {
-          camera.position.y = position.y + Math.sin(time * 4.5) * 0.0095 + 2.5
-
+          camera.position.y = position.y + Math.sin(time * 4.5) * 0.0095 + 3
+          setCanPlay(false)
         }
         
         playerRef.current.setLinvel(
-          { x: direction.x, y: -1, z: direction.z },
+          { x: direction.x, y: 0, z: direction.z },
           true
         );
-
+        
+        if(show && submit){
+              const error = new Audio("./Sounds/error.mp3")
+              error.play()
+        }
        
         }
     
@@ -99,35 +104,29 @@ function setFlash(){
   }
 }
 
-
+const walking = './Sounds/walking.mp3'
+const listener = new THREE.AudioListener();
 return (
     <> 
     <PointerLockControls camera={camera}/>
     <RigidBody
-        friction={0}
-        lockRotations
-        colliders={false}
-        position={[5, 2.5, 5]}
-        gravityScale={0}
+        position={[0, 2, 0]}
         ref={playerRef}
-        userData={{
-          type:"player",
-          health:"100"
-        }
-        }
+        colliders={"ball"}
       >
-        <CapsuleCollider  args={[0.5, 0.7]} >
-        </CapsuleCollider>
+       <Capsule args={[0.48, 0.4, 0.4]}>
+      { canPlay && <PositionalAudio 
+              url={walking} 
+              autoplay
+              listener={listener}
+              ref={walkingRef}
+               />}
+       <meshStandardMaterial />
+        </Capsule>
       </RigidBody>
 
     
     <CeilingLight />
-    
-    
-      { false && <mesh name="hands" ref={handsRef} >
-        <Hands shot={shot} />
-    </mesh>
-    }
     
     <mesh ref={sourceRef}>
     <Box args={[0.00001,0.00001,0.000001]}>

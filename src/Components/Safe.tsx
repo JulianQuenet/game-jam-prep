@@ -43,9 +43,6 @@ export function Safe(props : safeProps) {
       setCanInteract(true)
       } 
       }
-    
- 
-
 
   return (
     <group dispose={null} scale={0.01} position={[5.5,2.3,-7.86]} ref={ref} onPointerOver={onHover}> 

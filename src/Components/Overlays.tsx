@@ -1,12 +1,10 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import SpaceBarIcon from '@mui/icons-material/SpaceBar';
 import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
+import Typewriter from 'typewriter-effect';
 
 interface menuProps {
-    deja : Boolean,
     setShow : any,
-    setOpenSafe : any,
-    setDeja : any
 }
 
 interface book1Props{
@@ -18,31 +16,19 @@ interface book2Props{
 }
 
 export function Menu(props : menuProps){
-    const {setShow, setDeja, deja, setOpenSafe} = props
-    const [code, setCode] = useState<any>("")
+    const {setShow} = props
+    const sound = new Audio('./Sounds/code_input.mp3')
     function Submit(e:any){
-      if(deja){
-        return
-      }
-      if(e.code === "Enter"){
-        if(code.toString() === "2265"){
-          setShow(false)
-          setOpenSafe(true)
-          setTimeout(()=>{
-          setOpenSafe(false)
-          }, 500)
-          setDeja(true)
-        }
-      }else if(e.code === "Space"){
+      if(e.code === "Space"){
        setShow(false)
       }
     }
 
     function handleChange(e:any){
       e.preventDefault
-      setCode(e.target.value)
+      sound.play()
     }
-
+    
     window.addEventListener("keydown", Submit )
 
     return(
@@ -142,6 +128,61 @@ export function Menu(props : menuProps){
             maybe I can be gone from all this. 
             <br/>
             NB new code to safe 6522
+            <br/>
+            <br/>
+            <div style={{display:"flex", alignItems:"center", gap:"5px"}}>
+              <SpaceBarIcon fontSize='small'/> to close
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+
+  export function Book3(){
+    
+    const [startTyping, setStartTyping] = useState<Boolean>(false)
+    
+    useEffect(()=>{
+     setStartTyping(false)
+     setTimeout(()=>{
+      setStartTyping(true)
+     },5000)
+    },[])
+
+    return (
+      <div className='diary' style={{width:'100vw', height:"100vh", display:"flex",
+      justifyContent :"center", alignItems : "center"
+      }}>
+        <div className='page' style={{display:"flex", flexDirection: "column", gap : "10px", width:"400px" }}>
+          <div>
+            Date: 10 Feb 2003 19:35
+            <br/>
+            Johnny Eckard
+          </div>
+          <div>
+            I was about to leave to see the landlord until I heard voices coming from that room,I decided
+            to get the key and open it, though seems like the safe had already been opened...maybe that thing 
+            read my journal entries...could it really be that sentient, maybe that means it can also change the code? 
+            Nonetheless I decided it was time to face my fears, after all this is my home...I make the rules,
+            not it. After opening the door the voices stopped but soon after laughter followed coming from what 
+            seemed like an endless corridor, soon they started calling my name,
+            I felt an overwhelming force pulling me closer...all my worries in that moment had vanished, I could feel myself 
+            getting ready to step forward, in the very last moment I pulled back and shut the door, deafening screams followed 
+            surrounding every corner of the house, I ran to the bathroom and shut the door, soon the screaming stopped. I decided 
+            that this will be my last day, I'm leaving this place, I have enough money to leave with nothing, I can start over
+            and build a new life.{ startTyping && <Typewriter  onInit={(typewriter) => {
+             typewriter.typeString(`Johnny didn't even make it out the bathroom, I broke his legs and threw him in that room
+             where he belonged, where you all belong. It's the beginning and the end, what was and what will be, a place 
+             where even time can't escape.`)
+             .pauseFor(300)
+             .deleteAll()
+             typewriter.typeString("You're next...")
+             .start();
+           }}/> }
+            <br/>
             <br/>
             <br/>
             <div style={{display:"flex", alignItems:"center", gap:"5px"}}>
