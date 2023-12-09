@@ -5,7 +5,7 @@ import { Physics } from "@react-three/rapier";
 import { Controls } from "./Controls";
 import Scene from './Scene';
 import { Stars } from '@react-three/drei';
-import { Book1, Book2, Book3, Menu } from './Components/Overlays';
+import { Book1, Book2, Book3, Menu, Recorder } from './Components/Overlays';
 import { StartScreen } from './Components/StartScreen';
 import './index.css'
 
@@ -24,7 +24,7 @@ function Game() {
   }
 return(
     <>
-   { start && <Canvas frameloop='demand' shadows camera={{ fov: 50, position: [5, 3, 2] }}>
+   { true && <Canvas frameloop='demand' shadows camera={{ fov: 50, position: [5, 3, 2] }}>
       {/* <ambientLight intensity={0.5}/> */}
       {/* <fog attach="fog" args={["#485969", 0.0, 30]}/> */}
     {/* <directionalLight
@@ -53,8 +53,9 @@ return(
     {(show && !deja) && <Menu setShow={setShow}/>}
     { diary1 && <Book1 setDiary1={setDiary1} />}
     {diary2 && <Book2 setDiary2={setDiary2} />}
-    {!start && <StartScreen toggle={handleStart} /> }
+    {/* {!start && <StartScreen toggle={handleStart} /> } */}
     {/* <Book3 /> */}
+    <Recorder />
     </>
   )
   

@@ -1,7 +1,8 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import SpaceBarIcon from '@mui/icons-material/SpaceBar';
 import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
 import Typewriter from 'typewriter-effect';
+import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 
 interface menuProps {
     setShow : any,
@@ -194,3 +195,87 @@ export function Menu(props : menuProps){
       </div>
     )
   }
+
+
+
+  export function Intro(){
+  
+    return (
+      <div className='diary' style={{width:'100vw', height:"100vh", display:"flex",
+      justifyContent :"center", alignItems : "center"
+      }}>
+        <div className='page' style={{display:"flex", flexDirection: "column", gap : "10px", width:"400px" }}>
+            Third investigation in in the mysterious missing persons cases.
+            February 20 2003
+            David Henshaw : Private investigator
+            
+            Found a curious post online detailing similar events to the two other investigations I
+            conducted...both unsolved and ongoing. Each detailing an ominous place that seems to haunt and
+            follow them, though no evidence to their claims have been brought to the surface. This one seems to 
+            be a bit different though...it's alot newer in terms of the date of the post and the start of this investigation. 
+            In the two other investigations there was a difference of a few years, in this investigation there is a difference
+            of a few days. Evidence is still fresh and the police haven't cased out the house yet...seems like they have other 
+            things on the plate to deal with. I tried getting a beat on the address though without difficulty as similar to the 
+            two other investigations I received an anonymous letter with an address and a name, Johnny Eckard.
+            <br/>
+            <br/>
+            <br/>
+            <div style={{display:"flex", alignItems:"center", gap:"5px"}}>
+              <SpaceBarIcon fontSize='small'/> to start
+            </div>
+            
+          </div>
+        </div>
+    )
+  }
+
+
+
+export function Recorder(){
+  const [elapsedTime, setElapsedTime] = useState<number>(0);
+  const [rec, setRec] = useState<Boolean>(false);
+  const dot = useRef<any>();
+  useEffect(() => {
+    let intervalId :any;
+    intervalId = setInterval(() => {
+      setElapsedTime((prevElapsedTime) => prevElapsedTime + 1);
+    }, 1000);
+
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, []); 
+
+  const formatTime = (time:any) => {
+    const minutes = Math.floor(time / 60);
+    const seconds = time % 60;
+
+    const formattedMinutes = minutes < 10 ? `0${minutes}` : `${minutes}`;
+    const formattedSeconds = seconds < 10 ? `0${seconds}` : `${seconds}`;
+
+    return `${formattedMinutes}:${formattedSeconds}`;
+  };
+
+  setInterval(()=>{
+    setRec(!rec)
+  }, 1500)
+  
+
+    return (
+      <div className='vcr' style={{width:'100vw', height:"100vh"
+      }}>
+       <div style={{display:"flex", justifyContent:"space-between", padding:" 0 50px"}}>
+        <div style={{display:"flex", alignItems:"center", gap:"5px"}}>Play  <div style={{opacity: rec ? 1 : 0,
+          transition: 'opacity 0.5s ease-in-out',}}><PlayArrowIcon ref={dot}/></div></div>
+       <div><h3>{formatTime(elapsedTime)}</h3></div>
+       </div>
+       <div className='film'>
+		<div className="effect">
+			<div className="grain"></div>
+		</div>
+	</div>
+        </div>
+    )
+  }
+
+
