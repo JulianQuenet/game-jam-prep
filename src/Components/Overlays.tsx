@@ -262,18 +262,12 @@ export function Recorder(){
   
 
     return (
-      <div className='vcr' style={{width:'100vw', height:"100vh"
-      }}>
+      <div className='vcr'>
        <div style={{display:"flex", justifyContent:"space-between", padding:" 0 50px"}}>
         <div style={{display:"flex", alignItems:"center", gap:"5px"}}>Play  <div style={{opacity: rec ? 1 : 0,
           transition: 'opacity 0.5s ease-in-out',}}><PlayArrowIcon ref={dot}/></div></div>
        <div><h3>{formatTime(elapsedTime)}</h3></div>
        </div>
-       <div className='film'>
-		<div className="effect">
-			<div className="grain"></div>
-		</div>
-	</div>
         </div>
     )
   }

@@ -7,14 +7,16 @@ Source: https://sketchfab.com/3d-models/an-old-cheap-room-in-chinatown-9c2ec26be
 Title: An Old Cheap Room in Chinatown
 */
 
-import { useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
 import { RigidBody, useRevoluteJoint } from '@react-three/rapier'
 
-
 export function Room() {
-  const { nodes, materials }:any = useGLTF('/room.glb')
+  const { nodes, materials, scene }:any = useGLTF('/room.glb')
   
+
+
+
   function DoorBack(){
     const frameRef = useRef<any>()
     const doorRef = useRef<any>()
@@ -229,36 +231,36 @@ export function Room() {
             <mesh geometry={nodes.tissue_box_M_LivingRoom_0.geometry} material={materials.M_LivingRoom} position={[4.084, -0.013, 0.901]} rotation={[0, 0.119, 0]} scale={0.018} />
           </group>
           <RigidBody colliders="trimesh" type='fixed'>
-          <group scale={10}>
+          <group  scale={10}>
             <group position={[-3.982, -0.022, 0]} rotation={[-Math.PI, 0.016, -Math.PI]} scale={0.021}>
-              <mesh geometry={nodes.theDoormat_M_MainParts_0.geometry} material={materials.M_MainParts} position={[-8.757, 0, 0.143]} />
+              <mesh receiveShadow geometry={nodes.theDoormat_M_MainParts_0.geometry} material={materials.M_MainParts} position={[-8.757, 0, 0.143]} />
             </group>
             <group position={[0, 0, 0.239]}>
-              <mesh geometry={nodes.polySurface13_M_MainParts_0.geometry} material={materials.M_MainParts} />
-              <mesh geometry={nodes.polySurface15_M_MainParts_0.geometry} material={materials.M_MainParts} />
-              <mesh geometry={nodes.polySurface17_M_MainParts_0.geometry} material={materials.M_MainParts} />
-              <mesh geometry={nodes.polySurface18_M_MainParts_0.geometry} material={materials.M_MainParts} />
-              <mesh geometry={nodes.polySurface19_M_MainParts_0.geometry} material={materials.M_MainParts} />
-              <mesh geometry={nodes.polySurface20_M_MainParts_0.geometry} material={materials.M_MainParts} />
-              <mesh geometry={nodes.polySurface21_M_MainParts_0.geometry} material={materials.M_MainParts} />
-              <mesh geometry={nodes.polySurface22_M_MainParts_0.geometry} material={materials.M_MainParts} />
+              <mesh receiveShadow geometry={nodes.polySurface13_M_MainParts_0.geometry} material={materials.M_MainParts} />
+              <mesh receiveShadow geometry={nodes.polySurface15_M_MainParts_0.geometry} material={materials.M_MainParts} />
+              <mesh receiveShadow geometry={nodes.polySurface17_M_MainParts_0.geometry} material={materials.M_MainParts} />
+              <mesh receiveShadow geometry={nodes.polySurface18_M_MainParts_0.geometry} material={materials.M_MainParts} />
+              <mesh receiveShadow geometry={nodes.polySurface19_M_MainParts_0.geometry} material={materials.M_MainParts} />
+              <mesh receiveShadow geometry={nodes.polySurface20_M_MainParts_0.geometry} material={materials.M_MainParts} />
+              <mesh receiveShadow geometry={nodes.polySurface21_M_MainParts_0.geometry} material={materials.M_MainParts} />
+              <mesh receiveShadow geometry={nodes.polySurface22_M_MainParts_0.geometry} material={materials.M_MainParts} />
             </group>
             <group position={[1.048, 0, 1.026]} rotation={[0, 1.571, 0]}>
-              <mesh geometry={nodes.polySurface23_M_MainParts_0.geometry} material={materials.M_MainParts} position={[0, 0, 0.005]} />
-              <mesh geometry={nodes.polySurface25_M_MainParts_0.geometry} material={materials.M_MainParts} />
-              <mesh geometry={nodes.polySurface27_M_MainParts_0.geometry} material={materials.M_MainParts} />
-              <mesh geometry={nodes.polySurface28_M_MainParts_0.geometry} material={materials.M_MainParts} />
-              <mesh geometry={nodes.polySurface29_M_MainParts_0.geometry} material={materials.M_MainParts} />
-              <mesh geometry={nodes.polySurface30_M_MainParts_0.geometry} material={materials.M_MainParts} position={[0.205, 0, 0.252]} rotation={[0, -0.065, 0]} />
-              <mesh geometry={nodes.polySurface31_M_MainParts_0.geometry} material={materials.M_MainParts} position={[0.196, 0, 0.23]} rotation={[0, -0.065, 0]} />
-              <mesh geometry={nodes.polySurface32_M_MainParts_0.geometry} material={materials.M_MainParts} position={[0.172, 1.415, 3.674]} rotation={[0, -0.31, 0]} />
+              <mesh receiveShadow geometry={nodes.polySurface23_M_MainParts_0.geometry} material={materials.M_MainParts} position={[0, 0, 0.005]} />
+              <mesh receiveShadow geometry={nodes.polySurface25_M_MainParts_0.geometry} material={materials.M_MainParts} />
+              <mesh receiveShadow geometry={nodes.polySurface27_M_MainParts_0.geometry} material={materials.M_MainParts} />
+              <mesh receiveShadow geometry={nodes.polySurface28_M_MainParts_0.geometry} material={materials.M_MainParts} />
+              <mesh receiveShadow geometry={nodes.polySurface29_M_MainParts_0.geometry} material={materials.M_MainParts} />
+              <mesh receiveShadow geometry={nodes.polySurface30_M_MainParts_0.geometry} material={materials.M_MainParts} position={[0.205, 0, 0.252]} rotation={[0, -0.065, 0]} />
+              <mesh receiveShadow geometry={nodes.polySurface31_M_MainParts_0.geometry} material={materials.M_MainParts} position={[0.196, 0, 0.23]} rotation={[0, -0.065, 0]} />
+              <mesh receiveShadow geometry={nodes.polySurface32_M_MainParts_0.geometry} material={materials.M_MainParts} position={[0.172, 1.415, 3.674]} rotation={[0, -0.31, 0]} />
             </group>
-            <mesh geometry={nodes.Base_M_MainParts_0.geometry} material={materials.M_MainParts} />
-            <mesh geometry={nodes.bathroom_wall_M_MainParts_0.geometry} material={materials.M_MainParts} />
-            <mesh geometry={nodes.polySurface35_M_MainParts_0.geometry} material={materials.M_MainParts} />
-            <mesh geometry={nodes.polySurface33_M_MainParts_0.geometry} material={materials.M_MainParts} />
-            <mesh geometry={nodes.wallCloset_M_MainParts_0.geometry} material={materials.M_MainParts} />
-            <mesh geometry={nodes.window_edge_M_MainParts_0.geometry} material={materials.M_MainParts} />
+            <mesh receiveShadow geometry={nodes.Base_M_MainParts_0.geometry} material={materials.M_MainParts} />
+            <mesh receiveShadow geometry={nodes.bathroom_wall_M_MainParts_0.geometry} material={materials.M_MainParts} />
+            <mesh receiveShadow geometry={nodes.polySurface35_M_MainParts_0.geometry} material={materials.M_MainParts} />
+            <mesh receiveShadow geometry={nodes.polySurface33_M_MainParts_0.geometry} material={materials.M_MainParts} />
+            <mesh receiveShadow geometry={nodes.wallCloset_M_MainParts_0.geometry} material={materials.M_MainParts} />
+            <mesh receiveShadow geometry={nodes.window_edge_M_MainParts_0.geometry} material={materials.M_MainParts} />
           </group>
           </RigidBody>
           <group scale={10}>

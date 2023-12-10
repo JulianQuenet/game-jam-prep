@@ -45,8 +45,8 @@ export function CeilingLight() {
 
   return (
     <>
-   <spotLight ref={light1} name='Main' />
-   <spotLight ref={light2} name='Ambient' />
+   <spotLight castShadow ref={light1} name='Main' />
+   <spotLight castShadow ref={light2} name='Ambient' />
    <spotLight intensity={10} angle={1.2} penumbra={0.8} decay={2.2} position={[1,0,0]} target={light3.current} name='Ambient' />
 
    <Box position={[1,9,0]} ref={light3}>
@@ -55,14 +55,14 @@ export function CeilingLight() {
 
     <group dispose={null} position={[1,7,-0.05]}  scale={0.135} ref={ceilingLampRef}>
       <group rotation={[-Math.PI / 2, 0, 0]}>
-        <group scale={[3.471, 3.471, 3.205]}>
+        <group  scale={[3.471, 3.471, 3.205]}>
           <group position={[0, 0, -2.098]} rotation={[-Math.PI, 0, 0]} scale={[0.17, 0.17, 0.184]} >
-            <mesh  geometry={nodes.Light_Bulb_0.geometry} material={materials['Metal_Material.001']} />
+            <mesh geometry={nodes.Light_Bulb_0.geometry} material={materials['Metal_Material.001']} />
             <mesh geometry={nodes.Light_Bulb_1.geometry} material={materials.Light_Bulb_Glass_Material} />
             <mesh geometry={nodes.Light_Bulb_2.geometry} material={materials.Light_Bulb_Glass_Material} />
           </group>
-          <mesh geometry={nodes.Ceiling_Light_0.geometry} material={materials.Plastic_Material} />
-          <mesh geometry={nodes.Ceiling_Light_1.geometry} material={materials.Metal_Material} />
+          <mesh   geometry={nodes.Ceiling_Light_0.geometry} material={materials.Plastic_Material} />
+          <mesh  geometry={nodes.Ceiling_Light_1.geometry} material={materials.Metal_Material} />
         </group>
       </group>
     </group>

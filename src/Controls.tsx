@@ -111,8 +111,7 @@ return (
     <PointerLockControls camera={camera}/>
     <RigidBody
         gravityScale={0}
-        lockTranslations
-        position={[0, 2, 0]}
+        position={[0, 1, 0]}
         ref={playerRef}
         colliders={"ball"}
       >

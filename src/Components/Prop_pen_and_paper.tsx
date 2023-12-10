@@ -29,7 +29,7 @@ export function Diary2(props:bookProps) {
   useFrame(()=>{
     const position = bookRef.current.position
     const distance = position.distanceTo(camera.position)
-    if(interact && canOpen && distance < 2.5){
+    if(interact && canOpen && distance < 3.5){
       openDiary(true)
       setCanOpen(false)
     }
@@ -38,6 +38,7 @@ export function Diary2(props:bookProps) {
   function openBook(){
      if(bookRef.current){
       setCanOpen(true)
+      console.log("can interact")
   }
 }
 

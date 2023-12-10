@@ -34,7 +34,7 @@ return(
       /> */}
     <color attach="background" args={["black"]} />
     <Suspense>
-    <Physics updateLoop="independent" debug>
+    <Physics updateLoop="independent">
      <Scene  setShow={setShow} 
      openSafe={openSafe} diary1={setDiary1}
      diary2={setDiary2}
@@ -47,7 +47,8 @@ return(
         <BrightnessContrast contrast={0.1} />
         <DepthOfField  focusDistance={0} focalLength={0.2} bokehScale={0} height={480} />
         <Bloom opacity={0.25} intensity={0.1} luminanceThreshold={0} luminanceSmoothing={0.9} height={300} />
-        <Noise opacity={0.02} />
+        <Noise opacity={0.1} />
+        <Vignette eskil={false} offset={0.1} darkness={1.05} />
       </EffectComposer>
     </Canvas > }
     {(show && !deja) && <Menu setShow={setShow}/>}
