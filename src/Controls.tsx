@@ -18,7 +18,6 @@ const {show, deja} = props
 const playerRef = useRef<any>();
 const light1 = useRef<any>();
 const light2 = useRef<any>();
-const walkingRef = useRef<any>();
 const sourceRef = useRef<any>();
 const { camera} = useThree();
 const { forward, backward, left, right, submit } = usePlayerControls();
@@ -49,7 +48,7 @@ useFrame(()=>{
         camera.position.x = position.x;
         camera.position.z = position.z;
         if (right || left || forward || backward) {
-            camera.position.y = position.y + 3 //Math.sin(time * 7.5) * 0.075 + 3.5
+            camera.position.y = position.y + Math.sin(time * 7) * 0.065 + 3
             setCanPlay(true)
            
         } else {
@@ -105,6 +104,8 @@ function setFlash(){
 }
 
 const walking = './Sounds/walking.mp3'
+const background = './Sounds/deepSpace.mp3'
+
 const listener = new THREE.AudioListener();
 return (
     <> 
@@ -120,8 +121,12 @@ return (
               url={walking} 
               autoplay
               listener={listener}
-              ref={walkingRef}
                />}
+           <PositionalAudio 
+              url={background} 
+              autoplay
+              listener={listener}
+               />
        <meshStandardMaterial />
         </Capsule>
       </RigidBody>

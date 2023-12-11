@@ -111,9 +111,10 @@ export function Room() {
     <group  dispose={null} scale={2.5} position={[0,0,0]}>
       <group rotation={[-Math.PI / 2, 0, 0]} scale={86.957}>
         <group rotation={[Math.PI / 2, 0, 0]} scale={0.001}>
+          <RigidBody type='fixed' colliders="trimesh">
           <group position={[-78.792, -0.63, -8.04]} rotation={[0, 1.571, 0]} scale={1.505}>
             <mesh geometry={nodes.bathtub_M_Bathroom_0.geometry} material={materials.M_Bathroom} position={[-5.342, 0.418, 52.357]} rotation={[0, -1.571, 0]} scale={6.645} />
-            <mesh geometry={nodes.curtain_M_Bathroom_0.geometry} material={materials.M_Bathroom} position={[-5.431, 1.217, 52.366]} rotation={[0, -1.571, 0]} scale={0.166} />
+            {/* <mesh geometry={nodes.curtain_M_Bathroom_0.geometry} material={materials.M_Bathroom} position={[-5.431, 1.217, 52.366]} rotation={[0, -1.571, 0]} scale={0.166} /> */}
             <mesh geometry={nodes.pCube40_M_Bathroom_0.geometry} material={materials.M_Bathroom} />
             <mesh geometry={nodes.pCube48_M_Bathroom_0.geometry} material={materials.M_Bathroom} position={[-16.494, 7.508, 28.773]} scale={[0.574, 0.079, 1.7]} />
             <mesh geometry={nodes.pCylinder10_M_Bathroom_0.geometry} material={materials.M_Bathroom} position={[-16.504, 7.563, 28.779]} scale={[0.219, 0.015, 0.219]} />
@@ -125,6 +126,7 @@ export function Room() {
             <mesh geometry={nodes.pCylinder9_M_Bathroom_0.geometry} material={materials.M_Bathroom} position={[-17.171, 9.189, 28.784]} scale={0.026} />
             <mesh geometry={nodes.pSphere5_M_Bathroom_0.geometry} material={materials.M_Bathroom} position={[-18.336, 8.493, 28.771]} scale={[1.402, 0.978, 1.402]} />
           </group>
+          </RigidBody>
           <RigidBody colliders="trimesh" type="fixed">
           <group scale={10}>
             <group position={[3.83, -0.002, 2.548]} scale={0.145}>
@@ -278,18 +280,6 @@ export function Room() {
             <mesh geometry={nodes.polySurface34_M_MainParts_0.geometry} material={materials.M_MainParts} />
             <mesh geometry={nodes.polySurface36_M_MainParts_0.geometry} material={materials.M_MainParts} />
           </group>
-        </group>
-      </group>
-      
-      <group position={[-2.555, 2.858, 2.107]} rotation={[-Math.PI / 2, 0, 0]} scale={0.05}>
-        <group scale={[3.471, 3.471, 3.205]}>
-          <group position={[0, 0, -2.098]} rotation={[Math.PI, 0, 0]} scale={[0.17, 0.17, 0.184]}>
-            <mesh geometry={nodes.Light_Bulb_0.geometry} material={materials['Metal_Material.001']} />
-            <mesh geometry={nodes.Light_Bulb_1.geometry} material={materials.Emmision_Material} />
-            <mesh geometry={nodes.Light_Bulb_2.geometry} material={materials.Light_Bulb_Glass_Material} />
-          </group>
-          <mesh geometry={nodes.Ceiling_Light_0.geometry} material={materials.Plastic_Material} />
-          <mesh geometry={nodes.Ceiling_Light_1.geometry} material={materials.Metal_Material} />
         </group>
       </group>
      

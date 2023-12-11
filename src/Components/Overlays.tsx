@@ -123,7 +123,7 @@ export function Menu(props : menuProps){
             that girl was there too, or at least I could hear her, when I woke I found that door open again 
             and seems like all the other pages of my diary were torn out...I can't help but feel like someone
             watches me as I sleep, as if they're taking shelter in the corners, observing from the
-            the infinite darkness. From now on I'm going to lock that door, as well as the bathroom for now or at least when 
+            the infinite darkness. From now on I'm going to lock that door, as well as the bathroom or at least when 
             it's not in use. I gotta get out of here soon, apparently there's a new apartment block right next to the local 
             mall, got a nice name too, Ridge Mead...just sounds like a new chapter to me, I'm seeing the landlord soon, 
             maybe I can be gone from all this. 
@@ -228,7 +228,6 @@ export function Menu(props : menuProps){
         </div>
     )
   }
-
 
 
 export function Recorder(){

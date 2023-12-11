@@ -7,14 +7,14 @@ Source: https://sketchfab.com/3d-models/prop-pen-and-paper-d14d5015fd774987a0988
 Title: PROP: pen and paper
 */
 
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useGLTF } from '@react-three/drei'
 import usePlayerControls from './inputs'
 import { useFrame, useThree } from '@react-three/fiber'
 
 
 interface bookProps{
-  openDiary : any
+  openDiary : any,
 }
 
 export function Diary2(props:bookProps) {
@@ -24,14 +24,18 @@ export function Diary2(props:bookProps) {
   const bookRef = useRef<any>()
   const {interact} = usePlayerControls()
   const {camera} = useThree()
-
+  
 
   useFrame(()=>{
+    const time = Date.now() * 0.0005
     const position = bookRef.current.position
     const distance = position.distanceTo(camera.position)
-    if(interact && canOpen && distance < 3.5){
+    if(interact && canOpen && distance < 3){
+      bookRef.current.rotation.y = 0
       openDiary(true)
       setCanOpen(false)
+    }if(canOpen && distance < 3){
+      bookRef.current.rotation.y = + Math.sin(time *4.5) * 0.25
     }
   })
  
@@ -42,11 +46,9 @@ export function Diary2(props:bookProps) {
   }
 }
 
-
-
   return (
     <group position={[2.5,2.1,6.5]}  dispose={null} scale={0.0004} ref={bookRef} onPointerOver={openBook}>
-      <mesh geometry={nodes.papier_Material_0.geometry} material={materials.Material} rotation={[-Math.PI / 2, 0, Math.PI]} scale={100} />
+      <mesh  geometry={nodes.papier_Material_0.geometry} material={materials.Material} rotation={[-Math.PI / 2, 0, Math.PI]} scale={100} />
     </group>
   )
 }

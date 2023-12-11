@@ -37,6 +37,7 @@ export function CeilingLight() {
       light2.current.intensity = 30
       light2.current.angle = 1.55
       light2.current.penumbra = 0.3
+      light2.current.decay = 2.2
       //Back light
       light3.current.position.x = 1 + Math.sin(time * 1.7) * 0.25
     }

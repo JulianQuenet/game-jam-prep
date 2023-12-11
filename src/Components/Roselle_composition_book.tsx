@@ -7,14 +7,15 @@ Source: https://sketchfab.com/3d-models/roselle-composition-book-639955874f824bc
 Title: Roselle Composition Book
 */
 
-import React, { useRef, useState } from 'react'
+import {  useRef, useState } from 'react'
 import { useGLTF } from '@react-three/drei'
 import { RigidBody } from '@react-three/rapier'
 import usePlayerControls from './inputs'
 import { useFrame, useThree } from '@react-three/fiber'
 
 interface bookProps{
-  openDiary : any
+  openDiary : any,
+
 }
 
 export function Diary1(props:bookProps) {
@@ -26,11 +27,15 @@ export function Diary1(props:bookProps) {
   const {camera} = useThree()
 
   useFrame(()=>{
+    const time = Date.now() * 0.0005
     const position = bookRef.current.position
     const distance = position.distanceTo(camera.position)
     if(interact && canOpen && distance < 2.5){
+      bookRef.current.rotation.y = 0
       openDiary(true)
       setCanOpen(false)
+    }if(canOpen && distance < 2.5){
+      bookRef.current.rotation.y = Math.sin(time *4.5) * 0.25
     }
   })
  

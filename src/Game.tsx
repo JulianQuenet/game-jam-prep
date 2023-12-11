@@ -1,5 +1,5 @@
 import { Suspense, useState} from 'react'
-import { Bloom, DepthOfField, BrightnessContrast, EffectComposer, Noise, Vignette } from '@react-three/postprocessing'
+import { Bloom, DepthOfField, BrightnessContrast, EffectComposer, Noise, Vignette, Outline } from '@react-three/postprocessing'
 import { Canvas } from "@react-three/fiber";
 import { Physics } from "@react-three/rapier";
 import { Controls } from "./Controls";
@@ -8,33 +8,27 @@ import { Stars } from '@react-three/drei';
 import { Book1, Book2, Book3, Menu, Recorder } from './Components/Overlays';
 import { StartScreen } from './Components/StartScreen';
 import './index.css'
+import { AmbientLight } from 'three';
 
 function Game() {
-  const [bullets, setBullets] = useState<any>([])
   const [show, setShow] = useState<Boolean>(false)
   const [diary1, setDiary1] = useState<Boolean>(false)
   const [openSafe, setOpenSafe] = useState<Boolean>(false)
   const [deja, setDeja] = useState<Boolean>(false)
   const [diary2, setDiary2] = useState<Boolean>(false)
   const [start, setStart] = useState<Boolean>(false)
-  
-
   const handleStart = () =>{
     setStart(true)
   }
+
+
 return(
     <>
-   { true && <Canvas frameloop='demand' shadows camera={{ fov: 50, position: [5, 3, 2] }}>
-      {/* <ambientLight intensity={0.5}/> */}
-      {/* <fog attach="fog" args={["#485969", 0.0, 30]}/> */}
-    {/* <directionalLight
-        position={[0, 5, 0]}
-        castShadow
-        shadow-mapSize={1024}
-      /> */}
+   { true && <Canvas  shadows camera={{ fov: 50, position: [5, 3, 2] }}>
+     <ambientLight intensity={0.5}/>
     <color attach="background" args={["black"]} />
     <Suspense>
-    <Physics updateLoop="independent">
+    <Physics >
      <Scene  setShow={setShow} 
      openSafe={openSafe} diary1={setDiary1}
      diary2={setDiary2}
@@ -56,7 +50,7 @@ return(
     {diary2 && <Book2 setDiary2={setDiary2} />}
     {/* {!start && <StartScreen toggle={handleStart} /> } */}
     {/* <Book3 /> */}
-    <Recorder />
+    <Recorder/>
     </>
   )
   
