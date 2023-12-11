@@ -16,6 +16,11 @@ interface book2Props{
     setDiary2 : any
 }
 
+interface book3Props{
+  setDiary3 : any
+  door : any
+}
+
 export function Menu(props : menuProps){
     const {setShow} = props
     const sound = new Audio('./Sounds/code_input.mp3')
@@ -142,16 +147,25 @@ export function Menu(props : menuProps){
   }
 
 
-  export function Book3(){
-    
+  export function Book3(props:book3Props){
+    const {setDiary3,door} = props
     const [startTyping, setStartTyping] = useState<Boolean>(false)
     
     useEffect(()=>{
      setStartTyping(false)
      setTimeout(()=>{
       setStartTyping(true)
-     },5000)
+     },50000)
     },[])
+
+    function closeDiary(e:any){
+      if(e.code === "Space"){
+       setDiary3(false)
+       door(true)
+      }
+   }
+
+   window.addEventListener("keydown", closeDiary )
 
     return (
       <div className='diary' style={{width:'100vw', height:"100vh", display:"flex",

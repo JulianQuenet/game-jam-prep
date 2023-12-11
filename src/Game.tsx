@@ -1,4 +1,4 @@
-import { Suspense, useState} from 'react'
+import { Suspense, useEffect, useState} from 'react'
 import { Bloom, DepthOfField, BrightnessContrast, EffectComposer, Noise, Vignette, Outline } from '@react-three/postprocessing'
 import { Canvas } from "@react-three/fiber";
 import { Physics } from "@react-three/rapier";
@@ -13,25 +13,34 @@ import { AmbientLight } from 'three';
 function Game() {
   const [show, setShow] = useState<Boolean>(false)
   const [diary1, setDiary1] = useState<Boolean>(false)
+  const [diary2, setDiary2] = useState<Boolean>(false)
+  const [diary3, setDiary3] = useState<Boolean>(false)
   const [openSafe, setOpenSafe] = useState<Boolean>(false)
   const [deja, setDeja] = useState<Boolean>(false)
-  const [diary2, setDiary2] = useState<Boolean>(false)
   const [start, setStart] = useState<Boolean>(false)
+  const [door, setDoor] = useState<Boolean>(true)
   const handleStart = () =>{
     setStart(true)
   }
-
+ 
+  useEffect(()=>{
+  setTimeout(()=>{
+     setDoor(false)
+  },5000)
+  },[])
 
 return(
     <>
    { true && <Canvas  shadows camera={{ fov: 50, position: [5, 3, 2] }}>
-     <ambientLight intensity={0.5}/>
+     {/* <ambientLight intensity={0.5}/> */}
     <color attach="background" args={["black"]} />
     <Suspense>
     <Physics >
      <Scene  setShow={setShow} 
      openSafe={openSafe} diary1={setDiary1}
      diary2={setDiary2}
+     diary3={setDiary3}
+     door={door}
      />
      <Controls show={show} deja={deja}/>
     </Physics>
@@ -48,8 +57,9 @@ return(
     {(show && !deja) && <Menu setShow={setShow}/>}
     { diary1 && <Book1 setDiary1={setDiary1} />}
     {diary2 && <Book2 setDiary2={setDiary2} />}
+    {diary3 && <Book3 setDiary3={setDiary3} door={setDoor}/> }
     {/* {!start && <StartScreen toggle={handleStart} /> } */}
-    {/* <Book3 /> */}
+    
     <Recorder/>
     </>
   )

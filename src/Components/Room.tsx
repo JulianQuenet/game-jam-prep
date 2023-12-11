@@ -7,13 +7,19 @@ Source: https://sketchfab.com/3d-models/an-old-cheap-room-in-chinatown-9c2ec26be
 Title: An Old Cheap Room in Chinatown
 */
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useGLTF } from '@react-three/drei'
 import { RigidBody, useRevoluteJoint } from '@react-three/rapier'
 
-export function Room() {
+interface roomProps{
+  door : Boolean;
+}
+
+
+
+export function Room(props:roomProps) {
   const { nodes, materials, scene }:any = useGLTF('/room.glb')
-  
+  const {door} = props
 
 
 
@@ -78,29 +84,18 @@ export function Room() {
   }
 
   function DoorBathroom(){
-    const frameRef = useRef<any>()
-    const doorRef = useRef<any>()
-    const hinge = useRevoluteJoint(frameRef, doorRef, [
-      // Position of the joint in bodyA's local space
-      [0, 0, 0],
-      // Position of the joint in bodyB's local space
-      [0, 0, 0],
-      // Axis of the joint, expressed in the local-space of
-      // the rigid-bodies it is attached to. Cannot be [0,0,0].
-      [0, 1, 0]
-    ])
 
     return(
       <group scale={[1.11, 1.1, 1.14]}>
-        <RigidBody colliders="trimesh" ref={doorRef}>
+        {door && <RigidBody type="fixed" colliders="trimesh" >
       <group rotation={[-Math.PI / 2, 0, 0]} position={[0.002, 0.004, 0]} scale={0.985}>
         <mesh geometry={nodes.Plane001_Door_0001.geometry} material={materials['Door.001']} position={[0.008, 0, -0.832]} />
         <mesh geometry={nodes.Plane001_Glossy_0001.geometry} material={materials['Glossy.001']} position={[0.008, 0, -0.832]} />
         <mesh geometry={nodes.Circle002_Glossy_0001.geometry} material={materials['Glossy.001']} position={[0.818, 0.043, -0.029]} />
         <mesh geometry={nodes.Plane003_Door_0001.geometry} material={materials['Door.001']} position={[0.86, 0.017, -0.05]} />
       </group>
-      </RigidBody>
-     <RigidBody type='fixed' colliders="trimesh" ref={frameRef}>
+      </RigidBody>}
+     <RigidBody type='fixed' colliders="trimesh" >
      <mesh rotation={[-Math.PI / 2, 0, 0]} geometry={nodes.Plane002_Door_0.geometry} material={materials['Door.006']} position={[-0.02, 0.005, 0]} />
       </RigidBody>
     </group>
@@ -291,7 +286,7 @@ export function Room() {
         <DoorFront />
       </mesh>
 
-      <mesh position={[-2.382, 1.234, 1.481]}>
+       <mesh position={[-2.382, 1.234, 1.481]}>
        <DoorBathroom />
       </mesh>
 
