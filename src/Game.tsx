@@ -22,12 +22,6 @@ function Game() {
   const handleStart = () =>{
     setStart(true)
   }
- 
-  useEffect(()=>{
-  setTimeout(()=>{
-     setDoor(false)
-  },5000)
-  },[])
 
 return(
     <>
@@ -42,12 +36,12 @@ return(
      diary3={setDiary3}
      door={door}
      />
-     <Controls show={show} deja={deja}/>
+     <Controls setDeja={setDeja} door={setDoor} show={show} deja={deja}/>
     </Physics>
     </Suspense>
     <Stars />
     <EffectComposer>
-        <BrightnessContrast contrast={0.1} />
+        <BrightnessContrast contrast={0.15} />
         <DepthOfField  focusDistance={0} focalLength={0.2} bokehScale={0} height={480} />
         <Bloom opacity={0.25} intensity={0.1} luminanceThreshold={0} luminanceSmoothing={0.9} height={300} />
         <Noise opacity={0.1} />
@@ -57,7 +51,7 @@ return(
     {(show && !deja) && <Menu setShow={setShow}/>}
     { diary1 && <Book1 setDiary1={setDiary1} />}
     {diary2 && <Book2 setDiary2={setDiary2} />}
-    {diary3 && <Book3 setDiary3={setDiary3} door={setDoor}/> }
+    {diary3 && <Book3 deja={setDeja} setDiary3={setDiary3} door={setDoor}/> }
     {/* {!start && <StartScreen toggle={handleStart} /> } */}
     
     <Recorder/>

@@ -9,12 +9,14 @@ import { CeilingLight } from "./Components/Ceiling_light_with_chain";
 
 interface controlProps {
   show:Boolean,
-  deja : Boolean
+  deja : Boolean,
+  door : any,
+  setDeja : any,
 }
 
 
 export const Controls = (props: controlProps)=>{
-const {show, deja} = props
+const {show, deja, door, setDeja} = props
 const playerRef = useRef<any>();
 const light1 = useRef<any>();
 const light2 = useRef<any>();
@@ -26,8 +28,7 @@ const frontVector = new THREE.Vector3();
 const sideVector = new THREE.Vector3();
 const SPEED = (show && !deja) ? 0 : 4.5
 const [canPlay, setCanPlay] = useState<Boolean>(false);
-
-
+const doorRip = new Audio('./Sounds/door-rip.mp3');
 
 useFrame(()=>{
   // Player movement base on camera direction/rotation
@@ -61,9 +62,16 @@ useFrame(()=>{
           true
         );
         
-        if(show && submit){
+        if(show && submit && !deja){
               const error = new Audio("./Sounds/error.mp3")
               error.play()
+              setTimeout(()=>{
+              doorRip.play()
+              },750)
+              setTimeout(()=>{
+               setDeja(true)
+               door(false)
+              },5000)
         }
        
         }

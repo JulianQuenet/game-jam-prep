@@ -7,7 +7,7 @@ import { Diary1 } from "./Components/Roselle_composition_book";
 import { Diary3 } from "./Components/Prop_pen_and_paper1";
 import { Lady } from "./Components/Lady";
 import { Corridor } from "./Components/Corridor";
-
+import { Mannequin } from "./Components/Mannequin";
 
 interface sceneProps {
     setShow : any,
@@ -30,6 +30,7 @@ export const Scene = (props:sceneProps)=> {
       { false && <Lady />}
       <Safe setShow={setShow} openSafe={openSafe}/>
       <Corridor />
+      <Mannequin />
        </> 
     )
 }

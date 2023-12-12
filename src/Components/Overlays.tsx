@@ -9,16 +9,17 @@ interface menuProps {
 }
 
 interface book1Props{
-    setDiary1 : any
+    setDiary1 : any,
 }
 
 interface book2Props{
-    setDiary2 : any
+    setDiary2 : any,
 }
 
 interface book3Props{
-  setDiary3 : any
-  door : any
+  setDiary3 : any,
+  door : any,
+  deja : any,
 }
 
 export function Menu(props : menuProps){
@@ -27,12 +28,14 @@ export function Menu(props : menuProps){
     function Submit(e:any){
       if(e.code === "Space"){
        setShow(false)
+       
       }
     }
 
     function handleChange(e:any){
       e.preventDefault
       sound.play()
+      
     }
     
     window.addEventListener("keydown", Submit )
@@ -148,7 +151,7 @@ export function Menu(props : menuProps){
 
 
   export function Book3(props:book3Props){
-    const {setDiary3,door} = props
+    const {setDiary3,door,deja} = props
     const [startTyping, setStartTyping] = useState<Boolean>(false)
     
     useEffect(()=>{
@@ -161,7 +164,8 @@ export function Menu(props : menuProps){
     function closeDiary(e:any){
       if(e.code === "Space"){
        setDiary3(false)
-       door(true)
+       door(false)
+       deja(true)
       }
    }
 
