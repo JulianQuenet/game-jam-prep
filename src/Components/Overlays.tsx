@@ -14,12 +14,16 @@ interface book1Props{
 
 interface book2Props{
     setDiary2 : any,
+    safe : any,
 }
 
 interface book3Props{
   setDiary3 : any,
   door : any,
   deja : any,
+  close : any,
+  showLady : any,
+  showKey : any,
 }
 
 export function Menu(props : menuProps){
@@ -106,11 +110,12 @@ export function Menu(props : menuProps){
   }
 
   export function Book2(props : book2Props){
-    const  {setDiary2} = props
+    const  {setDiary2, safe} = props
 
     function closeDiary(e:any){
         if(e.code === "Space"){
          setDiary2(false)
+         safe(true)
         }
      }
  
@@ -151,21 +156,25 @@ export function Menu(props : menuProps){
 
 
   export function Book3(props:book3Props){
-    const {setDiary3,door,deja} = props
+    const {setDiary3,door,deja,close, showLady, showKey} = props
     const [startTyping, setStartTyping] = useState<Boolean>(false)
-    
+    const [canClose, setCanClose] = useState<Boolean>(false)
+    const openSafe = new Audio ("./Sounds/safe-opening.mp3")
     useEffect(()=>{
      setStartTyping(false)
      setTimeout(()=>{
       setStartTyping(true)
-     },50000)
+     },30000)
     },[])
 
     function closeDiary(e:any){
       if(e.code === "Space"){
-       setDiary3(false)
        door(false)
+       setDiary3(false)
        deja(true)
+       if(canClose){
+        close(true)
+       }
       }
    }
 
@@ -197,8 +206,12 @@ export function Menu(props : menuProps){
              where he belonged, where you all belong. It's the beginning and the end, what was and what will be, a place 
              where even time can't escape.`)
              .pauseFor(300)
-             .deleteAll()
-             typewriter.typeString("You're next...")
+             .callFunction(()=>{
+              setCanClose(true)
+              showKey(true)
+              openSafe.play()
+              showLady(true)
+             })
              .start();
            }}/> }
             <br/>
@@ -223,7 +236,7 @@ export function Menu(props : menuProps){
       justifyContent :"center", alignItems : "center"
       }}>
         <div className='page' style={{display:"flex", flexDirection: "column", gap : "10px", width:"400px" }}>
-            Third investigation in in the mysterious missing persons cases.
+            Third investigation in the mysterious missing persons cases.
             February 20 2003
             David Henshaw : Private investigator
             
@@ -239,7 +252,7 @@ export function Menu(props : menuProps){
             <br/>
             <br/>
             <div style={{display:"flex", alignItems:"center", gap:"5px"}}>
-              <SpaceBarIcon fontSize='small'/> to start
+              <SpaceBarIcon fontSize='small'/> to start...
             </div>
             
           </div>
@@ -249,30 +262,8 @@ export function Menu(props : menuProps){
 
 
 export function Recorder(){
-  const [elapsedTime, setElapsedTime] = useState<number>(0);
   const [rec, setRec] = useState<Boolean>(false);
   const dot = useRef<any>();
-  useEffect(() => {
-    let intervalId :any;
-    intervalId = setInterval(() => {
-      setElapsedTime((prevElapsedTime) => prevElapsedTime + 1);
-    }, 1000);
-
-    return () => {
-      clearInterval(intervalId);
-    };
-  }, []); 
-
-  const formatTime = (time:any) => {
-    const minutes = Math.floor(time / 60);
-    const seconds = time % 60;
-
-    const formattedMinutes = minutes < 10 ? `0${minutes}` : `${minutes}`;
-    const formattedSeconds = seconds < 10 ? `0${seconds}` : `${seconds}`;
-
-    return `${formattedMinutes}:${formattedSeconds}`;
-  };
-
   setInterval(()=>{
     setRec(!rec)
   }, 1500)
@@ -283,7 +274,7 @@ export function Recorder(){
        <div style={{display:"flex", justifyContent:"space-between", padding:" 0 50px"}}>
         <div style={{display:"flex", alignItems:"center", gap:"5px"}}>Play  <div style={{opacity: rec ? 1 : 0,
           transition: 'opacity 0.5s ease-in-out',}}><PlayArrowIcon ref={dot}/></div></div>
-       <div><h3>{formatTime(elapsedTime)}</h3></div>
+       <div><h6>Date: 20/02/2023</h6></div>
        </div>
         </div>
     )

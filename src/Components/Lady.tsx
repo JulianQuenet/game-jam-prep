@@ -12,17 +12,23 @@ export function Lady() {
   const ref = useRef<any>();
   const {camera} = useThree()
   useFrame(()=>{
-  //  if(ref.current){
-  //   ref.current.lookAt(camera.position.x, 0, camera.position.z)
-  //  }
+    if(ref.current){
+      const position = ref.current.position
+      const distance = position.distanceTo(camera.position)
+      if(distance > 7){
+        ref.current.rotation.x += 0.03
+        ref.current.rotation.x = Math.min(ref.current.rotation.x, 1.7)
+      }
+    }
+    
   })
 
 
-
+ 
   return (
     <group dispose={null} position={[9.5,0,-8]} scale={2} rotation={[0, 2.4, 0]}>
       <group position={[0, 0, -1.504]} rotation={[-Math.PI / 2, 0, 0]}>
-        <group rotation={[Math.PI / 2, 0, 0]} scale={0.01} ref={ref}>
+        <group rotation={[Math.PI / 2, 0, 0]} scale={0.01} >
           <group position={[-0.842, 209.664, 0.275]} rotation={[-Math.PI / 2, 0, 0]} scale={[16.509, 17.82, 17.82]}>
             <mesh geometry={nodes.Plane005_Cabelo_0001.geometry} material={materials['Cabelo.002']} position={[0.014, 0, 0]} />
           </group>
@@ -34,7 +40,7 @@ export function Lady() {
       </group>
       <group scale={0.01}>
         <group position={[0, 103.838, 0]} rotation={[-Math.PI / 2, 0, 0]} scale={24.986}>
-          <group position={[-0.906, 5.903, 2.309]} rotation={[0, 0, 0]}>
+          <group position={[-0.906, 5.903, 2.309]} rotation={[0, 0, 0]} ref={ref}>
             <mesh geometry={nodes.Saori_Corpo_Corpo_0001_1.geometry} material={materials['Body.001']} />
             <mesh geometry={nodes.Saori_Corpo_Corpo_0001_2.geometry} material={materials['Dress.001']} />
           </group>

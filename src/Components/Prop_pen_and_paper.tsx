@@ -7,7 +7,7 @@ Source: https://sketchfab.com/3d-models/prop-pen-and-paper-d14d5015fd774987a0988
 Title: PROP: pen and paper
 */
 
-import { useEffect, useRef, useState } from 'react'
+import {  useRef, useState } from 'react'
 import { useGLTF } from '@react-three/drei'
 import usePlayerControls from './inputs'
 import { useFrame, useThree } from '@react-three/fiber'
@@ -34,7 +34,7 @@ export function Diary2(props:bookProps) {
       bookRef.current.rotation.y = 0
       openDiary(true)
       setCanOpen(false)
-    }if(canOpen && distance < 3){
+    }if(canOpen){
       bookRef.current.rotation.y = + Math.sin(time *4.5) * 0.25
     }
   })
@@ -42,7 +42,6 @@ export function Diary2(props:bookProps) {
   function openBook(){
      if(bookRef.current){
       setCanOpen(true)
-      console.log("can interact")
   }
 }
 

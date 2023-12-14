@@ -3,7 +3,7 @@ import * as THREE from "three";
 import { Box, Sphere, PointerLockControls, Capsule, PositionalAudio} from "@react-three/drei/core";
 import { useThree, useFrame } from "@react-three/fiber";
 import usePlayerControls from "./Components/inputs";
-import { RigidBody, CapsuleCollider, BallCollider } from "@react-three/rapier";
+import { RigidBody} from "@react-three/rapier";
 import { CeilingLight } from "./Components/Ceiling_light_with_chain";
 
 
@@ -17,12 +17,13 @@ interface controlProps {
 
 export const Controls = (props: controlProps)=>{
 const {show, deja, door, setDeja} = props
+const [toggle, setToggle] = useState<Boolean>(false)
 const playerRef = useRef<any>();
 const light1 = useRef<any>();
 const light2 = useRef<any>();
 const sourceRef = useRef<any>();
 const { camera} = useThree();
-const { forward, backward, left, right, submit } = usePlayerControls();
+const { forward, backward, left, right, submit, light } = usePlayerControls();
 const direction = new THREE.Vector3();
 const frontVector = new THREE.Vector3();
 const sideVector = new THREE.Vector3();
@@ -75,17 +76,20 @@ useFrame(()=>{
         }
        
         }
-    
-
-      setFlash()
-      if(sourceRef.current && camera){
-        sourceRef.current.position.copy(camera.position)
-        sourceRef.current.rotation.copy(camera.rotation)
-        sourceRef.current.updateMatrix()
-        sourceRef.current.position.y = camera.position.y - 0.25 + Math.sin(time * 3.5) * 0.01
-        sourceRef.current.translateZ(-2)
-        sourceRef.current.translateX(0.65)
-      } 
+      
+        if(light){
+          setToggle(!toggle)
+        }
+        setFlash()
+        if(sourceRef.current && camera){
+          sourceRef.current.position.copy(camera.position)
+          sourceRef.current.rotation.copy(camera.rotation)
+          sourceRef.current.updateMatrix()
+          sourceRef.current.position.y = camera.position.y - 0.25 + Math.sin(time * 3.5) * 0.01
+          sourceRef.current.translateZ(-2)
+          sourceRef.current.translateX(0.65)
+        } 
+     
 })
 
 
@@ -123,6 +127,9 @@ return (
         position={[0, 1, 0]}
         ref={playerRef}
         colliders={"ball"}
+        userData={
+          {name : "player"}
+        }
       >
        <Capsule args={[0.48, 0.4, 0.4]}>
       { canPlay && <PositionalAudio 
@@ -156,8 +163,11 @@ return (
       <meshStandardMaterial color={"black"}/>
     </Sphere>
 
-    {/* <spotLight color={"#ECF6FF"} target={sourceRef.current}  ref={light1}  name="main"/>
-    <spotLight color={"#ECF6FF"} target={sourceRef.current} ref={light2} name="ambient"/> */}
+   { toggle && 
+   <><spotLight color={"#ECF6FF"} target={sourceRef.current}  ref={light1}  name="main"/>
+   <spotLight color={"#ECF6FF"} target={sourceRef.current} ref={light2} name="ambient"/>
+   </>
+    }
 
     </>
    

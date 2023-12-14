@@ -9,7 +9,7 @@ Title: Mannequin
 
 import {  useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
-import { useThree } from "@react-three/fiber";
+
 
 
 export function Mannequin() {

@@ -7,7 +7,7 @@ Source: https://sketchfab.com/3d-models/prop-pen-and-paper-d14d5015fd774987a0988
 Title: PROP: pen and paper
 */
 
-import { useEffect, useRef, useState } from 'react'
+import {  useRef, useState } from 'react'
 import { useGLTF } from '@react-three/drei'
 import usePlayerControls from './inputs'
 import { useFrame, useThree } from '@react-three/fiber'
