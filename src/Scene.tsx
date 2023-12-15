@@ -8,7 +8,7 @@ import { Lady } from "./Components/Lady";
 import { Corridor } from "./Components/Corridor";
 import { Mannequin } from "./Components/Mannequin";
 import { Keys } from "./Components/Key_with_tag";
-
+import { Scp } from "./Components/Scp";
 
 
 interface sceneProps {
@@ -23,24 +23,26 @@ interface sceneProps {
     hasKey : Boolean,
     setHasKey : any,
     knock : Boolean,
-    setKnock : any,
+    canInput : Boolean,
+    scp : Boolean,
 }
 
 export const Scene = (props:sceneProps)=> {
    const {setShow, diary1, diary2, diary3, door, lady, showKey, 
-    setShowKey, hasKey, setHasKey, knock, setKnock} = props
+    setShowKey, hasKey, setHasKey, knock, canInput, scp} = props
 
     return (
        <>
-      <Room knock={knock} setKnock={setKnock} hasKey={hasKey} door={door}/>
+      <Room knock={knock}  hasKey={hasKey} door={door}/>
       <Diary1   openDiary={diary1}/>
       <Diary2   openDiary={diary2}/>
       <Diary3   openDiary={diary3}/>
       { (lady && showKey )&& <Lady />}
-      <Safe lady={lady} setShow={setShow}/>
+      <Safe input={canInput} lady={lady} setShow={setShow}/>
       <Corridor />
       <Mannequin />
       {showKey && <Keys setHasKey={setHasKey} showKey={showKey} setShowKey={setShowKey}/>}
+      {scp && <Scp />}
        </> 
     )
 }

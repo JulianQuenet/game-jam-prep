@@ -12,10 +12,11 @@ import usePlayerControls from './inputs'
 interface safeProps{
   setShow : any,
   lady : Boolean,
+  input : Boolean,
 }
 
 export function Safe(props : safeProps) {
-  const {setShow, lady} = props
+  const {setShow, lady, input} = props
   const {interact} = usePlayerControls()
   const { nodes, materials }:any = useGLTF('/safe.glb')
   const [canInteract, setCanInteract] = useState<Boolean>(false)
@@ -27,7 +28,7 @@ export function Safe(props : safeProps) {
     if(ref.current && canInteract){
       const position = ref.current.position
       const distance = position.distanceTo(camera.position)
-      if(distance < 3.3 && interact){
+      if(distance < 3.3 && interact && input){
        setShow(true)
        setCanInteract(false)
       }

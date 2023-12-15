@@ -12,11 +12,14 @@ interface controlProps {
   deja : Boolean,
   door : any,
   setDeja : any,
+  knock : any,
+  scp : any,
+  seeScp : Boolean,
 }
 
 
 export const Controls = (props: controlProps)=>{
-const {show, deja, door, setDeja} = props
+const {show, deja, door, setDeja, knock, scp} = props
 const [toggle, setToggle] = useState<Boolean>(false)
 const playerRef = useRef<any>();
 const light1 = useRef<any>();
@@ -29,7 +32,7 @@ const frontVector = new THREE.Vector3();
 const sideVector = new THREE.Vector3();
 const SPEED = (show && !deja) ? 0 : 4.5
 const [canPlay, setCanPlay] = useState<Boolean>(false);
-const doorRip = new Audio('./Sounds/door-rip.mp3');
+const [playError, setPlayError] = useState<Boolean>(false)
 
 useFrame(()=>{
   // Player movement base on camera direction/rotation
@@ -64,17 +67,20 @@ useFrame(()=>{
         );
         
         if(show && submit && !deja){
-              const error = new Audio("./Sounds/error.mp3")
-              error.play()
+          setPlayError(true)
               setTimeout(()=>{
-              doorRip.play()
-              },750)
-              setTimeout(()=>{
-               setDeja(true)
-               door(false)
-              },5000)
+              setDeja(true)
+              door(false)
+              },4700)
         }
-       
+        
+        if(position.z < -4.35 && position.x < -7){
+           knock(true)
+           console.log("knocking")
+         }
+         if(position.x < -35){
+          scp(true)
+         }
         }
       
         if(light){
@@ -117,12 +123,13 @@ function setFlash(){
 
 const walking = './Sounds/walking.mp3'
 const background = './Sounds/deepSpace.mp3'
-
+const error = './Sounds/error.mp3'
 const listener = new THREE.AudioListener();
 return (
     <> 
     <PointerLockControls camera={camera}/>
     <RigidBody
+        lockTranslations
         gravityScale={0}
         position={[0, 1, 0]}
         ref={playerRef}
@@ -132,10 +139,16 @@ return (
         }
       >
        <Capsule args={[0.48, 0.4, 0.4]}>
-      { canPlay && <PositionalAudio 
+             { canPlay && <PositionalAudio 
               url={walking} 
               autoplay
               listener={listener}
+               />}
+               { playError && <PositionalAudio 
+              url={error} 
+              autoplay
+              listener={listener}
+              loop={false}
                />}
            <PositionalAudio 
               url={background} 
@@ -147,7 +160,7 @@ return (
       </RigidBody>
 
     
-    <CeilingLight />
+    {<CeilingLight />}
     
     <mesh ref={sourceRef}>
     <Box args={[0.00001,0.00001,0.000001]}>
@@ -164,8 +177,8 @@ return (
     </Sphere>
 
    { toggle && 
-   <><spotLight color={"#ECF6FF"} target={sourceRef.current}  ref={light1}  name="main"/>
-   <spotLight color={"#ECF6FF"} target={sourceRef.current} ref={light2} name="ambient"/>
+   <><spotLight castShadow color={"#ECF6FF"} target={sourceRef.current}  ref={light1}  name="main"/>
+   <spotLight castShadow color={"#ECF6FF"} target={sourceRef.current} ref={light2} name="ambient"/>
    </>
     }
 

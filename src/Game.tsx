@@ -24,6 +24,7 @@ function Game() {
   const [hasKey, setHasKey] = useState<Boolean>(false)
   const [canInput, setCanInput] = useState<Boolean>(false)
   const [startKnocking, setStartKnocking] = useState<Boolean>(false)
+  const [scp, setScp] = useState<Boolean>(false)
   const handleStart = () =>{
     setStart(true)
   }
@@ -31,7 +32,7 @@ function Game() {
 return(
     <>
    { true && <Canvas  shadows camera={{ fov: 50, position: [5, 3, 2] }}>
-     <ambientLight intensity={0.5}/>
+     {/* <ambientLight intensity={0.5}/> */}
     <color attach="background" args={["black"]} />
     <Suspense>
     <Physics >
@@ -46,14 +47,15 @@ return(
      hasKey={hasKey}
      setHasKey={setHasKey}
      knock={startKnocking}
-     setKnock={setStartKnocking}
+     canInput={canInput}
+     scp={scp}
      />
-     <Controls setDeja={setDeja} door={setDoor} show={show} deja={deja}/>
+     <Controls seeScp={scp} scp={setScp} knock={setStartKnocking} setDeja={setDeja} door={setDoor} show={show} deja={deja}/>
     </Physics>
     </Suspense>
     <Stars />
     <EffectComposer>
-        <BrightnessContrast contrast={lady? 0.35 : 0.15 } />
+        <BrightnessContrast contrast={!lady? 0.35 : 0.15 } />
         <DepthOfField  focusDistance={0} focalLength={0.2} bokehScale={0} height={480} />
         <Bloom opacity={0.25} intensity={0.1} luminanceThreshold={0} luminanceSmoothing={0.9} height={300} />
         <Noise opacity={0.1} />

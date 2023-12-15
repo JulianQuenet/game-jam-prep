@@ -30,19 +30,19 @@ export function Lady() {
       <group position={[0, 0, -1.504]} rotation={[-Math.PI / 2, 0, 0]}>
         <group rotation={[Math.PI / 2, 0, 0]} scale={0.01} >
           <group position={[-0.842, 209.664, 0.275]} rotation={[-Math.PI / 2, 0, 0]} scale={[16.509, 17.82, 17.82]}>
-            <mesh geometry={nodes.Plane005_Cabelo_0001.geometry} material={materials['Cabelo.002']} position={[0.014, 0, 0]} />
+            <mesh castShadow geometry={nodes.Plane005_Cabelo_0001.geometry} material={materials['Cabelo.002']} position={[0.014, 0, 0]} />
           </group>
           <group position={[0, 103.838, 0]} rotation={[-Math.PI / 2, 0, 0]} scale={24.986}>
-            <mesh geometry={nodes.Saori_Corpo_Corpo_0003.geometry} material={materials['Body.001']} />
-            <mesh geometry={nodes.Saori_Corpo_Corpo_0003_1.geometry} material={materials['Dress.002']} />
+            <mesh castShadow geometry={nodes.Saori_Corpo_Corpo_0003.geometry} material={materials['Body.001']} />
+            <mesh castShadow geometry={nodes.Saori_Corpo_Corpo_0003_1.geometry} material={materials['Dress.002']} />
           </group>
         </group>
       </group>
       <group scale={0.01}>
         <group position={[0, 103.838, 0]} rotation={[-Math.PI / 2, 0, 0]} scale={24.986}>
           <group position={[-0.906, 5.903, 2.309]} rotation={[0, 0, 0]} ref={ref}>
-            <mesh geometry={nodes.Saori_Corpo_Corpo_0001_1.geometry} material={materials['Body.001']} />
-            <mesh geometry={nodes.Saori_Corpo_Corpo_0001_2.geometry} material={materials['Dress.001']} />
+            <mesh castShadow geometry={nodes.Saori_Corpo_Corpo_0001_1.geometry} material={materials['Body.001']} />
+            <mesh castShadow geometry={nodes.Saori_Corpo_Corpo_0001_2.geometry} material={materials['Dress.001']} />
           </group>
         </group>
       </group>

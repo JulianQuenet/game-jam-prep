@@ -15,26 +15,26 @@ export function Corridor() {
     <group rotation={[-Math.PI / 2, 0, 0]} scale={1.025}>
         <group rotation={[Math.PI / 2, 0, 0]}>
           <group position={[-7.465, 1.022, -0.051]}>
-            <mesh geometry={nodes.Object_4.geometry} material={materials.door_normal} />
-            <mesh geometry={nodes.Object_5.geometry} material={materials.Metallic} />
+            <mesh receiveShadow geometry={nodes.Object_4.geometry} material={materials.door_normal} />
+            <mesh receiveShadow geometry={nodes.Object_5.geometry} material={materials.Metallic} />
           </group>
           <group position={[-7.465, 1.022, 2.849]} rotation={[0, 0, -Math.PI]} scale={-1}>
-            <mesh geometry={nodes.Object_12.geometry} material={materials.door_normal} />
-            <mesh geometry={nodes.Object_13.geometry} material={materials.Metallic} />
+            <mesh receiveShadow geometry={nodes.Object_12.geometry} material={materials.door_normal} />
+            <mesh receiveShadow geometry={nodes.Object_13.geometry} material={materials.Metallic} />
           </group>
           <group position={[0.379, 0.996, 1.022]}>
-            <mesh geometry={nodes.Object_7.geometry} material={materials.door_normal} />
-            <mesh geometry={nodes.Object_8.geometry} material={materials.material} />
-            <mesh geometry={nodes.Object_9.geometry} material={materials.bottom} />
+            <mesh receiveShadow geometry={nodes.Object_7.geometry} material={materials.door_normal} />
+            <mesh receiveShadow geometry={nodes.Object_8.geometry} material={materials.material} />
+            <mesh receiveShadow geometry={nodes.Object_9.geometry} material={materials.bottom} />
           </group>
-          <mesh geometry={nodes.Object_15.geometry} material={materials.corridor} position={[-7.693, 2.174, 2.777]} scale={0.156} />
-          <mesh geometry={nodes.Object_17.geometry} material={materials.corridor} position={[-10.385, 2.174, 2.777]} scale={0.156} />
-          <mesh geometry={nodes.Object_19.geometry} material={materials.corridor} position={[-10.385, 2.174, 2.777]} scale={0.156} />
+          <mesh receiveShadow geometry={nodes.Object_15.geometry} material={materials.corridor} position={[-7.693, 2.174, 2.777]} scale={0.156} />
+          <mesh receiveShadow geometry={nodes.Object_17.geometry} material={materials.corridor} position={[-10.385, 2.174, 2.777]} scale={0.156} />
+          <mesh receiveShadow geometry={nodes.Object_19.geometry} material={materials.corridor} position={[-10.385, 2.174, 2.777]} scale={0.156} />
         </group>
       </group>
-      <mesh geometry={nodes.Cube.geometry} material={nodes.Cube.material} position={[10.56, 1.46, 1.416]} />
-      <mesh geometry={nodes.Cube001.geometry} material={materials.corridor} position={[-8.484, 2.435, 1.443]} rotation={[Math.PI / 2, 0, -Math.PI / 2]} />
-      <mesh geometry={nodes.Cube002.geometry} material={materials['corridor.001']} position={[-8.484, 1.229, 0.666]} rotation={[Math.PI, 0, -Math.PI / 2]} />
+      <mesh receiveShadow geometry={nodes.Cube.geometry} material={nodes.Cube.material} position={[10.56, 1.46, 1.416]} />
+      <mesh receiveShadow geometry={nodes.Cube001.geometry} material={materials.corridor} position={[-8.484, 2.435, 1.443]} rotation={[Math.PI / 2, 0, -Math.PI / 2]} />
+      <mesh receiveShadow geometry={nodes.Cube002.geometry} material={materials['corridor.001']} position={[-8.484, 1.229, 0.666]} rotation={[Math.PI, 0, -Math.PI / 2]} />
     </group>
     </RigidBody>
   )

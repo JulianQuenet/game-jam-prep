@@ -8,21 +8,20 @@ Title: An Old Cheap Room in Chinatown
 */
 
 import { useRef } from 'react'
-import { PositionalAudio, useGLTF } from '@react-three/drei'
+import { PositionalAudio, useGLTF, Box } from '@react-three/drei'
 import { RigidBody, useRevoluteJoint } from '@react-three/rapier'
 import * as THREE from "three";
 interface roomProps{
   door : Boolean;
   hasKey :Boolean;
   knock : Boolean;
-  setKnock : any;
 }
 
 
 
 export function Room(props:roomProps) {
   const { nodes, materials }:any = useGLTF('/room.glb')
-  const {door, hasKey, knock, setKnock} = props
+  const {door, hasKey, knock} = props
 
 
   const listener = new THREE.AudioListener();
@@ -38,16 +37,12 @@ export function Room(props:roomProps) {
       // the rigid-bodies it is attached to. Cannot be [0,0,0].
       [0, 1, 0]
     ])
-   console.log(hinge, "hinge set")
+   if(!hinge){
+    return
+   }
     return(
       <group  scale={[1, 1.1, 1.07]}>
-      <RigidBody sensor onIntersectionEnter={(e: any) => {
-          if (e.other.rigidBody.userData?.name == "player" && hasKey) {
-            setTimeout(()=>{
-              setKnock(true)
-            },1500)
-          }
-        }} type={ true? "dynamic" : "fixed"} colliders="trimesh" ref={doorRef}>
+      <RigidBody colliders="trimesh" ref={doorRef}>
       <group rotation={[-Math.PI / 2, 0, 0]} position={[0.002, 0.004, 0]} scale={0.985}>
       <mesh geometry={nodes.Plane001_Door_0.geometry} material={materials['Door.006']} position={[0.008, 0, -0.832]} />
           <mesh geometry={nodes.Plane001_Glossy_0.geometry} material={materials['Glossy.004']} position={[0.008, 0, -0.832]} />
@@ -74,7 +69,9 @@ export function Room(props:roomProps) {
       // the rigid-bodies it is attached to. Cannot be [0,0,0].
       [0, 1, 0]
     ])
-    console.log(hinge, "hinge set")
+    if(!hinge){
+      return
+     }
     return(
       <group scale={[1.11, 1.1, 1.14]}>
         <RigidBody colliders="trimesh" ref={doorRef}>
@@ -86,7 +83,7 @@ export function Room(props:roomProps) {
         <mesh geometry={nodes.Plane003_Door_0001.geometry} material={materials['Door.001']} position={[0.86, 0.017, -0.05]} />
       </group>
       </RigidBody>
-     <RigidBody type={ true? "dynamic" : "fixed"} colliders="trimesh" ref={frameRef}>
+     <RigidBody type="fixed" colliders="trimesh" ref={frameRef}>
       <mesh rotation={[-Math.PI / 2, 0, 0]} geometry={nodes.Plane002_Door_0001.geometry} material={materials['Door.001']} position={[-0.02, 0.005, 0]} />
       </RigidBody>
     </group>
@@ -292,10 +289,25 @@ export function Room(props:roomProps) {
       <DoorBack />
       </mesh>
       
+      {!hasKey && <RigidBody type='fixed'>
+      <Box args={[0.4,0.4,0.4]} position={[-3.25, 1.1655, -2.195]}>
+     <meshStandardMaterial color={"red"} />
+      </Box> 
+      </RigidBody>}
+      
+      
+      
+      
       <mesh position={[-4, 1.227, -0.435]} rotation={[0, -Math.PI / 2, 0]}>
         <DoorFront />
       </mesh>
-
+       
+      { !knock && <RigidBody type='fixed'>
+      <Box args={[0.4,0.4,0.4]} position={[-4.175, 1.227, 0]} >
+     <meshStandardMaterial color={"red"} />
+      </Box>
+      </RigidBody>}
+     
        <mesh position={[-2.382, 1.234, 1.481]}>
        <DoorBathroom />
       </mesh>

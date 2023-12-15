@@ -40,7 +40,6 @@ export function Diary3(props:bookProps) {
   function openBook(){
      if(bookRef.current){
       setCanOpen(true)
-      console.log("can interact")
   }
 }
 
