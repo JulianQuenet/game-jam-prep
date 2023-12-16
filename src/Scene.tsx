@@ -25,15 +25,16 @@ interface sceneProps {
     knock : Boolean,
     canInput : Boolean,
     scp : Boolean,
+    end:any,
 }
 
 export const Scene = (props:sceneProps)=> {
    const {setShow, diary1, diary2, diary3, door, lady, showKey, 
-    setShowKey, hasKey, setHasKey, knock, canInput, scp} = props
+    setShowKey, hasKey, setHasKey, knock, canInput, scp, end} = props
 
     return (
        <>
-      <Room knock={knock}  hasKey={hasKey} door={door}/>
+      <Room knock={knock} hasKey={hasKey} door={door} scp={scp}/>
       <Diary1   openDiary={diary1}/>
       <Diary2   openDiary={diary2}/>
       <Diary3   openDiary={diary3}/>
@@ -42,7 +43,7 @@ export const Scene = (props:sceneProps)=> {
       <Corridor />
       <Mannequin />
       {showKey && <Keys setHasKey={setHasKey} showKey={showKey} setShowKey={setShowKey}/>}
-      {scp && <Scp />}
+      {scp && <Scp end={end}/>}
        </> 
     )
 }

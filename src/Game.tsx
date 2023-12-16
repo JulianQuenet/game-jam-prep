@@ -1,14 +1,13 @@
 import { Suspense, useState} from 'react'
-import { Bloom, DepthOfField, BrightnessContrast, EffectComposer, Noise, Vignette, Outline } from '@react-three/postprocessing'
+import { Bloom, DepthOfField, BrightnessContrast, EffectComposer, Noise, Vignette} from '@react-three/postprocessing'
 import { Canvas } from "@react-three/fiber";
 import { Physics } from "@react-three/rapier";
 import { Controls } from "./Controls";
 import Scene from './Scene';
-import { Stars } from '@react-three/drei';
-import { Book1, Book2, Book3, Menu, Recorder } from './Components/Overlays';
+import { Book1, Book2, Book3, Menu, Recorder, Intro } from './Components/Overlays';
 import { StartScreen } from './Components/StartScreen';
 import './index.css'
-import { AmbientLight } from 'three';
+import { End } from './End';
 
 function Game() {
   const [show, setShow] = useState<Boolean>(false)
@@ -25,14 +24,15 @@ function Game() {
   const [canInput, setCanInput] = useState<Boolean>(false)
   const [startKnocking, setStartKnocking] = useState<Boolean>(false)
   const [scp, setScp] = useState<Boolean>(false)
+  const [end, setEnd]  = useState<Boolean>(false)
+  const [intro, setIntro] = useState<Boolean>(true)
   const handleStart = () =>{
     setStart(true)
   }
 
 return(
     <>
-   { true && <Canvas  shadows camera={{ fov: 50, position: [5, 3, 2] }}>
-     {/* <ambientLight intensity={0.5}/> */}
+   { start && !end && <Canvas  shadows camera={{ fov: 50, position: [5, 3, 2] }}>
     <color attach="background" args={["black"]} />
     <Suspense>
     <Physics >
@@ -49,13 +49,13 @@ return(
      knock={startKnocking}
      canInput={canInput}
      scp={scp}
+     end={setEnd}
      />
      <Controls seeScp={scp} scp={setScp} knock={setStartKnocking} setDeja={setDeja} door={setDoor} show={show} deja={deja}/>
     </Physics>
     </Suspense>
-    <Stars />
     <EffectComposer>
-        <BrightnessContrast contrast={!lady? 0.35 : 0.15 } />
+        <BrightnessContrast contrast={lady? 0.35 : 0.15 } />
         <DepthOfField  focusDistance={0} focalLength={0.2} bokehScale={0} height={480} />
         <Bloom opacity={0.25} intensity={0.1} luminanceThreshold={0} luminanceSmoothing={0.9} height={300} />
         <Noise opacity={0.1} />
@@ -67,9 +67,10 @@ return(
     {(diary2 && !keepClosed) && <Book2 safe={setCanInput} setDiary2={setDiary2} />}
     {(diary3 && !keepClosed) && <Book3 showLady={setLady} close={setKeepClosed} 
     deja={setDeja} setDiary3={setDiary3} door={setDoor} showKey={setKey} /> }
-    {/* {!start && <StartScreen toggle={handleStart} /> } */}
-    
-    <Recorder/>
+    {(start && intro) && <Intro start={setIntro} skip={intro}/>}
+    {!start && <StartScreen toggle={handleStart} /> }
+   { end && <End />}
+    { (!end && start) && <Recorder/>}
     </>
   )
   

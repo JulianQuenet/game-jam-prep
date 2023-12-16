@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import {  useState } from 'react'
 import SpaceBarIcon from '@mui/icons-material/SpaceBar';
 import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
 import Typewriter from 'typewriter-effect';
@@ -24,6 +24,12 @@ interface book3Props{
   close : any,
   showLady : any,
   showKey : any,
+}
+
+
+interface introProps{
+  start: any,
+  skip : Boolean,
 }
 
 export function Menu(props : menuProps){
@@ -157,16 +163,9 @@ export function Menu(props : menuProps){
 
   export function Book3(props:book3Props){
     const {setDiary3,door,deja,close, showLady, showKey} = props
-    const [startTyping, setStartTyping] = useState<Boolean>(false)
     const [canClose, setCanClose] = useState<Boolean>(false)
-    const openSafe = new Audio ("./Sounds/safe-opening.mp3")
-    useEffect(()=>{
-     setStartTyping(false)
-     setTimeout(()=>{
-      setStartTyping(true)
-     },30000)
-    },[])
-
+    
+  
     function closeDiary(e:any){
       if(e.code === "Space"){
        door(false)
@@ -201,19 +200,20 @@ export function Menu(props : menuProps){
             getting ready to step forward, in the very last moment I pulled back and shut the door, deafening screams followed 
             surrounding every corner of the house, I ran to the bathroom and shut the door, soon the screaming stopped. I decided 
             that this will be my last day, I'm leaving this place, I have enough money to leave with nothing, I can start over
-            and build a new life.{ startTyping && <Typewriter  onInit={(typewriter) => {
-             typewriter.typeString(`Johnny didn't even make it out the bathroom, I broke his legs and threw him in that room
+            and build a new life.<Typewriter  onInit={(typewriter) => {
+             typewriter.pauseFor(30000).typeString(`Johnny didn't even make it out the bathroom, I broke his legs and threw him in that room
              where he belonged, where you all belong. It's the beginning and the end, what was and what will be, a place 
              where even time can't escape.`)
              .pauseFor(300)
              .callFunction(()=>{
+              const openSafe = new Audio ("./Sounds/safe-opening.mp3")
               setCanClose(true)
               showKey(true)
               openSafe.play()
               showLady(true)
              })
              .start();
-           }}/> }
+           }}/> 
             <br/>
             <br/>
             <br/>
@@ -229,24 +229,41 @@ export function Menu(props : menuProps){
 
 
 
-  export function Intro(){
-  
+  export function Intro(props:introProps){
+    const {start, skip} = props
+    
+    function startGame(e:any){
+      if(!skip){
+        return
+      }else if(
+        e.code ==="Space"
+      ){
+        start(false)
+      }
+    }
+    
+    window.addEventListener("keydown", startGame)
+   
     return (
       <div className='diary' style={{width:'100vw', height:"100vh", display:"flex",
       justifyContent :"center", alignItems : "center"
       }}>
         <div className='page' style={{display:"flex", flexDirection: "column", gap : "10px", width:"400px" }}>
-            Third investigation in the mysterious missing persons cases.
+           <div>
+             Third investigation in the mysterious missing persons cases.
+             <br/>
             February 20 2003
+            <br/>
             David Henshaw : Private investigator
-            
+           </div>
+           <br/> 
             Found a curious post online detailing similar events to the two other investigations I
             conducted...both unsolved and ongoing. Each detailing an ominous place that seems to haunt and
             follow them, though no evidence to their claims have been brought to the surface. This one seems to 
             be a bit different though...it's alot newer in terms of the date of the post and the start of this investigation. 
             In the two other investigations there was a difference of a few years, in this investigation there is a difference
             of a few days. Evidence is still fresh and the police haven't cased out the house yet...seems like they have other 
-            things on the plate to deal with. I tried getting a beat on the address though without difficulty as similar to the 
+            things on their plates to deal with. I tried getting a beat on the address though without difficulty as similar to the 
             two other investigations I received an anonymous letter with an address and a name, Johnny Eckard.
             <br/>
             <br/>
@@ -262,18 +279,11 @@ export function Menu(props : menuProps){
 
 
 export function Recorder(){
-  const [rec, setRec] = useState<Boolean>(false);
-  const dot = useRef<any>();
-  setInterval(()=>{
-    setRec(!rec)
-  }, 1500)
-  
 
     return (
       <div className='vcr'>
        <div style={{display:"flex", justifyContent:"space-between", padding:" 0 50px"}}>
-        <div style={{display:"flex", alignItems:"center", gap:"5px"}}>Play  <div style={{opacity: rec ? 1 : 0,
-          transition: 'opacity 0.5s ease-in-out',}}><PlayArrowIcon ref={dot}/></div></div>
+        <div style={{display:"flex", alignItems:"center", gap:"5px"}}>Play  <div><PlayArrowIcon /></div></div>
        <div><h6>Date: 20/02/2023</h6></div>
        </div>
         </div>

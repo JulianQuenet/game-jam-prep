@@ -7,7 +7,16 @@ import { useRef, useEffect } from 'react'
 import { useGLTF, useAnimations, PositionalAudio } from '@react-three/drei'
 import { useFrame, useThree } from '@react-three/fiber'
 import * as THREE from "three";
-export function Scp() {
+
+
+
+
+interface scpProps{
+  end: any,
+}
+
+export function Scp(props:scpProps) {
+  const {end} = props
   const group = useRef<any>()
   const { nodes, materials, animations }:any = useGLTF('/scp.glb')
   const { actions, names, mixer } = useAnimations(animations, group)
@@ -32,6 +41,11 @@ export function Scp() {
     // Update the position of the group based on the direction vector
     group.current.position.add(direction.multiplyScalar(0.08))
     group.current.lookAt(camera.position.x, 0, camera.position.z)
+    const position = group.current.position
+    const distance = position.distanceTo(camera.position)
+    if(distance < 8){
+      end(true)
+    }
     }
     
    })

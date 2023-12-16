@@ -15,13 +15,12 @@ interface roomProps{
   door : Boolean;
   hasKey :Boolean;
   knock : Boolean;
+  scp : Boolean
 }
-
-
 
 export function Room(props:roomProps) {
   const { nodes, materials }:any = useGLTF('/room.glb')
-  const {door, hasKey, knock} = props
+  const {door, hasKey, knock, scp} = props
 
 
   const listener = new THREE.AudioListener();
@@ -75,7 +74,7 @@ export function Room(props:roomProps) {
     return(
       <group scale={[1.11, 1.1, 1.14]}>
         <RigidBody colliders="trimesh" ref={doorRef}>
-          { knock && <PositionalAudio url='./Sounds/knocking.mp3' autoplay loop={false} listener={listener}/>}
+          { (knock && !scp) && <PositionalAudio url='./Sounds/knocking.mp3' autoplay loop={false} listener={listener}/>}
       <group rotation={[-Math.PI / 2, 0, 0]} position={[0.002, 0.004, 0]} scale={0.985}>
         <mesh geometry={nodes.Plane001_Door_0001.geometry} material={materials['Door.001']} position={[0.008, 0, -0.832]} />
         <mesh geometry={nodes.Plane001_Glossy_0001.geometry} material={materials['Glossy.001']} position={[0.008, 0, -0.832]} />
@@ -94,7 +93,7 @@ export function Room(props:roomProps) {
 
     return(
       <group scale={[1.11, 1.1, 1.14]}>
-        {door && <RigidBody type="fixed" colliders="trimesh" >
+        {door  && <RigidBody type="fixed" colliders="trimesh" >
       <group rotation={[-Math.PI / 2, 0, 0]} position={[0.002, 0.004, 0]} scale={0.985}>
         <mesh geometry={nodes.Plane001_Door_0001.geometry} material={materials['Door.001']} position={[0.008, 0, -0.832]} />
         <mesh geometry={nodes.Plane001_Glossy_0001.geometry} material={materials['Glossy.001']} position={[0.008, 0, -0.832]} />
@@ -290,7 +289,7 @@ export function Room(props:roomProps) {
       </mesh>
       
       {!hasKey && <RigidBody type='fixed'>
-      <Box args={[0.4,0.4,0.4]} position={[-3.25, 1.1655, -2.195]}>
+      <Box args={[0.4,0.4,0.4]} position={[-3.4, 1.1655, -2.2]}>
      <meshStandardMaterial color={"red"} />
       </Box> 
       </RigidBody>}

@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 import { Box, Sphere, PointerLockControls, Capsule, PositionalAudio} from "@react-three/drei/core";
 import { useThree, useFrame } from "@react-three/fiber";
@@ -19,7 +19,7 @@ interface controlProps {
 
 
 export const Controls = (props: controlProps)=>{
-const {show, deja, door, setDeja, knock, scp} = props
+const {show, deja, door, setDeja, knock, scp, seeScp} = props
 const [toggle, setToggle] = useState<Boolean>(false)
 const playerRef = useRef<any>();
 const light1 = useRef<any>();
@@ -33,6 +33,13 @@ const sideVector = new THREE.Vector3();
 const SPEED = (show && !deja) ? 0 : 4.5
 const [canPlay, setCanPlay] = useState<Boolean>(false);
 const [playError, setPlayError] = useState<Boolean>(false)
+
+
+useEffect(() => {
+  camera.rotation.y = -14.125;
+  camera.rotation.x = 0;
+  camera.rotation.z = 0;
+}, []);
 
 useFrame(()=>{
   // Player movement base on camera direction/rotation
@@ -67,16 +74,13 @@ useFrame(()=>{
         );
         
         if(show && submit && !deja){
-          setPlayError(true)
-              setTimeout(()=>{
+              setPlayError(true)
               setDeja(true)
               door(false)
-              },4700)
         }
         
         if(position.z < -4.35 && position.x < -7){
            knock(true)
-           console.log("knocking")
          }
          if(position.x < -35){
           scp(true)
@@ -129,9 +133,8 @@ return (
     <> 
     <PointerLockControls camera={camera}/>
     <RigidBody
-        lockTranslations
         gravityScale={0}
-        position={[0, 1, 0]}
+        position={[-7.5, 1, 0]}
         ref={playerRef}
         colliders={"ball"}
         userData={
@@ -160,7 +163,7 @@ return (
       </RigidBody>
 
     
-    {<CeilingLight />}
+    { !seeScp && <CeilingLight />}
     
     <mesh ref={sourceRef}>
     <Box args={[0.00001,0.00001,0.000001]}>
