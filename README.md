@@ -11,7 +11,7 @@ Please note this will be a 2 part series
 
 [![Link](https://img.shields.io/badge/7dfps-link-red)](https://itch.io/jam/7dfps)
 
-[![Link](https://img.shields.io/badge/Game-link-green)]([https://jamesq15.itch.io/](https://jamesq15.itch.io/the-lost))
+
 
 
 ## Roadmap
